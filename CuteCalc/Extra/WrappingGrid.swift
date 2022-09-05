@@ -11,17 +11,21 @@ struct WrappingHStack<Model, V>: View where Model: Hashable, V: View {
     typealias ViewGenerator = (Model) -> V
     
     var models: [Model]
+    var horizontalSpacing: CGFloat = 3
+    var verticalSpacing: CGFloat = 3
     var viewGenerator: ViewGenerator
-    var horizontalSpacing: CGFloat = 2
-    var verticalSpacing: CGFloat = 2
 
     @State private var totalHeight
         = CGFloat.infinity   // << variant for VStack
 
     var body: some View {
-        VStack {
+        VStack(alignment: .center) {
             GeometryReader { geometry in
-                self.generateContent(in: geometry)
+                HStack {
+                    Spacer()
+                    self.generateContent(in: geometry)
+                    Spacer()
+                }
             }
         }
         .frame(maxHeight: totalHeight) // << variant for VStack
@@ -58,7 +62,8 @@ struct WrappingHStack<Model, V>: View where Model: Hashable, V: View {
                         return result
                     })
             }
-        }.background(viewHeightReader($totalHeight))
+        }
+        .background(viewHeightReader($totalHeight))
     }
 
     private func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
