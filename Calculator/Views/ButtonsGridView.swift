@@ -11,7 +11,7 @@ struct ButtonsGridView: View {
     let screenWidth = UIScreen.main.bounds.width
     let buttons = ButtonStorage().buttonsWithData
     let spacing: CGFloat = 3
-    var theme: CalculatorTheme = CalculatorThemeStorage().lightTheme
+    let theme: CalculatorTheme
     
     var body: some View {
         WrappingHStack(models: buttons, horizontalSpacing: spacing, verticalSpacing: spacing) { buttonData in
@@ -27,7 +27,7 @@ struct ButtonsGridView: View {
 
 struct ButtonGrid_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonsGridView(theme: CalculatorThemeStorage().lightTheme)
-        ButtonsGridView(theme: CalculatorThemeStorage().darkTheme)
+        ButtonsGridView(theme: CalculatorThemeStorage.lightTheme)
+        ButtonsGridView(theme: CalculatorThemeStorage.darkTheme)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  CuteCalcApp.swift
+//  CalculatorApp.swift
 //  CuteCalc
 //
 //  Created by Максим Митрофанов on 31.08.2022.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct CuteCalcApp: App {
+struct CalculatorApp: App {
     var body: some Scene {
         WindowGroup {
             CalculatorView()

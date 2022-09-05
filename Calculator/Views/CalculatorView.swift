@@ -8,37 +8,24 @@
 import SwiftUI
 
 struct CalculatorView: View {
-    private var lightTheme = CalculatorThemeStorage().lightTheme
-    private var darkTheme = CalculatorThemeStorage().darkTheme
-    
-    @State var currentTheme = CalculatorThemeStorage().lightTheme
+    @StateObject var themeStorage = CalculatorThemeStorage()
     
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundColor(currentTheme.backgroundColor)
+                .foregroundColor(themeStorage.currentTheme.backgroundColor)
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
                 Button {
-                    toggleTheme()
+                    themeStorage.toggleTheme()
                 } label: {
                     Text("Toggle Theme")
                 }
                 
                 Spacer()
                 
-                ButtonsGridView(theme: currentTheme)
-            }
-        }
-    }
-    
-    func toggleTheme() {
-        withAnimation {
-            if currentTheme == lightTheme {
-                currentTheme = darkTheme
-            } else {
-                currentTheme = lightTheme
+                ButtonsGridView(theme: themeStorage.currentTheme)
             }
         }
     }
