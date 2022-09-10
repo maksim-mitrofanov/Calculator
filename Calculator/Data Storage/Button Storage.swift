@@ -9,7 +9,7 @@ import Foundation
 
 
 class ButtonStorage: ObservableObject {
-    @Published var isExpanded: Bool = false
+    @Published var isExpanded: Bool = true
     
     private let expandImageName = "arrow.up.left.and.arrow.down.right"
     private let collapseImageName = "arrow.down.right.and.arrow.up.left"
@@ -18,24 +18,32 @@ class ButtonStorage: ObservableObject {
         isExpanded ? collapseImageName : expandImageName
     }
     
-    var buttonsWithData: [CalculatorButtonData] {[
+    var extraRowButtonsWithData: [CalculatorButtonData] {[
+           CalculatorButtonData(imageName: "x.squareroot", aspectRatio: 2/1),
+           CalculatorButtonData(text: "^", aspectRatio: 2/1),
+           CalculatorButtonData(imageName: "plus.forwardslash.minus", aspectRatio: 2/1),
+           CalculatorButtonData(imageName: "percent", aspectRatio: 2/1)
+        
+    ]}
+    
+    var mainButtonsWithData: [CalculatorButtonData] {[
         //Top Row
         CalculatorButtonData(text: "AC"),
-        CalculatorButtonData(text: "/", imageName: "divide"),
-        CalculatorButtonData(text: "*", imageName: "multiply"),
-        CalculatorButtonData(imageName: "delete.backward"),
+        CalculatorButtonData(text: "divide", imageName: "divide"),
+        CalculatorButtonData(text: "multiply", imageName: "multiply"),
+        CalculatorButtonData(text: "delete", imageName: "delete.backward"),
         
         //Second Row
         CalculatorButtonData(text: "7"),
         CalculatorButtonData(text: "8"),
         CalculatorButtonData(text: "9"),
-        CalculatorButtonData(text: "-", imageName: "minus"),
+        CalculatorButtonData(text: "minus", imageName: "minus"),
         
         //Third Row
         CalculatorButtonData(text: "4"),
         CalculatorButtonData(text: "5"),
         CalculatorButtonData(text: "6"),
-        CalculatorButtonData(text: "+", imageName: "plus"),
+        CalculatorButtonData(text: "plus", imageName: "plus"),
         
         //Fourth Row
         CalculatorButtonData(text: "1"),
@@ -47,4 +55,33 @@ class ButtonStorage: ObservableObject {
         CalculatorButtonData(text: "0", aspectRatio: 1/2),
         CalculatorButtonData(text: ".")
     ]}
+}
+
+struct CalculatorButtonData: Identifiable, Hashable {
+    var text: String = ""
+    var imageName: String = ""
+    var aspectRatio: Float = 1/1
+    
+    var type: buttonType {
+        switch text {
+        case let text where CalculatorButtonData.numbers.contains(text) || text == ".": return .number
+        case let text where CalculatorButtonData.operations.contains(text): return .operation
+        case let text where text == "=": return .equals
+        default: return .extraOperation
+        }
+    }
+    
+    let id: String = UUID().uuidString
+}
+
+extension CalculatorButtonData {
+    enum buttonType {
+        case number
+        case operation
+        case equals
+        case extraOperation
+    }
+    
+    static let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+    static let operations = ["AC", "plus", "minus", "multiply", "divide", "delete"]
 }

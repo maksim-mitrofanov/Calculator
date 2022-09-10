@@ -19,24 +19,22 @@ struct CalculatorView: View {
                 .foregroundColor(currentTheme.backgroundColor)
                 .edgesIgnoringSafeArea(.all)
             
-            VStack {
-                HStack {
+            GeometryReader { geometry in
+                VStack {
                     expansionButton
+                        .padding(.horizontal)
+                    
                     Spacer()
+                    
+                    HStack {
+                        Spacer()
+                        CurrentNumberView(text: "123", theme: currentTheme)
+                    }
+                    .padding(.horizontal)
+                    
+                    ButtonsGridView(buttonStorage: buttonStorage, theme: currentTheme, geometryProxy: geometry)
                 }
-                
-                Spacer()
-                
-                HStack {
-                    Spacer()
-                    CurrentNumberView(theme: currentTheme, text: "123412aouoasnthusnthsnthsth41234")
-                }
-                .padding()
-                
-                ButtonsGridView(buttons: buttonStorage.buttonsWithData, theme: currentTheme)
             }
-            .padding(.horizontal)
-
         }
         .onChange(of: colorScheme) { newValue in
             if newValue == .light { currentTheme = .lightTheme }
@@ -45,32 +43,50 @@ struct CalculatorView: View {
     }
     
     var expansionButton: some View {
-        Button {
-            buttonStorage.isExpanded.toggle()
-        } label: {
-            ExpansionButtonLabel(imageName: buttonStorage.expansionButtonName, theme: currentTheme)
+        HStack {
+            Button {
+                withAnimation {
+                    buttonStorage.isExpanded.toggle()
+                }
+            } label: {
+                ExpansionButtonLabel(imageName: buttonStorage.expansionButtonName, theme: currentTheme)
+            }
+            Spacer()
         }
     }
     
-    struct ExpansionButtonLabel: View {
-        let imageName: String
-        let theme: CalculatorTheme
-        
-        var body: some View {
-            Image(systemName: imageName)
-                .padding(12)
-                .font(.headline)
-                .background(
-                    RoundedRectangle(cornerRadius: 15)
-                        .foregroundColor(theme.operationButtonColor))
-                .foregroundColor(.black)
-        }
-    }
 }
 
 struct CalculatorView_Previews: PreviewProvider {
     static var previews: some View {
-        CalculatorView(currentTheme: .darkTheme)
         CalculatorView(currentTheme: .lightTheme)
+    }
+}
+
+struct ExpansionButtonLabel: View {
+    let imageName: String
+    let theme: CalculatorTheme
+    
+    var body: some View {
+        Image(systemName: imageName)
+            .padding(12)
+            .font(.headline)
+            .background(
+                RoundedRectangle(cornerRadius: 15)
+                    .foregroundColor(theme.operationButtonColor))
+            .foregroundColor(.black)
+    }
+}
+
+struct CurrentNumberView: View {
+    let text: String
+    let theme: CalculatorTheme
+    
+    var body: some View {
+        Text(text)
+            .font(Font.system(size: 55))
+            .lineLimit(2)
+            .minimumScaleFactor(0.6)
+            .foregroundColor(theme.numbersTextColor)
     }
 }

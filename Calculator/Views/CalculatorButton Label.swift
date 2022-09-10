@@ -11,6 +11,8 @@ struct CalculatorButtonLabel: View {
     let buttonData: CalculatorButtonData
     let theme: CalculatorTheme
     
+    private let cornerRadius: CGFloat = 26
+    
     var body: some View {
         VStack {
             if buttonData.imageName.isEmpty {
@@ -19,7 +21,7 @@ struct CalculatorButtonLabel: View {
                 imageLabel
             }
         }
-        .cornerRadius(26)
+        .cornerRadius(cornerRadius)
     }
     
     var textLabel: some View {

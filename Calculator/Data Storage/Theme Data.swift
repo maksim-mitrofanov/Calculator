@@ -24,6 +24,7 @@ struct CalculatorTheme: Equatable {
         case .operation: return operationButtonColor
         case .number: return numberButtonColor
         case .equals: return equalsButtonColor
+        case .extraOperation: return operationButtonColor
         }
     }
     
@@ -32,6 +33,7 @@ struct CalculatorTheme: Equatable {
         case .operation: return operationTextColor
         case .number: return numbersTextColor
         case .equals: return equalsTextColor
+        case .extraOperation: return operationTextColor
         }
     }
 }

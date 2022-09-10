@@ -10,19 +10,21 @@ import SwiftUI
 struct ButtonsGridView: View {
     @StateObject private var mathManager = MathManager()
     
-    let buttons: [CalculatorButtonData]
+    let buttonStorage: ButtonStorage
     let theme: CalculatorTheme
-    
-    
-    let screenRect = UIScreen.main.bounds
-    let screenWidth = UIScreen.main.bounds.width
+    let geometryProxy: GeometryProxy
     
     private let buttonToScreenRatio = 5.0
     private let spacing: CGFloat = 4
     
     var body: some View {
         VStack {
-            WrappingHStack(models: buttons, horizontalSpacing: spacing, verticalSpacing: spacing, inRect: screenRect) { buttonData in
+            extraButtonsView
+            WrappingHStack(
+                models: buttonStorage.mainButtonsWithData,
+                horizontalSpacing: spacing,
+                verticalSpacing: spacing, geometryProxy: geometryProxy
+            ) { buttonData in
                 Button {
                     mathManager.receiveButtonTap(buttonData.text)
                 } label: {
@@ -32,28 +34,41 @@ struct ButtonsGridView: View {
                         .frame(height: buttonHeight(for: buttonData))
                 }
             }
-            .background(
-                Rectangle()
-                    .stroke()
-            )
+        }
+    }
+    
+    var extraButtonsView: some View {
+        HStack {
+        if buttonStorage.isExpanded {
+                ForEach(buttonStorage.extraRowButtonsWithData) { button in
+                    CalculatorButtonLabel(buttonData: button, theme: theme)
+                        .foregroundColor(.black)
+                        .frame(width: buttonWidth(for: button))
+                        .frame(height: buttonHeight(for: button))
+                }
+            }
         }
     }
     
     func buttonWidth(for buttonData: CalculatorButtonData) -> CGFloat {
-        switch buttonData.aspectRatio {
-        case 1/2: return screenWidth / (buttonToScreenRatio / 2) + spacing * 2
-        default: return screenWidth / buttonToScreenRatio
+        if buttonData.type == .extraOperation {
+            return geometryProxy.size.width / buttonToScreenRatio
+        } else {
+            switch buttonData.aspectRatio {
+            case 1/2: return geometryProxy.size.width / (buttonToScreenRatio / 2) + spacing * 2
+            default: return geometryProxy.size.width / buttonToScreenRatio
+            }
         }
     }
     
     func buttonHeight(for buttonData: CalculatorButtonData) -> CGFloat {
-        switch buttonData.aspectRatio {
-        case 2/1: return screenWidth / (buttonToScreenRatio / 2) + spacing * 2
-        default: return screenWidth / buttonToScreenRatio
+        if buttonData.type == .extraOperation {
+            return geometryProxy.size.width / buttonToScreenRatio / 2
+        } else {
+            switch buttonData.aspectRatio {
+            case 2/1: return geometryProxy.size.width / (buttonToScreenRatio / 2) + spacing * 2
+            default: return geometryProxy.size.width / buttonToScreenRatio
+            }
         }
-    }
-    
-    func singleRowWidth() -> CGFloat {
-        (screenWidth / buttonToScreenRatio) * 4 + (8 * 4)
     }
 }
