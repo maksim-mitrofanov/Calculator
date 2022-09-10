@@ -13,25 +13,21 @@ struct WrappingHStack<Model, V>: View where Model: Hashable, V: View {
     var models: [Model]
     var horizontalSpacing: CGFloat = 3
     var verticalSpacing: CGFloat = 3
+    var inRect: CGRect
     var viewGenerator: ViewGenerator
 
     @State private var totalHeight
         = CGFloat.infinity   // << variant for VStack
+    @State private var totalWidth: CGFloat = 380
 
     var body: some View {
         VStack(alignment: .center) {
-            GeometryReader { geometry in
-                HStack {
-                    Spacer()
-                    self.generateContent(in: geometry)
-                    Spacer()
-                }
-            }
+            self.generateContent(in: inRect)
         }
         .frame(maxHeight: totalHeight) // << variant for VStack
     }
 
-    private func generateContent(in geometry: GeometryProxy) -> some View {
+    private func generateContent(in rect: CGRect) -> some View {
         var width = CGFloat.zero
         var height = CGFloat.zero
 
@@ -41,7 +37,7 @@ struct WrappingHStack<Model, V>: View where Model: Hashable, V: View {
                     .padding(.horizontal, horizontalSpacing)
                     .padding(.vertical, verticalSpacing)
                     .alignmentGuide(.leading, computeValue: { dimension in
-                        if (abs(width - dimension.width) > geometry.size.width)
+                        if (abs(width - dimension.width) > rect.width)
                         {
                             width = 0
                             height -= dimension.height

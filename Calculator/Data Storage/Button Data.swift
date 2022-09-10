@@ -16,7 +16,7 @@ struct CalculatorButtonData: Identifiable, Hashable {
     
     var type: buttonType {
         switch text {
-        case let text where numbers.contains(text): return .number
+        case let text where CalculatorButtonData.numbers.contains(text): return .number
         case let text where text == "=": return .equals
         default: return .operation
         }
@@ -30,5 +30,6 @@ extension CalculatorButtonData {
         case equals
     }
     
-    private var numbers: [String] { ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."] }
+    static let numbers: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."]
 }
+
