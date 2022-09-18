@@ -38,6 +38,16 @@ struct CalculatorTheme: Equatable {
     }
 }
 
+class ThemeStorage: ObservableObject {
+    @Published private(set) var selectedTheme: CalculatorTheme = .lightTheme
+    
+    func toggleTheme() {
+        if selectedTheme == .lightTheme { selectedTheme = .darkTheme } else {
+            selectedTheme = .darkTheme
+        }
+    }
+}
+
 extension CalculatorTheme {
     static let lightTheme = CalculatorTheme(
         numberButtonColor: Color(red: 236, green: 236, blue: 236),

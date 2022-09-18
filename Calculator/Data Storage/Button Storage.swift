@@ -8,17 +8,8 @@
 import Foundation
 
 
-class ButtonStorage: ObservableObject {
-    @Published var isExpanded: Bool = true
-    
-    private let expandImageName = "arrow.up.left.and.arrow.down.right"
-    private let collapseImageName = "arrow.down.right.and.arrow.up.left"
-    
-    var expansionButtonName: String {
-        isExpanded ? collapseImageName : expandImageName
-    }
-    
-    var extraRowButtonsWithData: [CalculatorButtonData] {[
+class ButtonStorage {
+    static var extraRowButtonsWithData: [CalculatorButtonData] {[
            CalculatorButtonData(imageName: "x.squareroot", aspectRatio: 2/1),
            CalculatorButtonData(text: "^", aspectRatio: 2/1),
            CalculatorButtonData(imageName: "plus.forwardslash.minus", aspectRatio: 2/1),
@@ -26,7 +17,7 @@ class ButtonStorage: ObservableObject {
         
     ]}
     
-    var mainButtonsWithData: [CalculatorButtonData] {[
+    static var mainButtonsWithData: [CalculatorButtonData] {[
         //Top Row
         CalculatorButtonData(text: "AC"),
         CalculatorButtonData(text: "divide", imageName: "divide"),

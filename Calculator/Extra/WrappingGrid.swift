@@ -13,7 +13,6 @@ struct WrappingHStack<Model, V>: View where Model: Hashable, V: View {
     var models: [Model]
     var horizontalSpacing: CGFloat = 3
     var verticalSpacing: CGFloat = 3
-    var geometryProxy: GeometryProxy
     var viewGenerator: ViewGenerator
     
     @State private var totalHeight
@@ -21,7 +20,9 @@ struct WrappingHStack<Model, V>: View where Model: Hashable, V: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            self.generateContent(in: geometryProxy)
+            GeometryReader { geometryProxy in
+                self.generateContent(in: geometryProxy)
+            }
         }
         .frame(maxHeight: totalHeight) // << variant for VStack
     }
