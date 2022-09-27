@@ -9,15 +9,14 @@ import Foundation
 
 
 class ButtonStorage {
-    static var extraRowButtonsWithData: [CalculatorButtonData] {[
+    static let extraRowButtonsWithData: [CalculatorButtonData] = [
         CalculatorButtonData(imageName: "x.squareroot", aspectRatio: 2/1, operationType: .mathOperation),
         CalculatorButtonData(text: "^", aspectRatio: 2/1, operationType: .mathOperation),
         CalculatorButtonData(imageName: "plus.forwardslash.minus", aspectRatio: 2/1, operationType: .mathOperation),
         CalculatorButtonData(imageName: "percent", aspectRatio: 2/1, operationType: .mathOperation)
-        
-    ]}
+    ]
     
-    static var mainButtonsWithData: [[CalculatorButtonData]] {[
+    static let mainButtonsWithData: [[CalculatorButtonData]] = [
         [
         //Top Row
         CalculatorButtonData(text: "AC", operationType: .clear),
@@ -55,15 +54,15 @@ class ButtonStorage {
         CalculatorButtonData(text: "", operationType: .number),
         CalculatorButtonData(text: ".", operationType: .dot)
         ]
-    ]}
+    ]
     
-    static var zeroButton: CalculatorButtonData {
+    static let zeroButton: CalculatorButtonData =
         CalculatorButtonData(text: "0", aspectRatio: 1/2, operationType: .number)
-    }
     
-    static var equalsButtons: CalculatorButtonData {
+    
+    static let equalsButtons: CalculatorButtonData =
         CalculatorButtonData(text: "=", imageName: "equal", aspectRatio: 2/1, operationType: .equals)
-    }
+    
 }
 
 struct CalculatorButtonData: Identifiable, Hashable {
