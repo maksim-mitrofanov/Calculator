@@ -11,7 +11,9 @@ struct CalculatorButtonLabel: View {
     let buttonData: CalculatorButtonData
     let theme: CalculatorTheme
     
-    private let cornerRadius: CGFloat = 26
+    private var cornerRadius: CGFloat {
+        buttonData.layoutViewType == .extraOperation ? 18 : 26
+    }
     
     var body: some View {
         VStack {
@@ -28,7 +30,7 @@ struct CalculatorButtonLabel: View {
         backgroundView
             .overlay {
                 Text(buttonData.text)
-                    .foregroundColor(theme.textColorFor(buttonType: buttonData.type))
+                    .foregroundColor(theme.textColorFor(buttonType: buttonData.layoutViewType))
                     .font(.title)
             }
     }
@@ -37,13 +39,13 @@ struct CalculatorButtonLabel: View {
         backgroundView
             .overlay(
                 Text(Image(systemName: buttonData.imageName))
-                    .foregroundColor(theme.textColorFor(buttonType: buttonData.type))
+                    .foregroundColor(theme.textColorFor(buttonType: buttonData.layoutViewType))
                     .font(.title2)
             )
     }
     
     var backgroundView: some View {
         Rectangle()
-            .foregroundColor(theme.buttonColorFor(buttonType: buttonData.type))
+            .foregroundColor(theme.buttonColorFor(buttonType: buttonData.layoutViewType))
     }
 }

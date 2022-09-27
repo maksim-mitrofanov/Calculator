@@ -1,82 +1,92 @@
 //
 //  MainButtonsGridView.swift
-//  CuteCalc
+//  Calculator
 //
-//  Created by Максим Митрофанов on 31.08.2022.
+//  Created by Максим Митрофанов on 18.09.2022.
 //
 
 import SwiftUI
 
-struct ButtonLayout {
-    static let screenWidth = UIScreen.main.bounds.width
-    static let buttonToScreenRatio: CGFloat = 5
-    static let verticalSpacing: CGFloat = 4
-    static let horizontalSpacing: CGFloat = 5
-    static let mainButtons = ButtonStorage.mainButtonsWithData
-    static let extraButtons = ButtonStorage.extraRowButtonsWithData
-    
-    static func buttonWidth(for buttonData: CalculatorButtonData) -> CGFloat {
-        if buttonData.type == .extraOperation {
-            return screenWidth / buttonToScreenRatio
-        } else {
-            switch buttonData.aspectRatio {
-            case 1/2: return screenWidth / (buttonToScreenRatio / 2) + horizontalSpacing * 2
-            default: return screenWidth / buttonToScreenRatio
-            }
-        }
-    }
-    
-    static func buttonHeight(for buttonData: CalculatorButtonData) -> CGFloat {
-        if buttonData.type == .extraOperation {
-            return screenWidth / buttonToScreenRatio / 2
-        } else {
-            switch buttonData.aspectRatio {
-            case 2/1: return screenWidth / (buttonToScreenRatio / 2) + horizontalSpacing * 2
-            default: return screenWidth / buttonToScreenRatio
-            }
-        }
-    }
-}
-
 struct MainButtonsGridView: View {
+    @State var mathManager: MathManager
     let theme: CalculatorTheme
-
-    private let buttons = ButtonStorage.mainButtonsWithData
-    private let screenWidth = ButtonLayout.screenWidth
-    private let buttonToScreenRatio = ButtonLayout.buttonToScreenRatio
+    
+    let buttonRows = ButtonStorage.mainButtonsWithData
+    let zeroButtonData = ButtonStorage.zeroButton
+    let equalsButtonData = ButtonStorage.equalsButtons
+    
     
     var body: some View {
         VStack {
-            mainButtonsGrid
-                .frame(maxWidth: totalWidth())
-//                .background {
-//                    Rectangle()
-//                        .stroke()
-//                }
+            if #available(iOS 16.0, *) {
+                Grid {
+                    ForEach(buttonRows, id: \.self) { row in
+                        GridRow {
+                            ForEach(row) { buttonData in
+                                Button {
+                                    mathManager.receiveButtonTap(buttonData)
+                                } label: {
+                                    CalculatorButtonLabel(buttonData: buttonData, theme: theme)
+                                        .aspectRatio(1/1, contentMode: .fit)
+                                        .frame(width: ButtonLayout.buttonWidth(for: buttonData))
+                                        .frame(height: ButtonLayout.buttonHeight(for: buttonData))
+                                        .opacity(buttonData.text == "" ? 0 : 1)
+                                }
+                            }
+                        }
+                    }
+                }
+                .overlay(
+                    zeroButton
+                )
+                .overlay(
+                    equalsButton
+                )
+            } else {
+                // Fallback on earlier versions
+                Text("")
+            }
         }
+//        .background(Rectangle().stroke())
     }
     
-    var mainButtonsGrid: some View {
-        WrappingHStack(models: buttons, horizontalSpacing: ButtonLayout.horizontalSpacing, verticalSpacing: ButtonLayout.verticalSpacing) { buttonData in
-            Button {
+    var zeroButton: some View {
+        ZStack {
+            VStack {
+                Spacer()
                 
-            } label: {
-                CalculatorButtonLabel(buttonData: buttonData, theme: theme)
-                    .foregroundColor(.black)
-                    .frame(width: ButtonLayout.buttonWidth(for: buttonData))
-                    .frame(height: ButtonLayout.buttonHeight(for: buttonData))
+                HStack{
+                    Button {
+                        mathManager.receiveButtonTap(zeroButtonData)
+                    } label: {
+                        CalculatorButtonLabel(buttonData: zeroButtonData, theme: theme)
+                            .frame(width: ButtonLayout.buttonWidth(for: zeroButtonData))
+                            .frame(height: ButtonLayout.buttonHeight(for: zeroButtonData))
+                    }
+                    
+                    Spacer()
+                }
             }
         }
     }
     
-    func totalWidth() -> CGFloat {
-        return (screenWidth / buttonToScreenRatio) * 4 + (ButtonLayout.horizontalSpacing * 8)
-    }
-}
-
-
-struct MainButtonsGridView_PreviewProvider: PreviewProvider {
-    static var previews: some View {
-        MainButtonsGridView(theme: .lightTheme)
+    var equalsButton: some View {
+        ZStack {
+            VStack {
+                Spacer()
+                
+                HStack{
+                    Spacer()
+                    
+                    Button {
+                        mathManager.receiveButtonTap(equalsButtonData)
+                    } label: {
+                        CalculatorButtonLabel(buttonData: equalsButtonData, theme: theme)
+                            .frame(width: ButtonLayout.buttonWidth(for: equalsButtonData))
+                            .frame(height: ButtonLayout.buttonHeight(for: equalsButtonData))
+                    }
+                }
+            }
+        }
     }
 }

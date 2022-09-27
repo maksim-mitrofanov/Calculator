@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ExtraButtonsGridView: View {
+    @State var mathManager: MathManager
     let theme: CalculatorTheme
-    
-    private let buttons = ButtonStorage.extraRowButtonsWithData
+    let buttons: [CalculatorButtonData] = ButtonStorage.extraRowButtonsWithData
     
     var body: some View {
-        HStack(spacing: ButtonLayout.horizontalSpacing * 2) {
+        HStack {
             ForEach(buttons) { button in
                 Button {
-                    
+                    mathManager.receiveButtonTap(button)
                 } label: {
                     CalculatorButtonLabel(buttonData: button, theme: theme)
                         .foregroundColor(.black)
@@ -25,6 +25,6 @@ struct ExtraButtonsGridView: View {
                 }
             }
         }
-        .padding(.top)
+//        .background(Rectangle().stroke())
     }
 }

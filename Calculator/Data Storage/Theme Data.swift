@@ -19,7 +19,7 @@ struct CalculatorTheme: Equatable {
     
     var backgroundColor: Color
     
-    func buttonColorFor(buttonType: CalculatorButtonData.buttonType) -> Color {
+    func buttonColorFor(buttonType: CalculatorButtonData.buttonViewType) -> Color {
         switch buttonType {
         case .operation: return operationButtonColor
         case .number: return numberButtonColor
@@ -28,7 +28,7 @@ struct CalculatorTheme: Equatable {
         }
     }
     
-    func textColorFor(buttonType: CalculatorButtonData.buttonType) -> Color {
+    func textColorFor(buttonType: CalculatorButtonData.buttonViewType) -> Color {
         switch buttonType {
         case .operation: return operationTextColor
         case .number: return numbersTextColor
