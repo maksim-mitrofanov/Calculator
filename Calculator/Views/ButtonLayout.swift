@@ -42,3 +42,7 @@ struct ButtonLayout {
         return screenWidth / buttonToScreenRatio / 2
     }
 }
+
+enum ThemeOption {
+    case auto, alwaysDark, alwaysLight
+}

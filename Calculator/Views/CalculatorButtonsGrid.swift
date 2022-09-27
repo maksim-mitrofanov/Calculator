@@ -1,22 +1,49 @@
 //
-//  MainButtonsGridView.swift
+//  CalculatorButtonsView.swift
 //  Calculator
 //
-//  Created by Максим Митрофанов on 18.09.2022.
+//  Created by Максим Митрофанов on 27.09.2022.
 //
 
 import SwiftUI
 
-struct MainButtonsGridView: View {
-    @State var mathManager: MathManager
+struct CalculatorButtonsGrid: View {
+    @StateObject var mathManager: MathManager = MathManager()
+    let isExpanded: Bool
     let theme: CalculatorTheme
     
     let buttonRows = ButtonStorage.mainButtonsWithData
     let zeroButtonData = ButtonStorage.zeroButton
     let equalsButtonData = ButtonStorage.equalsButtons
-    
+    let extraButtons = ButtonStorage.extraRowButtonsWithData
     
     var body: some View {
+        VStack {
+            Spacer()
+            extraButtonsGrid
+                .opacity(isExpanded ? 1 : 0)
+                .scaleEffect(isExpanded ? 1 : 0.8)
+            mainButtonsGrid
+        }
+    }
+    
+    var extraButtonsGrid: some View {
+        HStack {
+            ForEach(extraButtons) { button in
+                Button {
+                    mathManager.receiveButtonTap(button)
+                } label: {
+                    CalculatorButtonLabel(buttonData: button, theme: theme)
+                        .foregroundColor(.black)
+                        .frame(width: ButtonLayout.buttonWidth(for: button))
+                        .frame(height: ButtonLayout.buttonHeight(for: button))
+                }
+            }
+        }
+    }
+    
+    
+    var mainButtonsGrid: some View {
         VStack {
             if #available(iOS 16.0, *) {
                 Grid {
@@ -90,3 +117,4 @@ struct MainButtonsGridView: View {
         }
     }
 }
+

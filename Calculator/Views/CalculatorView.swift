@@ -10,23 +10,23 @@ import SwiftUI
 struct CalculatorView: View {
     @StateObject var mathManager = MathManager()
     
-    @State var isExtraButtonsRowExpanded: Bool = false
-    @State var expandableBackgroundHeightOffset: CGFloat = .zero
-    @State var isBackgroundExpanded: Bool = true
-    @State var themeOption: CalcViewDefVals.ThemeOption = .auto
+    @State private var isExtraButtonsRowExpanded: Bool = false
+    @State private var isBackgroundExpanded: Bool = true
+    @State private var themeOption: ThemeOption = .auto
 
     @Environment(\.colorScheme) var colorScheme
         
-    
-    
-    
-    
     var body: some View {
         ZStack {
             backgroundColorFill
             TopBarButtons(isExtraButtonsRowExpanded: $isExtraButtonsRowExpanded, themeOption: $themeOption, theme: getCurrentTheme())
-            ExpandableBackgroundView(theme: getCurrentTheme())
-            CalculatorButtonsView(isExpanded: isExtraButtonsRowExpanded, theme: getCurrentTheme())
+            ExpandableBackgroundView(theme: getCurrentTheme(), historyText: mathManager.operationsHistory.joined())
+                .overlay (
+                    VStack {
+//                        CurrentNumberView(text: mathManager.currentNumber, theme: getCurrentTheme())
+                        CalculatorButtonsGrid(isExpanded: isExtraButtonsRowExpanded, theme: getCurrentTheme())
+                    }
+                )
         }
     }
     
@@ -105,8 +105,4 @@ struct CalcViewDefVals {
     static let minTopOffset = screenHeight / 40
     static let maxTopOffset = screenHeight / 10
     static let extraOffset: CGFloat = 20
-    
-    enum ThemeOption {
-        case auto, alwaysDark, alwaysLight
-    }
 }

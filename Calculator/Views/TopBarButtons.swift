@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TopBarButtons: View {
     @Binding var isExtraButtonsRowExpanded: Bool
-    @Binding var themeOption: CalcViewDefVals.ThemeOption
+    @Binding var themeOption: ThemeOption
     let theme: CalculatorTheme
     
     var body: some View {

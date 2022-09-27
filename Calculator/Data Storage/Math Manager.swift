@@ -8,7 +8,7 @@
 import Foundation
 
 class MathManager: ObservableObject {
-    @Published var operationsHistory: [String] = []
+    @Published var operationsHistory: [String] = ["123 + 256 - 142"]
     @Published var currentNumber: String = "0"
 
     func receiveButtonTap(_ buttonData: CalculatorButtonData) {

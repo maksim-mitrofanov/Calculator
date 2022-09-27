@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ExpandableBackgroundView: View {
     let theme: CalculatorTheme
+    let historyText: String
     
     @State private var isExpanded: Bool = true
     @State private var topOffset: CGFloat = CalcViewDefVals.minTopOffset
@@ -25,6 +26,7 @@ struct ExpandableBackgroundView: View {
             
             expandableRectangle
                 .overlay(pullTab)
+                .overlay(calculationHistory)
                 .padding(.top, topOffset)
             
                 .gesture(
@@ -106,6 +108,24 @@ struct ExpandableBackgroundView: View {
         .padding(.top)
     }
     
+    var calculationHistory: some View {
+        HStack {
+            Spacer()
+            
+            VStack {
+                Text(historyText)
+                    .font(.headline)
+                    .foregroundColor(theme.operationButtonColor)
+                
+                Spacer()
+            }
+        }
+        .padding()
+        .padding()
+        
+        .padding(.top)
+    }
+    
     private func getShadowColor() -> Color {
         switch theme {
         case .lightTheme: return .black.opacity(0.1)
@@ -123,8 +143,4 @@ struct ExpandableBackgroundView: View {
     }
 }
 
-struct ExpandableBackgroundView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExpandableBackgroundView(theme: .lightTheme)
-    }
-}
+
