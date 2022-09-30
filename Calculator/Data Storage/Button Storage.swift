@@ -19,9 +19,9 @@ class ButtonStorage {
     static let mainButtonsWithData: [[CalculatorButtonData]] = [
         [
         //Top Row
-        CalculatorButtonData(text: "AC", operationType: .clear),
+        CalculatorButtonData(text: "AC", operationType: .allClear),
         CalculatorButtonData(text: "/", imageName: "divide", operationType: .mathOperation),
-        CalculatorButtonData(text: "*", imageName: "multiply", operationType: .mathOperation),
+        CalculatorButtonData(text: "x", imageName: "multiply", operationType: .mathOperation),
         CalculatorButtonData(text: "delete", imageName: "delete.backward", operationType: .removeLast)
         ],
         
@@ -90,7 +90,7 @@ extension CalculatorButtonData {
         case number
         case mathOperation
         case removeLast
-        case clear
+        case allClear
         case dot
         case equals
     }
@@ -99,7 +99,7 @@ extension CalculatorButtonData {
 extension CalculatorButtonData {
     static func getButtonViewType(_ text: String) -> buttonViewType {
         let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-        let operations = ["AC", "+", "-", "*", "/", "delete"]
+        let operations = ["AC", "+", "-", "x", "/", "delete"]
         
         switch text {
         case let text where numbers.contains(text) || text == "." : return .number

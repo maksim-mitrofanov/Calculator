@@ -9,8 +9,9 @@ import SwiftUI
 
 struct ExpandableBackgroundView: View {
     let theme: CalculatorTheme
-    let historyText: String
+    let areButtonsExpanded: Bool
     
+    @StateObject private var mathManager: MathManager = MathManager()
     @State private var isExpanded: Bool = true
     @State private var topOffset: CGFloat = CalcViewDefVals.minTopOffset
     
@@ -27,63 +28,34 @@ struct ExpandableBackgroundView: View {
             expandableRectangle
                 .overlay(pullTab)
                 .overlay(calculationHistory)
+                .overlay(backgroundOverlay)
+                .overlay(mathManagerDisableButton)
+
                 .padding(.top, topOffset)
             
                 .gesture(
                     DragGesture()
-                        .onChanged { value in
-                            let gestureHValue = value.translation.height / 1.2
-                            
-                            withAnimation {
-                                if isExpanded && gestureHValue < 0 {
-                                    topOffset = max(gestureHValue, minTopOffset - extraOffset)
-                                }
-                                else if isExpanded && gestureHValue > 0 {
-                                    topOffset = min(gestureHValue, maxTopOffset + extraOffset)
-                                }
-                                else if !isExpanded && gestureHValue > 0 {
-                                    topOffset = min(topOffset + gestureHValue, maxTopOffset + extraOffset)
-                                }
-                                //ANIMATION IS NOT EVEN
-                                else if !isExpanded && gestureHValue < 0 {
-                                    topOffset = max(topOffset + gestureHValue, minTopOffset)
-                                    print("\(topOffset + gestureHValue), \(minTopOffset)")
-                                }
-                            }
-                            
-            
-                        }
-                        .onEnded { value in
-                            let gestureHValue = value.translation.height
-                            
-                            if isExpanded && gestureHValue < 0 {
-                                withAnimation {
-                                    topOffset = minTopOffset
-                                    isExpanded = true
-                                }
-                            }
-                            else if isExpanded && gestureHValue > 0 {
-                                withAnimation {
-                                    topOffset = maxTopOffset
-                                    isExpanded = false
-                                }
-                            }
-                            else if !isExpanded && gestureHValue > 0 {
-                                withAnimation {
-                                    topOffset = maxTopOffset
-                                    isExpanded = false
-                                }
-                            }
-                            else if !isExpanded && gestureHValue < 0 {
-                                withAnimation {
-                                    topOffset = minTopOffset
-                                    isExpanded = true
-                                }
-                            }
-                            else { }
-                        }
-                        
+                        .onChanged(isDragGestureValueChanged(_:))
+                        .onEnded(isDragGestureEnded(_:))
                 )
+        }
+    }
+    
+    var mathManagerDisableButton: some View {
+        VStack {
+            HStack {
+                Button {
+                    mathManager.toggleMathModuleState()
+                } label: {
+                    AdditionalButtonLabel(imageName: "minus.plus.batteryblock", theme: theme)
+                }
+                .padding()
+                
+                
+                Spacer()
+            }
+            
+            Spacer()
         }
     }
     
@@ -109,21 +81,34 @@ struct ExpandableBackgroundView: View {
     }
     
     var calculationHistory: some View {
-        HStack {
-            Spacer()
-            
-            VStack {
-                Text(historyText)
+        VStack {
+            HStack {
+                Spacer()
+                
+                Text(mathManager.operationsHistory.joined(separator: " "))
                     .font(.headline)
                     .foregroundColor(theme.operationButtonColor)
-                
-                Spacer()
+                    .padding()
+                    .padding()
+                    .padding(.top)
             }
+            Spacer()
         }
-        .padding()
-        .padding()
-        
-        .padding(.top)
+    }
+    
+    var backgroundOverlay: some View {
+        VStack(alignment: .trailing, spacing: 0) {
+            Spacer()
+            Text(mathManager.currentNumber)
+                .font(Font.system(size: 55))
+                .lineLimit(2)
+                .minimumScaleFactor(0.6)
+                .padding(.bottom, areButtonsExpanded ? 10 : 0)
+                .padding(.bottom, isExpanded ? 10 : 0)
+            
+            CalculatorButtonsGrid(mathManager: mathManager, isExtraButtonRowExpanded: areButtonsExpanded, theme: theme)
+
+        }
     }
     
     private func getShadowColor() -> Color {
@@ -139,6 +124,56 @@ struct ExpandableBackgroundView: View {
         withAnimation {
             if isExpanded { topOffset = minTopOffset }
             else { topOffset = maxTopOffset }
+        }
+    }
+    
+    private func isDragGestureValueChanged(_ value: DragGesture.Value) {
+        let gestureHValue = value.translation.height / 1.2
+        
+        withAnimation {
+            if isExpanded && gestureHValue < 0 {
+                topOffset = max(gestureHValue, minTopOffset - extraOffset)
+            }
+            else if isExpanded && gestureHValue > 0 {
+                topOffset = min(gestureHValue, maxTopOffset + extraOffset)
+            }
+            else if !isExpanded && gestureHValue > 0 {
+                topOffset = min(topOffset + gestureHValue, maxTopOffset + extraOffset)
+            }
+            //ANIMATION IS NOT EVEN
+            else if !isExpanded && gestureHValue < 0 {
+                topOffset = max(topOffset + gestureHValue, minTopOffset)
+                print("\(topOffset + gestureHValue), \(minTopOffset)")
+            }
+        }
+    }
+    
+    private func isDragGestureEnded(_ value: DragGesture.Value) {
+        let gestureHValue = value.translation.height
+        
+        if isExpanded && gestureHValue < 0 {
+            withAnimation {
+                topOffset = minTopOffset
+                isExpanded = true
+            }
+        }
+        else if isExpanded && gestureHValue > 0 {
+            withAnimation {
+                topOffset = maxTopOffset
+                isExpanded = false
+            }
+        }
+        else if !isExpanded && gestureHValue > 0 {
+            withAnimation {
+                topOffset = maxTopOffset
+                isExpanded = false
+            }
+        }
+        else if !isExpanded && gestureHValue < 0 {
+            withAnimation {
+                topOffset = minTopOffset
+                isExpanded = true
+            }
         }
     }
 }

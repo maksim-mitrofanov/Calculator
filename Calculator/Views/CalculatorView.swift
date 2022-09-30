@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct CalculatorView: View {
-    @StateObject var mathManager = MathManager()
-    
     @State private var isExtraButtonsRowExpanded: Bool = false
     @State private var isBackgroundExpanded: Bool = true
     @State private var themeOption: ThemeOption = .auto
@@ -20,13 +18,7 @@ struct CalculatorView: View {
         ZStack {
             backgroundColorFill
             TopBarButtons(isExtraButtonsRowExpanded: $isExtraButtonsRowExpanded, themeOption: $themeOption, theme: getCurrentTheme())
-            ExpandableBackgroundView(theme: getCurrentTheme(), historyText: mathManager.operationsHistory.joined())
-                .overlay (
-                    VStack {
-//                        CurrentNumberView(text: mathManager.currentNumber, theme: getCurrentTheme())
-                        CalculatorButtonsGrid(isExpanded: isExtraButtonsRowExpanded, theme: getCurrentTheme())
-                    }
-                )
+            ExpandableBackgroundView(theme: getCurrentTheme(), areButtonsExpanded: isExtraButtonsRowExpanded)
         }
     }
     
@@ -76,20 +68,6 @@ struct AdditionalButtonLabel: View {
             .foregroundColor(.black)
     }
 }
-
-struct CurrentNumberView: View {
-    let text: String
-    let theme: CalculatorTheme
-    
-    var body: some View {
-        Text(text)
-            .font(Font.system(size: 55))
-            .lineLimit(2)
-            .minimumScaleFactor(0.6)
-            .foregroundColor(theme.numbersTextColor)
-    }
-}
-
 
 struct CalculatorView_Previews: PreviewProvider {
     static var previews: some View {

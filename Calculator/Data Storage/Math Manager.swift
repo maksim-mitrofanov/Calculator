@@ -7,36 +7,70 @@
 
 import Foundation
 
-class MathManager: ObservableObject {
-    @Published var operationsHistory: [String] = ["123 + 256 - 142"]
+class MathManager: ObservableObject {    
+    @Published var operationsHistory: [String] = [""]
     @Published var currentNumber: String = "0"
-
+    @Published var result: String = ""
+    
+    private var isActive: Bool = true
+    
     func receiveButtonTap(_ buttonData: CalculatorButtonData) {
-        if buttonData.imageName.contains("delete") {
-            if currentNumber != "0" { currentNumber.removeLast() }
-            if currentNumber == "" { currentNumber.append("0") }
+        if isActive {
             
+            switch buttonData.operationType {
+            case .number:
+                if currentNumber != "0" { currentNumber.append(buttonData.text) }
+                else { currentNumber = buttonData.text }
+                
+            case .mathOperation:
+                operationsHistory.append(currentNumber)
+                operationsHistory.append(buttonData.text)
+                currentNumber.removeAll()
+                
+            case .dot:
+                if !currentNumber.contains(".") { currentNumber.append(".")}
+                
+            case .removeLast:
+                currentNumber.removeLast()
+                
+            case .allClear:
+                currentNumber.removeAll()
+                operationsHistory.removeAll()
+                
+            case .equals:
+                print("equals")
+            }
             
-        } else if buttonData.text == "AC" {
-            currentNumber = "0"
-            operationsHistory.removeAll()
-            
-            
-        } else if MathManager.numbers.contains(buttonData.text) {
-            if currentNumber == "0" { currentNumber = buttonData.text }
-            else { currentNumber.append(buttonData.text) }
-            
-            
-        } else if buttonData.layoutViewType == .extraOperation || buttonData.layoutViewType == .operation {
-            operationsHistory.append(currentNumber)
-            operationsHistory.append(buttonData.text)
-            currentNumber = "0"
+            if currentNumber.isEmpty { currentNumber.append("0") }
         }
-        
-        print(currentNumber)
-        print(buttonData)
     }
     
-    static let mathOperators = ["+", "-"]
-    static let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    func toggleMathModuleState() {
+        isActive.toggle()
+    }
+    
+//    func calculateResult() {
+//        var mathOperators = ["+"]
+//        var currentResult: Double = 0
+//        var currentOperator: String = ""
+//        
+//        for data in operationsHistory {
+//            if operators.contains(data) {
+//                currentOperator = data
+//            } else {
+//                switch currentOperator {
+//                case "+":
+//                    currentResult += Double(data) ?? 0
+//                case "-":
+//                    currentResult -= Double(data) ?? 0
+//                case "*":
+//                    currentResult *= Double(data) ?? 0
+//                case "/":
+//                    currentResult /= Double(data) ?? 0
+//                default:
+//                    currentResult = Double(data) ?? 0
+//                }
+//            }
+//        }
+//    }
 }
