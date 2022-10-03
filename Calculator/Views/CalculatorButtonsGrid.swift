@@ -29,14 +29,9 @@ struct CalculatorButtonsGrid: View {
     
     var extraButtonsGrid: some View {
         HStack {
-            ForEach(extraButtons) { button in
-                Button {
-                    mathManager.receiveButtonTap(button)
-                } label: {
-                    CalculatorButtonLabel(buttonData: button, theme: theme)
-                        .foregroundColor(.black)
-                        .frame(width: ButtonLayout.buttonWidth(for: button))
-                        .frame(height: ButtonLayout.buttonHeight(for: button))
+            ForEach(extraButtons) { buttonData in
+                StandardCalculatorButton(buttonData: buttonData, theme: theme, isSelected: mathManager.isSelected(buttonData)) {
+                    mathManager.receiveButtonTap(buttonData)
                 }
             }
         }
@@ -50,14 +45,8 @@ struct CalculatorButtonsGrid: View {
                     ForEach(buttonRows, id: \.self) { row in
                         GridRow {
                             ForEach(row) { buttonData in
-                                Button {
+                                StandardCalculatorButton(buttonData: buttonData, theme: theme, isSelected: mathManager.isSelected(buttonData)) {
                                     mathManager.receiveButtonTap(buttonData)
-                                } label: {
-                                    CalculatorButtonLabel(buttonData: buttonData, theme: theme)
-                                        .aspectRatio(1/1, contentMode: .fit)
-                                        .frame(width: ButtonLayout.buttonWidth(for: buttonData))
-                                        .frame(height: ButtonLayout.buttonHeight(for: buttonData))
-                                        .opacity(buttonData.text == "" ? 0 : 1)
                                 }
                             }
                         }
@@ -71,50 +60,136 @@ struct CalculatorButtonsGrid: View {
                 )
             } else {
                 // Fallback on earlier versions
-                Text("")
+                Text("Only works on IOS 16 or later")
             }
         }
-//        .background(Rectangle().stroke())
     }
     
     var zeroButton: some View {
-        ZStack {
-            VStack {
-                Spacer()
-                
-                HStack{
-                    Button {
-                        mathManager.receiveButtonTap(zeroButtonData)
-                    } label: {
-                        CalculatorButtonLabel(buttonData: zeroButtonData, theme: theme)
-                            .frame(width: ButtonLayout.buttonWidth(for: zeroButtonData))
-                            .frame(height: ButtonLayout.buttonHeight(for: zeroButtonData))
-                    }
-                    
-                    Spacer()
+        VStack {
+            Spacer()
+            
+            HStack{
+                StandardCalculatorButton(buttonData: zeroButtonData, theme: theme) {
+                    mathManager.receiveButtonTap(zeroButtonData)
                 }
+                
+                Spacer()
             }
         }
     }
     
     var equalsButton: some View {
-        ZStack {
-            VStack {
+        VStack {
+            Spacer()
+            
+            HStack(alignment: .bottom) {
                 Spacer()
                 
-                HStack{
-                    Spacer()
-                    
-                    Button {
-                        mathManager.receiveButtonTap(equalsButtonData)
-                    } label: {
-                        CalculatorButtonLabel(buttonData: equalsButtonData, theme: theme)
-                            .frame(width: ButtonLayout.buttonWidth(for: equalsButtonData))
-                            .frame(height: ButtonLayout.buttonHeight(for: equalsButtonData))
-                    }
+                StandardCalculatorButton(buttonData: equalsButtonData, theme: theme) {
+                    mathManager.receiveButtonTap(equalsButtonData)
                 }
             }
         }
     }
 }
 
+struct StandardCalculatorButton: View {
+    let buttonData: CalculatorButtonData
+    let theme: CalculatorTheme
+    var isSelected: Bool = false
+    let action: () -> Void
+    
+    var body: some View {
+        VStack {
+            if buttonData.operationType == .mathOperation {
+                Button {
+                    action()
+                } label: {
+                    StandardCalculatorButtonLabel(buttonData: buttonData, theme: theme, isSelected: isSelected)
+                        .frame(width: ButtonLayout.buttonWidth(for: buttonData))
+                        .frame(height: ButtonLayout.buttonHeight(for: buttonData))
+                        .opacity(getButtonOpacity())
+                }
+                .buttonStyle(PersistedButtonStyle())
+                
+            } else {
+                Button {
+                    action()
+                } label: {
+                    StandardCalculatorButtonLabel(buttonData: buttonData, theme: theme, isSelected: isSelected)
+                        .frame(width: ButtonLayout.buttonWidth(for: buttonData))
+                        .frame(height: ButtonLayout.buttonHeight(for: buttonData))
+                        .opacity(getButtonOpacity())
+                }
+                .buttonStyle(DefaultButtonStyle())
+            }
+        }
+    }
+    
+    func getButtonOpacity() -> CGFloat {
+        if buttonData.text == "" && buttonData.imageName == "" { return 0 }
+        else { return 1 }
+    }
+}
+
+struct StandardCalculatorButtonLabel: View {
+    let buttonData: CalculatorButtonData
+    let theme: CalculatorTheme
+    let isSelected: Bool
+    
+    private var cornerRadius: CGFloat {
+        buttonData.layoutViewType == .extraOperation ? 18 : 26
+    }
+    
+    var body: some View {
+        VStack {
+            if buttonData.imageName.isEmpty {
+                textLabel
+            } else {
+                imageLabel
+            }
+        }
+        .cornerRadius(cornerRadius)
+    }
+    
+    var textLabel: some View {
+        backgroundView
+            .overlay {
+                Text(buttonData.text)
+                    .foregroundColor(theme.textColorFor(buttonType: buttonData.layoutViewType))
+                    .font(.title)
+            }
+    }
+    
+    var imageLabel: some View {
+        backgroundView
+            .overlay(
+                Text(Image(systemName: buttonData.imageName))
+                    .foregroundColor(theme.textColorFor(buttonType: buttonData.layoutViewType))
+                    .font(.title2)
+            )
+    }
+    
+    var backgroundView: some View {
+        Rectangle()
+            .foregroundColor(getBackroundViewColor())
+    }
+    
+    private func getBackroundViewColor() -> Color {
+        if isSelected { return theme == .lightTheme ? Color.black.opacity(0.4) : Color.white.opacity(0.7) }
+        else { return theme.buttonColorFor(buttonType: buttonData.layoutViewType) }
+    }
+    
+    private func getTextColor() -> Color {
+        if isSelected { return theme == .lightTheme ? Color.white : Color.black }
+        else { return theme.textColorFor(buttonType: buttonData.layoutViewType) }
+    }
+}
+
+struct CalculatorButtonsGrid_Previews: PreviewProvider {
+    static var previews: some View {
+        CalculatorButtonsGrid(mathManager: MathManager.instance, isExtraButtonRowExpanded: false, theme: .lightTheme)
+        CalculatorButtonsGrid(mathManager: MathManager.instance, isExtraButtonRowExpanded: false, theme: .darkTheme)
+    }
+}

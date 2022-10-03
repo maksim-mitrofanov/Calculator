@@ -10,8 +10,8 @@ import SwiftUI
 struct ExpandableBackgroundView: View {
     let theme: CalculatorTheme
     let areButtonsExpanded: Bool
+    @StateObject var  mathManager = MathManager.instance
     
-    @StateObject private var mathManager: MathManager = MathManager()
     @State private var isExpanded: Bool = true
     @State private var topOffset: CGFloat = CalcViewDefVals.minTopOffset
     
@@ -28,9 +28,7 @@ struct ExpandableBackgroundView: View {
             expandableRectangle
                 .overlay(pullTab)
                 .overlay(calculationHistory)
-                .overlay(backgroundOverlay)
-                .overlay(mathManagerDisableButton)
-
+                .overlay(currentNumberAndButtonGrid)
                 .padding(.top, topOffset)
             
                 .gesture(
@@ -38,24 +36,6 @@ struct ExpandableBackgroundView: View {
                         .onChanged(isDragGestureValueChanged(_:))
                         .onEnded(isDragGestureEnded(_:))
                 )
-        }
-    }
-    
-    var mathManagerDisableButton: some View {
-        VStack {
-            HStack {
-                Button {
-                    mathManager.toggleMathModuleState()
-                } label: {
-                    AdditionalButtonLabel(imageName: "minus.plus.batteryblock", theme: theme)
-                }
-                .padding()
-                
-                
-                Spacer()
-            }
-            
-            Spacer()
         }
     }
     
@@ -96,15 +76,21 @@ struct ExpandableBackgroundView: View {
         }
     }
     
-    var backgroundOverlay: some View {
-        VStack(alignment: .trailing, spacing: 0) {
+    var currentNumberAndButtonGrid: some View {
+        VStack(spacing: 0) {
             Spacer()
-            Text(mathManager.currentNumber)
-                .font(Font.system(size: 55))
-                .lineLimit(2)
-                .minimumScaleFactor(0.6)
-                .padding(.bottom, areButtonsExpanded ? 10 : 0)
-                .padding(.bottom, isExpanded ? 10 : 0)
+            
+            HStack {
+                Spacer()
+                
+                Text(mathManager.currentNumber)
+                    .font(Font.system(size: 55))
+                    .minimumScaleFactor(0.6)
+                    .foregroundColor(theme == .lightTheme ? .black : .white)
+                    .padding(.bottom, areButtonsExpanded ? 10 : 0)
+            }
+            .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+
             
             CalculatorButtonsGrid(mathManager: mathManager, isExtraButtonRowExpanded: areButtonsExpanded, theme: theme)
 
@@ -128,7 +114,8 @@ struct ExpandableBackgroundView: View {
     }
     
     private func isDragGestureValueChanged(_ value: DragGesture.Value) {
-        let gestureHValue = value.translation.height / 1.2
+        let gestureHValue = value.translation.height
+        
         
         withAnimation {
             if isExpanded && gestureHValue < 0 {

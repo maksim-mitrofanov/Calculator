@@ -10,10 +10,10 @@ import Foundation
 
 class ButtonStorage {
     static let extraRowButtonsWithData: [CalculatorButtonData] = [
-        CalculatorButtonData(imageName: "x.squareroot", aspectRatio: 2/1, operationType: .mathOperation),
+        CalculatorButtonData(text: "squareroot", imageName: "x.squareroot", aspectRatio: 2/1, operationType: .mathOperation),
         CalculatorButtonData(text: "^", aspectRatio: 2/1, operationType: .mathOperation),
-        CalculatorButtonData(imageName: "plus.forwardslash.minus", aspectRatio: 2/1, operationType: .mathOperation),
-        CalculatorButtonData(imageName: "percent", aspectRatio: 2/1, operationType: .mathOperation)
+        CalculatorButtonData(text: "plus_minus", imageName: "plus.forwardslash.minus", aspectRatio: 2/1, operationType: .mathOperation),
+        CalculatorButtonData(text: "persent", imageName: "percent", aspectRatio: 2/1, operationType: .mathOperation)
     ]
     
     static let mainButtonsWithData: [[CalculatorButtonData]] = [
@@ -97,11 +97,12 @@ extension CalculatorButtonData {
 }
 
 extension CalculatorButtonData {
+    static let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+    static let operations = ["AC", "+", "-", "x", "/", "delete"]
+    
     static func getButtonViewType(_ text: String) -> buttonViewType {
-        let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-        let operations = ["AC", "+", "-", "x", "/", "delete"]
-        
         switch text {
+            
         case let text where numbers.contains(text) || text == "." : return .number
         case let text where operations.contains(text): return .operation
         case let text where text == "=": return .equals

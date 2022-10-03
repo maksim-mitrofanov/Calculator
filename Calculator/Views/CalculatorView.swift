@@ -11,6 +11,8 @@ struct CalculatorView: View {
     @State private var isExtraButtonsRowExpanded: Bool = false
     @State private var isBackgroundExpanded: Bool = true
     @State private var themeOption: ThemeOption = .auto
+    @StateObject private var mathManager = MathManager.instance
+
 
     @Environment(\.colorScheme) var colorScheme
         
@@ -81,6 +83,6 @@ struct CalcViewDefVals {
     
     static let screenHeight = UIScreen.main.bounds.height
     static let minTopOffset = screenHeight / 40
-    static let maxTopOffset = screenHeight / 10
+    static let maxTopOffset = screenHeight / 9
     static let extraOffset: CGFloat = 20
 }
