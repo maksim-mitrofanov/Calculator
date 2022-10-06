@@ -10,64 +10,26 @@ import SwiftUI
 struct CalculatorView: View {
     @State private var isExtraButtonsRowExpanded: Bool = false
     @State private var isBackgroundExpanded: Bool = true
-    @State private var themeOption: ThemeOption = .auto
+    @State private var currentTheme: CalculatorTheme = .lightTheme
+    @State private var isHistorySheetPresented: Bool = false 
+    
     @StateObject private var mathManager = MathManager.instance
-
-
-    @Environment(\.colorScheme) var colorScheme
         
     var body: some View {
         ZStack {
             backgroundColorFill
-            TopBarButtons(isExtraButtonsRowExpanded: $isExtraButtonsRowExpanded, themeOption: $themeOption, theme: getCurrentTheme())
-            ExpandableBackgroundView(theme: getCurrentTheme(), areButtonsExpanded: isExtraButtonsRowExpanded)
+            TopBarButtons(isHistorySheetPresented: $isHistorySheetPresented,isExtraButtonsRowExpanded: $isExtraButtonsRowExpanded, theme: $currentTheme)
+            ExpandableBackgroundView(mathManager: mathManager, theme: currentTheme, areButtonsExpanded: isExtraButtonsRowExpanded)
+        }
+        .sheet(isPresented: $isHistorySheetPresented) {
+            CalculationsHistoryView(calculationsHistory: mathManager.allOperationsHistory, theme: currentTheme)
         }
     }
     
     var backgroundColorFill: some View {
         Rectangle()
-            .foregroundColor(getCurrentTheme().backgroundColor)
+            .foregroundColor(currentTheme.backgroundColor)
             .edgesIgnoringSafeArea(.all)
-    }
-        
-    
-    
-    
-    
-    
-    //MARK: - Functions
-    private func getCurrentThemeFromEnvironment() -> CalculatorTheme {
-        if colorScheme == .light {
-            return .lightTheme
-        } else  {
-            return .darkTheme
-        }
-    }
-    
-    private func getCurrentTheme() -> CalculatorTheme {
-        switch themeOption {
-        case .auto:
-            return getCurrentThemeFromEnvironment()
-        case .alwaysDark:
-            return .darkTheme
-        case .alwaysLight:
-            return .lightTheme
-        }
-    }
-}
-
-struct AdditionalButtonLabel: View {
-    let imageName: String
-    let theme: CalculatorTheme
-    
-    var body: some View {
-        Image(systemName: imageName)
-            .padding(12)
-            .font(.headline)
-            .background(
-                RoundedRectangle(cornerRadius: 15)
-                    .foregroundColor(theme.operationButtonColor))
-            .foregroundColor(.black)
     }
 }
 

@@ -8,23 +8,37 @@
 import SwiftUI
 
 struct TopBarButtons: View {
+    @Binding var isHistorySheetPresented: Bool
     @Binding var isExtraButtonsRowExpanded: Bool
-    @Binding var themeOption: ThemeOption
-    let theme: CalculatorTheme
+    @Binding var theme: CalculatorTheme
     
     var body: some View {
         VStack {
             HStack {
-                switchToAutoDarkModeButton
-                switchToLightModeButton
-                switchToDarkModeButton
+                ThemePicker(currentTheme: $theme)
                 Spacer()
-                expansionButton
+                extraButtons
             }
             Spacer()
         }
         .padding()
         .padding(.top)
+    }
+    
+    var extraButtons: some View {
+        HStack {
+            expansionButton
+                .padding(.horizontal)
+            Divider().frame(maxHeight: 25)
+            showAllHistoryButton
+                .padding(.horizontal)
+        }
+        .foregroundColor(.black)
+        .padding(.vertical, 10)
+        .background(
+            RoundedRectangle(cornerRadius: 18).foregroundColor(theme.operationButtonColor)
+                .opacity(theme == .lightTheme ? 0.8 : 1)
+        )
     }
     
     var expansionButton: some View {
@@ -33,45 +47,22 @@ struct TopBarButtons: View {
                 isExtraButtonsRowExpanded.toggle()
             }
         } label: {
-            AdditionalButtonLabel(imageName: expansionButtonName, theme: theme)
+            Image(systemName: expansionButtonName)
         }
     }
     
-    var switchToLightModeButton: some View {
+    var showAllHistoryButton: some View {
         Button {
             withAnimation {
-                themeOption = .alwaysLight
+                isHistorySheetPresented = true
             }
         } label: {
-            AdditionalButtonLabel(imageName: "sun.max", theme: theme)
-                .scaleEffect(themeOption == .alwaysLight ? 0.8 : 1)
+            Image(systemName: showHistoryImageName)
         }
     }
     
-    var switchToDarkModeButton: some View {
-        Button {
-            withAnimation {
-                themeOption = .alwaysDark
-            }
-        } label: {
-            AdditionalButtonLabel(imageName: "moon", theme: theme)
-                .scaleEffect(themeOption == .alwaysDark ? 0.8 : 1)
-        }
-    }
-    
-    var switchToAutoDarkModeButton: some View {
-        Button {
-            withAnimation {
-                themeOption = .auto
-            }
-        } label: {
-            AdditionalButtonLabel(imageName: "clock", theme: theme)
-                .scaleEffect(themeOption == .auto ? 0.8 : 1)
-        }
-    }
-    
+    private let showHistoryImageName = "clock.arrow.circlepath"
     private let expandImageName = "arrow.up.left.and.arrow.down.right"
-    
     private let collapseImageName = "arrow.down.right.and.arrow.up.left"
     
     var expansionButtonName: String {
@@ -79,3 +70,19 @@ struct TopBarButtons: View {
     }
 }
 
+struct AdditionalButtonLabel: View {
+    let imageName: String
+    let theme: CalculatorTheme
+    
+    var body: some View {
+        Image(systemName: imageName)
+            .foregroundColor(.black)
+            .padding(12)
+            .font(.title3)
+            .background(
+                RoundedRectangle(cornerRadius: 17)
+                    .foregroundColor(theme.operationButtonColor)
+                )
+            .foregroundColor(.black)
+    }
+}

@@ -10,10 +10,35 @@ import Foundation
 
 class ButtonStorage {
     static let extraRowButtonsWithData: [CalculatorButtonData] = [
-        CalculatorButtonData(text: "squareroot", imageName: "x.squareroot", aspectRatio: 2/1, operationType: .mathOperation),
-        CalculatorButtonData(text: "^", aspectRatio: 2/1, operationType: .mathOperation),
-        CalculatorButtonData(text: "plus_minus", imageName: "plus.forwardslash.minus", aspectRatio: 2/1, operationType: .mathOperation),
-        CalculatorButtonData(text: "persent", imageName: "percent", aspectRatio: 2/1, operationType: .mathOperation)
+        CalculatorButtonData(
+            text: "squareroot",
+            imageName: "x.squareroot",
+            aspectRatio: 2/1,
+            operationType: .mathOperation,
+            usesTwoOperands: false
+        ),
+        
+        CalculatorButtonData(
+            text: "^",
+            imageName: "control",
+            aspectRatio: 2/1,
+            operationType: .mathOperation
+        ),
+        
+        CalculatorButtonData(
+            text: "plus_minus",
+            imageName: "plus.forwardslash.minus",
+            aspectRatio: 2/1,
+            operationType: .mathOperation,
+            usesTwoOperands: false
+        ),
+        
+        CalculatorButtonData(
+            text: "persent",
+            imageName: "percent",
+            aspectRatio: 2/1,
+            operationType: .mathOperation,
+            usesTwoOperands: false)
     ]
     
     static let mainButtonsWithData: [[CalculatorButtonData]] = [
@@ -69,38 +94,17 @@ struct CalculatorButtonData: Identifiable, Hashable {
     var text: String = ""
     var imageName: String = ""
     var aspectRatio: Float = 1/1
-    var operationType: buttonOperationType
-    var layoutViewType: buttonViewType { CalculatorButtonData.getButtonViewType(text) }
-    
-    
+    var operationType: CalculatorButtonOperationType
+    var layoutViewType: CalculatorButtonViewType { CalculatorButtonData.getButtonViewType(text) }
+    var usesTwoOperands: Bool = true
     let id: String = UUID().uuidString
-}
-
-extension CalculatorButtonData {
-    enum buttonViewType {
-        case number
-        case operation
-        case equals
-        case extraOperation
-    }
-}
-
-extension CalculatorButtonData {
-    enum buttonOperationType {
-        case number
-        case mathOperation
-        case removeLast
-        case allClear
-        case dot
-        case equals
-    }
 }
 
 extension CalculatorButtonData {
     static let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
     static let operations = ["AC", "+", "-", "x", "/", "delete"]
     
-    static func getButtonViewType(_ text: String) -> buttonViewType {
+    static func getButtonViewType(_ text: String) -> CalculatorButtonViewType {
         switch text {
             
         case let text where numbers.contains(text) || text == "." : return .number
@@ -109,4 +113,21 @@ extension CalculatorButtonData {
         default: return .extraOperation
         }
     }
+}
+
+enum CalculatorButtonViewType {
+    case number
+    case operation
+    case equals
+    case extraOperation
+}
+
+
+enum CalculatorButtonOperationType {
+    case number
+    case mathOperation
+    case removeLast
+    case allClear
+    case dot
+    case equals
 }

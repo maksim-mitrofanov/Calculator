@@ -19,7 +19,7 @@ struct CalculatorTheme: Equatable {
     
     var backgroundColor: Color
     
-    func buttonColorFor(buttonType: CalculatorButtonData.buttonViewType) -> Color {
+    func buttonColorFor(buttonType: CalculatorButtonViewType) -> Color {
         switch buttonType {
         case .operation: return operationButtonColor
         case .number: return numberButtonColor
@@ -28,7 +28,7 @@ struct CalculatorTheme: Equatable {
         }
     }
     
-    func textColorFor(buttonType: CalculatorButtonData.buttonViewType) -> Color {
+    func textColorFor(buttonType: CalculatorButtonViewType) -> Color {
         switch buttonType {
         case .operation: return operationTextColor
         case .number: return numbersTextColor
@@ -51,7 +51,7 @@ class ThemeStorage: ObservableObject {
 extension CalculatorTheme {
     static let lightTheme = CalculatorTheme(
         numberButtonColor: Color(red: 236, green: 236, blue: 236),
-        operationButtonColor: Color(red: 213, green: 213, blue: 213),
+        operationButtonColor: Color(red: 215, green: 215, blue: 215),
         equalsButtonColor: Color(red: 255, green: 203, blue: 130),
         
         numbersTextColor: Color.black,
@@ -63,7 +63,7 @@ extension CalculatorTheme {
 
     static let darkTheme = CalculatorTheme(
         numberButtonColor: Color(red: 50, green: 50, blue: 50),
-        operationButtonColor: Color(red: 118, green: 118, blue: 118),
+        operationButtonColor: Color(red: 135, green: 135, blue: 135),
         equalsButtonColor: Color(red: 197, green: 128, blue: 48),
         
         numbersTextColor: Color.white,

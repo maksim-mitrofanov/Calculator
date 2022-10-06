@@ -17,6 +17,7 @@ struct CalculatorButtonsGrid: View {
     private let zeroButtonData = ButtonStorage.zeroButton
     private let equalsButtonData = ButtonStorage.equalsButtons
     private let extraButtons = ButtonStorage.extraRowButtonsWithData
+    private let gridVerticalSpacing: CGFloat = 10
     
     var body: some View {
         VStack {
@@ -41,7 +42,7 @@ struct CalculatorButtonsGrid: View {
     var mainButtonsGrid: some View {
         VStack {
             if #available(iOS 16.0, *) {
-                Grid {
+                Grid(verticalSpacing: gridVerticalSpacing) {
                     ForEach(buttonRows, id: \.self) { row in
                         GridRow {
                             ForEach(row) { buttonData in
@@ -125,6 +126,7 @@ struct StandardCalculatorButton: View {
                 .buttonStyle(DefaultButtonStyle())
             }
         }
+        .accessibilityIdentifier(buttonData.text)
     }
     
     func getButtonOpacity() -> CGFloat {

@@ -7,97 +7,103 @@
 
 import Foundation
 
-class MathManager: ObservableObject {    
-    @Published var operationsHistory: [String] = []
+class MathManager: ObservableObject {
+    @Published var currentOperationHistory: [String] = []
     @Published var currentNumber: String = "0"
     @Published var currentMathOperator = ""
-    @Published var currentOperands: [Double] = []
-    @Published var isMathOperatorLastPressed: Bool = false
+    
+    var allOperationsHistory: [String] = []
+    
+    private var currentOperands: [Double] = []
+    private var isMathOperatorLast: Bool = false
             
     func receiveButtonTap(_ buttonData: CalculatorButtonData) {
         switch buttonData.operationType {
             
         case .number:
-            if currentNumber != "0" && !isMathOperatorLastPressed { currentNumber.append(buttonData.text) }
-            else { currentNumber = buttonData.text }
-            isMathOperatorLastPressed = false
+            if currentOperationHistory.count > 2 { currentOperationHistory.removeAll() }
+            if !isMathOperatorLast {
+                if currentNumber == "0" || currentNumber == "Error" { currentNumber = buttonData.text }
+                else { currentNumber.append(buttonData.text) }
+            } else if isMathOperatorLast {
+                if currentNumber.last == "." { currentNumber += "0" }
+                currentOperands.append(Double(currentNumber) ?? 0)
+                currentOperationHistory.append(currentNumber)
+                currentOperationHistory.append(currentMathOperator)
+                
+                currentNumber = buttonData.text
+                isMathOperatorLast = false
+        }
             
         case .mathOperation:
-            //Count result and update output values
-            if currentOperands.count == 2 {
-                currentNumber = calculateResult();
+            if currentNumber == "Error" {
+                currentNumber = "0";
                 currentOperands.removeAll()
+                currentOperationHistory.removeAll()
+                currentMathOperator = buttonData.text
+                
+            }
+            else if buttonData.usesTwoOperands == false {
+                applyCurrentMathOperatorToCurrentNumber(mathOperator: buttonData)
+            }
+            else if currentMathOperator.isEmpty { currentMathOperator = buttonData.text; isMathOperatorLast = true }
+            else if currentOperands.count == 1 {
+                if currentNumber.last == "." { currentNumber += "0" }
                 currentOperands.append(Double(currentNumber) ?? 0)
-                currentMathOperator = buttonData.text
-            }
-            
-            //Deselect math operator
-            else if currentMathOperator == buttonData.text && currentOperands.isEmpty {
-                currentMathOperator.removeAll()
-            }
-                
-            //Set new math operator
-            else if currentOperands.count == 1 && currentOperands[0] == Double(currentNumber) {
-                currentMathOperator = buttonData.text
-            }
-                
-            //Add curent number to math operands, set current math operator
-            else {
-                if currentNumber.last == "." { currentNumber.append("0") }
-                else if currentNumber.isEmpty { currentNumber = "0" }
-                
-                currentOperands.append(Double(currentNumber) ?? 0)
-                currentNumber = "0"
-                currentMathOperator = buttonData.text
-            }
-            
-            //Count result and update output values
-            if currentOperands.count == 2 {
+                currentOperationHistory.append(currentNumber)
+
                 currentNumber = calculateResult()
+                saveCurrentOperationHistory()
+                
                 currentOperands.removeAll()
-                currentOperands.append(Double(currentNumber) ?? 0)
+                currentMathOperator = buttonData.text
+                isMathOperatorLast = true
+                
             }
+            else if currentMathOperator == buttonData.text { currentMathOperator.removeAll(); isMathOperatorLast = false }
+            else { currentMathOperator = buttonData.text; isMathOperatorLast = true }
             
-            isMathOperatorLastPressed = true
+            
+            
+            
             
 
-            
-            
         case .dot:
-            if !currentNumber.contains(".") { currentNumber.append(".") }
-            
+            if currentNumber == "Error" { currentNumber = "0."}
+            else if !currentNumber.contains(".") { currentNumber.append(".") }
+                
         case .removeLast:
-            if !currentNumber.isEmpty { currentNumber.removeLast() }
+            if currentNumber == "Error" { currentNumber = "0" }
+            else if !currentNumber.isEmpty { currentNumber.removeLast() }
             if currentNumber.isEmpty { currentNumber = "0" }
             
         case .allClear:
             currentNumber = "0"
-            currentOperands.removeAll()
             currentMathOperator.removeAll()
+            currentOperands.removeAll()
+            currentOperationHistory.removeAll()
+            isMathOperatorLast = false
             
-            isMathOperatorLastPressed = false
-                        
         case .equals:
-            if currentNumber.isEmpty { currentNumber = "0" }
+            if currentNumber.last == "." { currentNumber.append("0") }
             currentOperands.append(Double(currentNumber) ?? 0)
+            currentOperationHistory.append(currentNumber)
+            
             currentNumber = calculateResult()
             currentOperands.removeAll()
-            currentMathOperator.removeAll()
             
-            isMathOperatorLastPressed = false
-                        
+            currentMathOperator.removeAll()
+            isMathOperatorLast = false
+            saveCurrentOperationHistory()
         }
-        
-        
-        print("OPREATIONS HISTORY: \(operationsHistory)")
-        print("CURRENT OPERANDS: \(currentOperands)")
-        print("CURRENT MATH OPERATOR: \(currentMathOperator)")
-        print("CURRENT NUMBER: \(currentNumber)")
-        print("~~~~~~~~~~~~~~~~")
+    }
+    
+    func saveCurrentOperationHistory() {
+        allOperationsHistory.append(currentOperationHistory.joined(separator: " ") + " = " + currentNumber)
     }
     
     func isSelected(_ buttonData: CalculatorButtonData) -> Bool {
-        if currentMathOperator == buttonData.text && isMathOperatorLastPressed {
+        if currentMathOperator == buttonData.text && isMathOperatorLast {
             return true
         } else { return false }
     }
@@ -127,8 +133,28 @@ class MathManager: ObservableObject {
         return output
     }
     
-    static let MathOperators = ["+", "-", "x", "/", "^"]
-    
+    func applyCurrentMathOperatorToCurrentNumber(mathOperator: CalculatorButtonData) {
+        if mathOperator.usesTwoOperands == false {
+            switch mathOperator.text {
+            case "plus_minus":
+                if currentNumber != "0" {
+                    currentNumber = String((Double(currentNumber) ?? 0) * -1)
+                }
+            case "squareroot":
+                guard let currentNumberAsDouble = Double(currentNumber) else { return }
+                if currentNumberAsDouble > 0 { currentNumber = String(sqrt(currentNumberAsDouble))}
+                
+            case "persent":
+                guard let currentNumberAsDouble = Double(currentNumber) else { return }
+                currentNumber = String(currentNumberAsDouble / 100)
+            default:
+                print("Error")
+            }
+            
+            if currentNumber.hasSuffix(".0") { currentNumber.removeLast(2)}
+        }
+    }
+        
     static let instance = MathManager()
     private init() { }
 }

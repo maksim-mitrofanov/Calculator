@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ExpandableBackgroundView: View {
+    @StateObject var  mathManager: MathManager
     let theme: CalculatorTheme
     let areButtonsExpanded: Bool
-    @StateObject var  mathManager = MathManager.instance
     
     @State private var isExpanded: Bool = true
     @State private var topOffset: CGFloat = CalcViewDefVals.minTopOffset
@@ -40,8 +40,7 @@ struct ExpandableBackgroundView: View {
     }
     
     var expandableRectangle: some View {
-        RoundedRectangle(
-            cornerRadius: CalcViewDefVals.cornerRadius)
+        RoundedRectangle(cornerRadius: CalcViewDefVals.cornerRadius)
             .foregroundColor(theme.backgroundColor)
             .shadow(color: getShadowColor(), radius: CalcViewDefVals.shadowRadius)
             .edgesIgnoringSafeArea(.bottom)
@@ -64,8 +63,8 @@ struct ExpandableBackgroundView: View {
         VStack {
             HStack {
                 Spacer()
-                
-                Text(mathManager.operationsHistory.joined(separator: " "))
+
+                Text(mathManager.currentOperationHistory.joined(separator: " "))
                     .font(.headline)
                     .foregroundColor(theme.operationButtonColor)
                     .padding()
@@ -85,6 +84,7 @@ struct ExpandableBackgroundView: View {
                 
                 Text(mathManager.currentNumber)
                     .font(Font.system(size: 55))
+                    .lineLimit(1)
                     .minimumScaleFactor(0.6)
                     .foregroundColor(theme == .lightTheme ? .black : .white)
                     .padding(.bottom, areButtonsExpanded ? 10 : 0)

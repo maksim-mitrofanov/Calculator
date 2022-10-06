@@ -1,3 +1,5 @@
 #  NOTES
 
-## UPDATE MATH MANAGER MODULE
+##* Math Module Logic Descpription *
+
+
