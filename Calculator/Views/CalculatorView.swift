@@ -28,7 +28,7 @@ struct CalculatorView: View {
     
     var backgroundColorFill: some View {
         Rectangle()
-            .foregroundColor(currentTheme.backgroundColor)
+            .foregroundColor(currentTheme.data.backgroundColor)
             .edgesIgnoringSafeArea(.all)
     }
 }

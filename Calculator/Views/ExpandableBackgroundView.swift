@@ -41,7 +41,7 @@ struct ExpandableBackgroundView: View {
     
     var expandableRectangle: some View {
         RoundedRectangle(cornerRadius: CalcViewDefVals.cornerRadius)
-            .foregroundColor(theme.backgroundColor)
+            .foregroundColor(theme.data.backgroundColor)
             .shadow(color: getShadowColor(), radius: CalcViewDefVals.shadowRadius)
             .edgesIgnoringSafeArea(.bottom)
     }
@@ -66,7 +66,7 @@ struct ExpandableBackgroundView: View {
 
                 Text(mathManager.currentOperationHistory.joined(separator: " "))
                     .font(.headline)
-                    .foregroundColor(theme.operationButtonColor)
+                    .foregroundColor(theme.data.operationButtonColor)
                     .padding()
                     .padding()
                     .padding(.top)
@@ -101,8 +101,6 @@ struct ExpandableBackgroundView: View {
         switch theme {
         case .lightTheme: return .black.opacity(0.1)
         case .darkTheme: return .gray.opacity(0.1)
-        default:
-            return .black
         }
     }
     

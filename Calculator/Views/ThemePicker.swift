@@ -23,7 +23,7 @@ struct ThemePicker: View {
             } label: {
                 Text("Theme Opiton")
             }
-            .accentColor(currentTheme.numbersTextColor)
+            .accentColor(currentTheme.data.numbersTextColor)
             .pickerStyle(.menu)
             .onChange(of: colorScheme, perform: updateCurrentThemeFromSystem(_:))
             .onChange(of: currentThemeOption, perform: updateCurrentThemeFromThemeOption(_:))
@@ -59,8 +59,8 @@ struct ThemePicker: View {
         
         var description: String {
             switch self {
-            case .alwaysLight: return "Always Light Theme"
-            case .alwaysDark: return "Always Dark Theme"
+            case .alwaysLight: return "Light Theme"
+            case .alwaysDark: return "Dark Theme"
             case .followSystem: return "Follow System"
             }
         }

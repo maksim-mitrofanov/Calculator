@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C007EBC28F047E900647EEB /* OrientationTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C007EBB28F047E900647EEB /* OrientationTestView.swift */; };
 		4C01480B28C0CBA5007C6A66 /* Inter[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C01480A28C0CBA5007C6A66 /* Inter[wght].ttf */; };
 		4C04F1F528D756EA0089AF7E /* ButtonLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C04F1F428D756EA0089AF7E /* ButtonLayout.swift */; };
 		4C0C6B7528EC350300717A04 /* ThemePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C6B7428EC350300717A04 /* ThemePicker.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C007EBB28F047E900647EEB /* OrientationTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationTestView.swift; sourceTree = "<group>"; };
 		4C01480A28C0CBA5007C6A66 /* Inter[wght].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter[wght].ttf"; sourceTree = "<group>"; };
 		4C01480C28C0CBCB007C6A66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4C04F1F428D756EA0089AF7E /* ButtonLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLayout.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				4C96D87028E3678E0006B898 /* TopBarButtons.swift */,
 				4C0C6B7428EC350300717A04 /* ThemePicker.swift */,
 				4C96D86E28E364180006B898 /* CalculatorButtonsGrid.swift */,
+				4C007EBB28F047E900647EEB /* OrientationTestView.swift */,
 				4C193D4A28E339B6001E4D02 /* ExpandableBackgroundView.swift */,
 				4C39BA0F28EB10D500F612B5 /* PersistedButtonStyle.swift */,
 				4CD08D9B28EE2C01002A2FC7 /* CalculationsHistoryView.swift */,
@@ -273,6 +276,7 @@
 			files = (
 				4C39BA1028EB10D500F612B5 /* PersistedButtonStyle.swift in Sources */,
 				4C86599228C6045D0013B349 /* Theme Data.swift in Sources */,
+				4C007EBC28F047E900647EEB /* OrientationTestView.swift in Sources */,
 				4C606E2528C0EC6E00EB46A7 /* Button Storage.swift in Sources */,
 				4C96D87128E3678E0006B898 /* TopBarButtons.swift in Sources */,
 				4C193D4B28E339B6001E4D02 /* ExpandableBackgroundView.swift in Sources */,
@@ -438,8 +442,10 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -468,8 +474,10 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

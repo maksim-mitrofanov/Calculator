@@ -36,7 +36,7 @@ struct TopBarButtons: View {
         .foregroundColor(.black)
         .padding(.vertical, 10)
         .background(
-            RoundedRectangle(cornerRadius: 18).foregroundColor(theme.operationButtonColor)
+            RoundedRectangle(cornerRadius: 18).foregroundColor(theme.data.operationButtonColor)
                 .opacity(theme == .lightTheme ? 0.8 : 1)
         )
     }
@@ -72,7 +72,7 @@ struct TopBarButtons: View {
 
 struct AdditionalButtonLabel: View {
     let imageName: String
-    let theme: CalculatorTheme
+    let theme: CalculatorThemeData
     
     var body: some View {
         Image(systemName: imageName)

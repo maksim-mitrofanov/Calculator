@@ -19,6 +19,8 @@ struct CalculatorButtonsGrid: View {
     private let extraButtons = ButtonStorage.extraRowButtonsWithData
     private let gridVerticalSpacing: CGFloat = 10
     
+    
+    
     var body: some View {
         VStack {
             extraButtonsGrid
@@ -41,28 +43,23 @@ struct CalculatorButtonsGrid: View {
     
     var mainButtonsGrid: some View {
         VStack {
-            if #available(iOS 16.0, *) {
-                Grid(verticalSpacing: gridVerticalSpacing) {
-                    ForEach(buttonRows, id: \.self) { row in
-                        GridRow {
-                            ForEach(row) { buttonData in
-                                StandardCalculatorButton(buttonData: buttonData, theme: theme, isSelected: mathManager.isSelected(buttonData)) {
-                                    mathManager.receiveButtonTap(buttonData)
-                                }
+            Grid(verticalSpacing: gridVerticalSpacing) {
+                ForEach(buttonRows, id: \.self) { row in
+                    GridRow {
+                        ForEach(row) { buttonData in
+                            StandardCalculatorButton(buttonData: buttonData, theme: theme, isSelected: mathManager.isSelected(buttonData)) {
+                                mathManager.receiveButtonTap(buttonData)
                             }
                         }
                     }
                 }
-                .overlay(
-                    zeroButton
-                )
-                .overlay(
-                    equalsButton
-                )
-            } else {
-                // Fallback on earlier versions
-                Text("Only works on IOS 16 or later")
             }
+            .overlay(
+                zeroButton
+            )
+            .overlay(
+                equalsButton
+            )
         }
     }
     
@@ -101,6 +98,14 @@ struct StandardCalculatorButton: View {
     var isSelected: Bool = false
     let action: () -> Void
     
+    private let screenWidth = UIScreen.main.bounds.width
+    private let screenHeight = UIScreen.main.bounds.height
+    private let buttonToScreenRatio: CGFloat = 5
+    private let verticalSpacing: CGFloat = 4
+    private let horizontalSpacing: CGFloat = 5
+    private let mainButtons = ButtonStorage.mainButtonsWithData
+    private let extraButtons = ButtonStorage.extraRowButtonsWithData
+    
     var body: some View {
         VStack {
             if buttonData.operationType == .mathOperation {
@@ -108,9 +113,6 @@ struct StandardCalculatorButton: View {
                     action()
                 } label: {
                     StandardCalculatorButtonLabel(buttonData: buttonData, theme: theme, isSelected: isSelected)
-                        .frame(width: ButtonLayout.buttonWidth(for: buttonData))
-                        .frame(height: ButtonLayout.buttonHeight(for: buttonData))
-                        .opacity(getButtonOpacity())
                 }
                 .buttonStyle(PersistedButtonStyle())
                 
@@ -119,13 +121,13 @@ struct StandardCalculatorButton: View {
                     action()
                 } label: {
                     StandardCalculatorButtonLabel(buttonData: buttonData, theme: theme, isSelected: isSelected)
-                        .frame(width: ButtonLayout.buttonWidth(for: buttonData))
-                        .frame(height: ButtonLayout.buttonHeight(for: buttonData))
-                        .opacity(getButtonOpacity())
                 }
                 .buttonStyle(DefaultButtonStyle())
             }
         }
+        .opacity(getButtonOpacity())
+        .frame(width: buttonWidth(for: buttonData))
+        .frame(height: buttonHeight(for: buttonData))
         .accessibilityIdentifier(buttonData.text)
     }
     
@@ -133,12 +135,39 @@ struct StandardCalculatorButton: View {
         if buttonData.text == "" && buttonData.imageName == "" { return 0 }
         else { return 1 }
     }
+    
+    func buttonWidth(for buttonData: CalculatorButtonData) -> CGFloat {
+        if buttonData.layoutViewType == .extraOperation {
+            return screenWidth / buttonToScreenRatio
+        } else {
+            switch buttonData.aspectRatio {
+            case 1/2: return screenWidth / (buttonToScreenRatio / 2) + horizontalSpacing * 2
+            default: return screenWidth / buttonToScreenRatio
+            }
+        }
+    }
+    
+    func buttonHeight(for buttonData: CalculatorButtonData) -> CGFloat {
+        if buttonData.layoutViewType == .extraOperation {
+            return screenWidth / buttonToScreenRatio / 2
+        } else {
+            switch buttonData.aspectRatio {
+            case 2/1: return screenWidth / (buttonToScreenRatio / 2) + horizontalSpacing * 2
+            default: return screenWidth / buttonToScreenRatio
+            }
+        }
+    }
+    
+    func extraRowHeight() -> CGFloat {
+        return screenWidth / buttonToScreenRatio / 2
+    }
 }
 
 struct StandardCalculatorButtonLabel: View {
     let buttonData: CalculatorButtonData
     let theme: CalculatorTheme
     let isSelected: Bool
+    
     
     private var cornerRadius: CGFloat {
         buttonData.layoutViewType == .extraOperation ? 18 : 26
@@ -159,7 +188,7 @@ struct StandardCalculatorButtonLabel: View {
         backgroundView
             .overlay {
                 Text(buttonData.text)
-                    .foregroundColor(theme.textColorFor(buttonType: buttonData.layoutViewType))
+                    .foregroundColor(theme.data.textColorFor(buttonType: buttonData.layoutViewType))
                     .font(.title)
             }
     }
@@ -168,7 +197,7 @@ struct StandardCalculatorButtonLabel: View {
         backgroundView
             .overlay(
                 Text(Image(systemName: buttonData.imageName))
-                    .foregroundColor(theme.textColorFor(buttonType: buttonData.layoutViewType))
+                    .foregroundColor(theme.data.textColorFor(buttonType: buttonData.layoutViewType))
                     .font(.title2)
             )
     }
@@ -180,18 +209,21 @@ struct StandardCalculatorButtonLabel: View {
     
     private func getBackroundViewColor() -> Color {
         if isSelected { return theme == .lightTheme ? Color.black.opacity(0.4) : Color.white.opacity(0.7) }
-        else { return theme.buttonColorFor(buttonType: buttonData.layoutViewType) }
+        else { return theme.data.buttonColorFor(buttonType: buttonData.layoutViewType) }
     }
     
     private func getTextColor() -> Color {
         if isSelected { return theme == .lightTheme ? Color.white : Color.black }
-        else { return theme.textColorFor(buttonType: buttonData.layoutViewType) }
+        else { return theme.data.textColorFor(buttonType: buttonData.layoutViewType) }
     }
 }
 
 struct CalculatorButtonsGrid_Previews: PreviewProvider {
     static var previews: some View {
         CalculatorButtonsGrid(mathManager: MathManager.instance, isExtraButtonRowExpanded: false, theme: .lightTheme)
-        CalculatorButtonsGrid(mathManager: MathManager.instance, isExtraButtonRowExpanded: false, theme: .darkTheme)
+            .previewInterfaceOrientation(.portrait)
+        
+        CalculatorButtonsGrid(mathManager: MathManager.instance, isExtraButtonRowExpanded: false, theme: .lightTheme)
+            .previewInterfaceOrientation(.landscapeLeft)
     }
 }

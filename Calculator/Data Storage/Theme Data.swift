@@ -8,7 +8,20 @@
 import SwiftUI
 import Foundation
 
-struct CalculatorTheme: Equatable {
+enum CalculatorTheme {
+    case lightTheme, darkTheme
+    
+    var data: CalculatorThemeData {
+        switch self {
+        case .lightTheme:
+            return CalculatorThemeData.lightTheme
+        case .darkTheme:
+            return CalculatorThemeData.darkTheme
+        }
+    }
+}
+
+struct CalculatorThemeData: Equatable {
     var numberButtonColor: Color
     var operationButtonColor: Color
     var equalsButtonColor: Color
@@ -38,18 +51,8 @@ struct CalculatorTheme: Equatable {
     }
 }
 
-class ThemeStorage: ObservableObject {
-    @Published private(set) var selectedTheme: CalculatorTheme = .lightTheme
-    
-    func toggleTheme() {
-        if selectedTheme == .lightTheme { selectedTheme = .darkTheme } else {
-            selectedTheme = .darkTheme
-        }
-    }
-}
-
-extension CalculatorTheme {
-    static let lightTheme = CalculatorTheme(
+extension CalculatorThemeData {
+    static let lightTheme = CalculatorThemeData(
         numberButtonColor: Color(red: 236, green: 236, blue: 236),
         operationButtonColor: Color(red: 215, green: 215, blue: 215),
         equalsButtonColor: Color(red: 255, green: 203, blue: 130),
@@ -61,7 +64,7 @@ extension CalculatorTheme {
         backgroundColor: Color.white
     )
 
-    static let darkTheme = CalculatorTheme(
+    static let darkTheme = CalculatorThemeData(
         numberButtonColor: Color(red: 50, green: 50, blue: 50),
         operationButtonColor: Color(red: 135, green: 135, blue: 135),
         equalsButtonColor: Color(red: 197, green: 128, blue: 48),
