@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CalculatorButtonsGrid: View {
-    @ObservedObject var mathManager: MathManager
+    @ObservedObject private var mathManager: MathManager = MathManager.instance
     
     let isExtraButtonRowExpanded: Bool
     let theme: CalculatorTheme
@@ -220,10 +220,10 @@ struct StandardCalculatorButtonLabel: View {
 
 struct CalculatorButtonsGrid_Previews: PreviewProvider {
     static var previews: some View {
-        CalculatorButtonsGrid(mathManager: MathManager.instance, isExtraButtonRowExpanded: false, theme: .lightTheme)
+        CalculatorButtonsGrid(isExtraButtonRowExpanded: false, theme: .lightTheme)
             .previewInterfaceOrientation(.portrait)
         
-        CalculatorButtonsGrid(mathManager: MathManager.instance, isExtraButtonRowExpanded: false, theme: .lightTheme)
+        CalculatorButtonsGrid(isExtraButtonRowExpanded: false, theme: .lightTheme)
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

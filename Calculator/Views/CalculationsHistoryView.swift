@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct CalculationsHistoryView: View {
-    let calculationsHistory: [String]
     let theme: CalculatorTheme
+    var calculationsHistory: [String] = MathManager.instance.allOperationsHistory
     
     var body: some View {
         VStack {
@@ -33,7 +33,7 @@ struct CalculationsHistoryView_Previews: PreviewProvider {
     static var previews: some View {
         CalculatorView()
             .sheet(isPresented: .constant(isSheetShown)) {
-                CalculationsHistoryView(calculationsHistory: ["152 * 12 = 1824", "1824 / 2 = 917", "917 - 117 = 800", "800 / 200 = 4", "4 ^ 2 = 16"], theme: .lightTheme)
+                CalculationsHistoryView(theme: .lightTheme, calculationsHistory: ["152 * 12 = 1824", "1824 / 2 = 917", "917 - 117 = 800", "800 / 200 = 4", "4 ^ 2 = 16"])
             }
     }
 }

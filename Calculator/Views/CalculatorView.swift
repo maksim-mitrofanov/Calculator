@@ -11,18 +11,21 @@ struct CalculatorView: View {
     @State private var isExtraButtonsRowExpanded: Bool = false
     @State private var isBackgroundExpanded: Bool = true
     @State private var currentTheme: CalculatorTheme = .lightTheme
-    @State private var isHistorySheetPresented: Bool = false 
+    @State private var isHistorySheetPresented: Bool = false
+    @State private var isExpandableBackgroundExpanded: Bool = true
     
     @StateObject private var mathManager = MathManager.instance
-        
+            
     var body: some View {
         ZStack {
             backgroundColorFill
-            TopBarButtons(isHistorySheetPresented: $isHistorySheetPresented,isExtraButtonsRowExpanded: $isExtraButtonsRowExpanded, theme: $currentTheme)
-            ExpandableBackgroundView(mathManager: mathManager, theme: currentTheme, areButtonsExpanded: isExtraButtonsRowExpanded)
+            topBarButtons
+            ExpandableBackgroundView(theme: currentTheme, isExpanded: isExpandableBackgroundExpanded)
+            currentNumberAndButtonGrid
+            
         }
         .sheet(isPresented: $isHistorySheetPresented) {
-            CalculationsHistoryView(calculationsHistory: mathManager.allOperationsHistory, theme: currentTheme)
+            CalculationsHistoryView(theme: currentTheme)
         }
     }
     
@@ -30,6 +33,83 @@ struct CalculatorView: View {
         Rectangle()
             .foregroundColor(currentTheme.data.backgroundColor)
             .edgesIgnoringSafeArea(.all)
+    }
+    
+    var currentNumberAndButtonGrid: some View {
+        VStack(spacing: 0) {
+            Spacer()
+            
+            HStack {
+                Spacer()
+                
+                Text(MathManager.instance.currentNumber)
+                    .font(Font.system(size: 55))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.6)
+                    .foregroundColor(currentTheme == .lightTheme ? .black : .white)
+            }
+            .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+
+            
+            CalculatorButtonsGrid(isExtraButtonRowExpanded: isExtraButtonsRowExpanded, theme: currentTheme)
+        }
+    }
+    
+    var expansionButton: some View {
+        Button {
+            withAnimation {
+                isExtraButtonsRowExpanded.toggle()
+                isExpandableBackgroundExpanded = true
+            }
+        } label: {
+            Image(systemName: expansionButtonImageName)
+        }
+    }
+    
+    var showAllHistoryButton: some View {
+        Button {
+            withAnimation {
+                isHistorySheetPresented = true
+                isExpandableBackgroundExpanded = true
+            }
+        } label: {
+            Image(systemName: showHistoryImageName)
+        }
+    }
+    
+    var topBarButtons: some View {
+        VStack {
+            HStack {
+                ThemePicker(currentTheme: $currentTheme)
+                Spacer()
+                
+                HStack {
+                    expansionButton.padding(.horizontal)
+                    
+                    Divider().frame(maxHeight: 25)
+                    
+                    showAllHistoryButton.padding(.horizontal)
+                }
+                .foregroundColor(.black)
+                .padding(.vertical, 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 18).foregroundColor(currentTheme.data.operationButtonColor)
+                        .opacity(currentTheme == .lightTheme ? 0.8 : 1)
+                )
+            }
+            .padding(.top)
+            .padding()
+            
+            Spacer()
+        }
+    }
+    
+    private let showHistoryImageName = "clock.arrow.circlepath"
+    private let expandImageName = "arrow.up.left.and.arrow.down.right"
+    private let collapseImageName = "arrow.down.right.and.arrow.up.left"
+    
+    var expansionButtonImageName: String {
+        isExtraButtonsRowExpanded ? collapseImageName : expandImageName
     }
 }
 

@@ -1,5 +1,6 @@
-#  NOTES
+# Things To Do
 
-##* Math Module Logic Descpription *
+    1. Math Manager refactoring
+    2. 
 
-bug an equals in math manager (if 1 operand, throws error)
+

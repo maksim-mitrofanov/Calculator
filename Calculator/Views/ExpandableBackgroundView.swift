@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct ExpandableBackgroundView: View {
-    @StateObject var  mathManager: MathManager
     let theme: CalculatorTheme
-    let areButtonsExpanded: Bool
     
-    @State private var isExpanded: Bool = true
+    @State var isExpanded: Bool
     @State private var topOffset: CGFloat = CalcViewDefVals.minTopOffset
+    @StateObject private var mathManager: MathManager = MathManager.instance
     
     private var minTopOffset: CGFloat { CalcViewDefVals.minTopOffset }
     private var maxTopOffset: CGFloat { CalcViewDefVals.maxTopOffset }
@@ -28,7 +27,6 @@ struct ExpandableBackgroundView: View {
             expandableRectangle
                 .overlay(pullTab)
                 .overlay(calculationHistory)
-                .overlay(currentNumberAndButtonGrid)
                 .padding(.top, topOffset)
             
                 .gesture(
@@ -75,28 +73,6 @@ struct ExpandableBackgroundView: View {
         }
     }
     
-    var currentNumberAndButtonGrid: some View {
-        VStack(spacing: 0) {
-            Spacer()
-            
-            HStack {
-                Spacer()
-                
-                Text(mathManager.currentNumber)
-                    .font(Font.system(size: 55))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.6)
-                    .foregroundColor(theme == .lightTheme ? .black : .white)
-                    .padding(.bottom, areButtonsExpanded ? 10 : 0)
-            }
-            .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
-
-            
-            CalculatorButtonsGrid(mathManager: mathManager, isExtraButtonRowExpanded: areButtonsExpanded, theme: theme)
-
-        }
-    }
-    
     private func getShadowColor() -> Color {
         switch theme {
         case .lightTheme: return .black.opacity(0.1)
@@ -125,7 +101,6 @@ struct ExpandableBackgroundView: View {
             else if !isExpanded && gestureHValue > 0 {
                 topOffset = min(topOffset + gestureHValue, maxTopOffset + extraOffset)
             }
-            //ANIMATION IS NOT EVEN
             else if !isExpanded && gestureHValue < 0 {
                 topOffset = max(topOffset + gestureHValue, minTopOffset)
                 print("\(topOffset + gestureHValue), \(minTopOffset)")

@@ -17,3 +17,10 @@ extension Color {
         )
     }
 }
+
+struct PersistedButtonStyle: ButtonStyle {
+        
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+    }
+}
