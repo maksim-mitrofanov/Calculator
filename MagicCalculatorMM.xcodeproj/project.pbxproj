@@ -10,6 +10,7 @@
 		4C04F1F528D756EA0089AF7E /* ButtonLayoutValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C04F1F428D756EA0089AF7E /* ButtonLayoutValues.swift */; };
 		4C0C6B7528EC350300717A04 /* ThemePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C6B7428EC350300717A04 /* ThemePicker.swift */; };
 		4C193D4B28E339B6001E4D02 /* ExpandableBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C193D4A28E339B6001E4D02 /* ExpandableBackgroundView.swift */; };
+		4C293D2628F8A1E600095964 /* TabViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C293D2528F8A1E600095964 /* TabViewTest.swift */; };
 		4C606E2528C0EC6E00EB46A7 /* ButtonStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C606E2428C0EC6E00EB46A7 /* ButtonStorage.swift */; };
 		4C634E2028CB3BB300396F03 /* MathManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C634E1F28CB3BB300396F03 /* MathManager.swift */; };
 		4C6E105928BF947F00BDDFEB /* CalculatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E105828BF947F00BDDFEB /* CalculatorApp.swift */; };
@@ -19,7 +20,7 @@
 		4C86599228C6045D0013B349 /* ThemeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C86599128C6045D0013B349 /* ThemeData.swift */; };
 		4C86599628C60FD10013B349 /* Extensions And Custom Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C86599528C60FD10013B349 /* Extensions And Custom Structs.swift */; };
 		4C96D86F28E364180006B898 /* CalculatorButtonsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96D86E28E364180006B898 /* CalculatorButtonsGrid.swift */; };
-		4CD08D9C28EE2C01002A2FC7 /* CalculationsHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD08D9B28EE2C01002A2FC7 /* CalculationsHistoryView.swift */; };
+		4CD08D9C28EE2C01002A2FC7 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD08D9B28EE2C01002A2FC7 /* HistoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		4C0C6B7428EC350300717A04 /* ThemePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePicker.swift; sourceTree = "<group>"; };
 		4C193D4A28E339B6001E4D02 /* ExpandableBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableBackgroundView.swift; sourceTree = "<group>"; };
 		4C1E31FB28CB4FB700A7B260 /* NOTES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NOTES.md; sourceTree = "<group>"; };
+		4C293D2528F8A1E600095964 /* TabViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewTest.swift; sourceTree = "<group>"; };
 		4C606E2428C0EC6E00EB46A7 /* ButtonStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStorage.swift; sourceTree = "<group>"; };
 		4C634E1F28CB3BB300396F03 /* MathManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathManager.swift; sourceTree = "<group>"; };
 		4C6E105528BF947F00BDDFEB /* MagicCalculatorMM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicCalculatorMM.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,7 +50,7 @@
 		4C86599128C6045D0013B349 /* ThemeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeData.swift; sourceTree = "<group>"; };
 		4C86599528C60FD10013B349 /* Extensions And Custom Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions And Custom Structs.swift"; sourceTree = "<group>"; };
 		4C96D86E28E364180006B898 /* CalculatorButtonsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButtonsGrid.swift; sourceTree = "<group>"; };
-		4CD08D9B28EE2C01002A2FC7 /* CalculationsHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationsHistoryView.swift; sourceTree = "<group>"; };
+		4CD08D9B28EE2C01002A2FC7 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		4CD08DA128EE307F002A2FC7 /* MagicCalculatorMM_UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MagicCalculatorMM_UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -132,11 +134,12 @@
 		4C86599928C610690013B349 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4CD08D9B28EE2C01002A2FC7 /* CalculationsHistoryView.swift */,
-				4C96D86E28E364180006B898 /* CalculatorButtonsGrid.swift */,
 				4C6FF99728C639F300C13B29 /* CalculatorView.swift */,
 				4C193D4A28E339B6001E4D02 /* ExpandableBackgroundView.swift */,
 				4C0C6B7428EC350300717A04 /* ThemePicker.swift */,
+				4CD08D9B28EE2C01002A2FC7 /* HistoryView.swift */,
+				4C96D86E28E364180006B898 /* CalculatorButtonsGrid.swift */,
+				4C293D2528F8A1E600095964 /* TabViewTest.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -247,10 +250,11 @@
 				4C04F1F528D756EA0089AF7E /* ButtonLayoutValues.swift in Sources */,
 				4C634E2028CB3BB300396F03 /* MathManager.swift in Sources */,
 				4C96D86F28E364180006B898 /* CalculatorButtonsGrid.swift in Sources */,
+				4C293D2628F8A1E600095964 /* TabViewTest.swift in Sources */,
 				4C86599628C60FD10013B349 /* Extensions And Custom Structs.swift in Sources */,
 				4C6E105928BF947F00BDDFEB /* CalculatorApp.swift in Sources */,
 				4C0C6B7528EC350300717A04 /* ThemePicker.swift in Sources */,
-				4CD08D9C28EE2C01002A2FC7 /* CalculationsHistoryView.swift in Sources */,
+				4CD08D9C28EE2C01002A2FC7 /* HistoryView.swift in Sources */,
 				4C6FF99828C639F300C13B29 /* CalculatorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -393,7 +397,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Calculator/Preview Content\"";
 				DEVELOPMENT_TEAM = Q3P95MDH6Q;
 				ENABLE_PREVIEWS = YES;
@@ -426,7 +430,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Calculator/Preview Content\"";
 				DEVELOPMENT_TEAM = Q3P95MDH6Q;
 				ENABLE_PREVIEWS = YES;

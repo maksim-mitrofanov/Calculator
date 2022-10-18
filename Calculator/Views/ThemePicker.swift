@@ -25,6 +25,7 @@ struct ThemePicker: View {
             }
             .accentColor(currentTheme.data.numbersTextColor)
             .pickerStyle(.menu)
+            .onAppear { updateCurrentThemeFromSystem(colorScheme) }
             .onChange(of: colorScheme, perform: updateCurrentThemeFromSystem(_:))
             .onChange(of: currentThemeOption, perform: updateCurrentThemeFromThemeOption(_:))
         }

@@ -7,14 +7,18 @@
 
 import SwiftUI
 
+
 struct CalculatorView: View {
     @State private var isExtraButtonsRowExpanded: Bool = false
     @State private var isBackgroundExpanded: Bool = true
     @State private var currentTheme: CalculatorTheme = .lightTheme
     @State private var isHistorySheetPresented: Bool = false
     @State private var isExpandableBackgroundExpanded: Bool = true
+    @State private var currentNumLeadingPadding: CGFloat = 0
+    @State private var currentNumTrailingPadding: CGFloat = 10
     
     @StateObject private var mathManager = MathManager.instance
+    
             
     var body: some View {
         ZStack {
@@ -25,7 +29,7 @@ struct CalculatorView: View {
             
         }
         .sheet(isPresented: $isHistorySheetPresented) {
-            CalculationsHistoryView(theme: currentTheme)
+            HistoryView(theme: currentTheme)
         }
     }
     
@@ -45,8 +49,40 @@ struct CalculatorView: View {
                 Text(MathManager.instance.currentNumber)
                     .font(Font.system(size: 55))
                     .lineLimit(1)
+                    .padding(.bottom, isExtraButtonsRowExpanded ? 10 : 0)
+                    .padding(.trailing, currentNumTrailingPadding)
+                    .offset(x: currentNumLeadingPadding)
+
+                
                     .minimumScaleFactor(0.6)
                     .foregroundColor(currentTheme == .lightTheme ? .black : .white)
+                
+                    .gesture(
+                        DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                            .onChanged { value in
+                                withAnimation {
+                                    if value.translation.width < 0 {
+                                        currentNumTrailingPadding = 15
+                                    }
+                                    else if value.translation.width > 0 {
+                                        currentNumLeadingPadding = 15
+                                    }
+                                }
+                            }
+                            .onEnded { value in
+                                withAnimation(.easeInOut(duration: 0.6)) {
+                                    currentNumTrailingPadding = 0
+                                    currentNumLeadingPadding = 0
+                                }
+                                
+                                if value.translation.width < 0 {
+                                    MathManager.instance.receiveRemoveLastSwipe()
+                                }
+                                else if value.translation.width > 0 {
+                                    MathManager.instance.receiveRemoveFirstSwipe()
+                                }
+                            }
+                    )
             }
             .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
 

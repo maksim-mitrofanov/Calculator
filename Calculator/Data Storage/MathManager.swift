@@ -7,24 +7,6 @@
 
 import Foundation
 
-struct MathOperator {
-    let description: String
-}
-
-struct CalculationHistoryStruct {
-    let firstOperand: Double
-    let mathOperator: MathOperator
-    let secondOperand: Double
-    let result: Double
-    
-    var description: String {
-        [firstOperand.description, mathOperator.description,
-         secondOperand.description, "=",
-         result.description]
-            .joined(separator: " ")
-    }
-}
-
 final class MathManager: ObservableObject {
     @Published var currentOperationHistory: [String] = []
     @Published var currentNumber: String = "0"
@@ -34,150 +16,103 @@ final class MathManager: ObservableObject {
     private var currentOperands: [Double] = []
     private var isMathOperatorLast: Bool = false
     
-    
-    
+    private var errorText = "Error"
+        
     public func receiveButtonTap(_ buttonData: CalculatorButtonData) {
-        if currentNumber == "Error" { cleanAll() }
-        else {
-            switch buttonData.operationType {
-            case .number:
-                receiveNumberButtonTap(buttonData: buttonData)
-            case .mathOperation:
-                receiveMathOperationButtonTap(buttonData: buttonData)
-            case .dot:
-                receiveDotButtonTap()
-            case .removeLast:
-                receiveRemoveLastButtonTap()
-            case .allClear:
-                receiveAllClearButtonTap()
-            case .equals:
-                receiveEqualsButtonTap()
-            }
-        }
-    }
-    
-    public func isSelected(_ buttonData: CalculatorButtonData) -> Bool {
-        if currentMathOperator == buttonData.text && isMathOperatorLast {
-            return true
-        } else { return false }
-    }
-    
-    private func saveCurrentOperationHistory() {
-        allOperationsHistory.append(currentOperationHistory.joined(separator: " ") + " = " + currentNumber)
-    }
-    
-    private func calculateResult() -> String {
-        var result: Double = 0
-        var output: String = ""
-        
-        switch currentMathOperator {
-        case "+": result = currentOperands[0] + currentOperands[1]
-        case "-": result = currentOperands[0] - currentOperands[1]
-        case "x": result = currentOperands[0] * currentOperands[1]
-        case "/":
-            if currentOperands[1] == 0 { output = "Error" }
-            else { result = currentOperands[0] / currentOperands[1] }
-        case "^": result = pow(currentOperands[0], currentOperands[1])
-            
-        default:
-            output = "Error"
+        switch buttonData.operationType {
+        case .number:
+            receiveNumberButtonTap(buttonData: buttonData)
+        case .mathOperation:
+            receiveMathOperationButtonTap(buttonData: buttonData)
+        case .dot:
+            receiveDotButtonTap()
+        case .removeLast:
+            receiveRemoveLastButtonTap()
+        case .allClear:
+            receiveAllClearButtonTap()
+        case .equals:
+            receiveEqualsButtonTap()
         }
         
-        if output != "Error" {
-            if Double(Int(result)) == result { output = "\(Int(result))" }
-            else { output = String(result) }
-        }
-        
-        return output
+        print("Operation History: \(currentOperationHistory)")
+        print("Current Number: \(currentNumber)")
+        print("Current Math Operator: \(currentMathOperator)")
+        print("Current Operands: \(currentOperands)")
+        print("Is Math Operator Last: \(isMathOperatorLast)\n")
     }
     
-    private func applyCurrentMathOperatorToCurrentNumber(mathOperator: CalculatorButtonData) {
-        if mathOperator.usesTwoOperands == false {
-            switch mathOperator.text {
-            case "plus_minus":
-                if currentNumber != "0" {
-                    currentNumber = String((Double(currentNumber) ?? 0) * -1)
-                }
-            case "squareroot":
-                guard let currentNumberAsDouble = Double(currentNumber) else { return }
-                if currentNumberAsDouble > 0 { currentNumber = String(sqrt(currentNumberAsDouble))}
-                
-            case "persent":
-                guard let currentNumberAsDouble = Double(currentNumber) else { return }
-                currentNumber = String(currentNumberAsDouble / 100)
-            default:
-                print("Error")
-            }
-            
-        }
-        if currentNumber.hasSuffix(".0") { currentNumber.removeLast(2)}
-    }
+   
     
-    private func cleanAll() {
-        currentNumber = "0"
-        currentOperationHistory.removeAll()
-        currentOperands.removeAll()
-        currentMathOperator.removeAll()
-        allOperationsHistory.removeLast()
-    }
-    
+
+    //MARK: -Receive Taps
     private func receiveNumberButtonTap(buttonData: CalculatorButtonData) {
+        //Cleans operations history
         if currentOperationHistory.count > 2 { currentOperationHistory.removeAll() }
-        if !isMathOperatorLast {
-            if currentNumber == "0" || currentNumber == "Error" { currentNumber = buttonData.text }
-            else { currentNumber.append(buttonData.text) }
-        } else if isMathOperatorLast {
-            if currentNumber.last == "." { currentNumber += "0" }
-            currentOperands.append(Double(currentNumber) ?? 0)
-            currentOperationHistory.append(currentNumber)
+        
+        
+        if isMathOperatorLast {
+            appendCurrentNumberToOperands(setResult: false)
             currentOperationHistory.append(currentMathOperator)
             
             currentNumber = buttonData.text
             isMathOperatorLast = false
         }
+        
+        else if !isMathOperatorLast {
+            if currentNumber == "0" || currentNumber == errorText { currentNumber = buttonData.text }
+            else { currentNumber.append(buttonData.text) }
+        }
     }
     
     private func receiveMathOperationButtonTap(buttonData: CalculatorButtonData) {
-        if currentNumber == "Error" {
-            currentNumber = "0";
-            currentOperands.removeAll()
-            currentOperationHistory.removeAll()
-            currentMathOperator = buttonData.text
-            
-        }
-        else if buttonData.usesTwoOperands == false {
-            applyCurrentMathOperatorToCurrentNumber(mathOperator: buttonData)
-        }
-        else if currentMathOperator.isEmpty { currentMathOperator = buttonData.text; isMathOperatorLast = true }
-        else if currentOperands.count == 1 {
-            if currentNumber.last == "." { currentNumber += "0" }
-            currentOperands.append(Double(currentNumber) ?? 0)
-            currentOperationHistory.append(currentNumber)
-            
-            currentNumber = calculateResult()
-            saveCurrentOperationHistory()
-            
-            currentOperands.removeAll()
+        if currentNumber == errorText {
+            cleanAll()
             currentMathOperator = buttonData.text
             isMathOperatorLast = true
-            
         }
-        else if currentMathOperator == buttonData.text { currentMathOperator.removeAll(); isMathOperatorLast = false }
-        else { currentMathOperator = buttonData.text; isMathOperatorLast = true }
         
+        else {
+            appendZeroAfterDot()
+            
+            //applies current math operator to current number
+            if buttonData.usesTwoOperands == false {
+                if currentOperands.count == 0 { currentOperationHistory.append(buttonData.text) }
+                applyCurrentMathOperatorToCurrentNumber(mathOperator: buttonData)
+            }
+            
+            //appends current number to operands and sets current math operator
+            else if currentOperands.count == 1 {
+                appendCurrentNumberToOperands(setResult: true)
+                currentMathOperator = buttonData.text
+                isMathOperatorLast = true
+                
+            }
+            
+            //deselects current math operator
+            else if currentMathOperator == buttonData.text {
+                currentMathOperator.removeAll(); isMathOperatorLast = false
+            }
+            
+            //sets currentMathOperator
+            else {
+                currentOperationHistory.removeAll()
+                currentMathOperator = buttonData.text; isMathOperatorLast = true
+            }
+        }
     }
     
     private func receiveDotButtonTap() {
-        if currentNumber == "Error" { currentNumber = "0."}
+        if currentNumber == errorText { currentNumber = "0."}
         else if !currentNumber.contains(".") { currentNumber.append(".") }
     }
     
     private func receiveRemoveLastButtonTap() {
-        if currentNumber == "Error" { currentNumber = "0" }
+        if currentNumber == errorText { currentNumber = "0" }
+        
         else if !currentNumber.isEmpty { currentNumber.removeLast() }
         if currentNumber.isEmpty { currentNumber = "0" }
     }
-    
+        
     private func receiveAllClearButtonTap() {
         currentNumber = "0"
         currentMathOperator.removeAll()
@@ -187,16 +122,117 @@ final class MathManager: ObservableObject {
     }
     
     private func receiveEqualsButtonTap() {
+        if currentOperands.count != 0 {
+            appendCurrentNumberToOperands(setResult: true)
+            
+            currentMathOperator.removeAll()
+            isMathOperatorLast = false
+        }
+    }
+    
+    
+    //MARK: -Private helper funs
+    private func calculateResult() -> String {
+        var result: Double = 0
+        var output: String = ""
+        
+        switch currentMathOperator {
+        case "+": result = currentOperands[0] + currentOperands[1]
+        case "-": result = currentOperands[0] - currentOperands[1]
+        case "x": result = currentOperands[0] * currentOperands[1]
+        case "/":
+            if currentOperands[1] == 0 { output = errorText }
+            else { result = currentOperands[0] / currentOperands[1] }
+        case "^": result = pow(currentOperands[0], currentOperands[1])
+            
+        default:
+            output = errorText
+        }
+        
+        if output != errorText {
+            output = Double(round(1000 * result) / 1000).description
+        }
+        
+        return output
+    }
+    
+    private func appendZeroAfterDot() {
         if currentNumber.last == "." { currentNumber.append("0") }
-        currentOperands.append(Double(currentNumber) ?? 0)
+    }
+    
+    private func appendCurrentNumberToOperands(setResult: Bool) {
+        //Checks if number can be converted to double
+        if currentNumber.last == "." { currentNumber.append("0") }
+        guard let currentNumberAsDouble = Double(currentNumber) else { return }
+        
+        
+        currentOperands.append(currentNumberAsDouble)
         currentOperationHistory.append(currentNumber)
         
-        currentNumber = calculateResult()
+        if setResult == true {
+            if currentOperands.count == 2 {
+                currentNumber = calculateResult()
+                saveCurrentOperationHistory()
+                currentOperands.removeAll()
+            }
+        }
+    }
+    
+    private func applyCurrentMathOperatorToCurrentNumber(mathOperator: CalculatorButtonData) {
+        guard let currentNumberAsDouble = Double(currentNumber) else { return }
+
+        switch mathOperator.text {
+        case "plus_minus":
+            if currentNumber != "0" {
+                currentNumber = String(currentNumberAsDouble * -1)
+            }
+        case "√":
+            if currentNumberAsDouble > 0 { currentNumber = String(sqrt(currentNumberAsDouble))}
+            
+        case "persent":
+            if currentOperands.count == 1 {
+                currentNumber = String((currentOperands.first ?? 0) / 100 * currentNumberAsDouble)
+            } else {
+                currentNumber = String(currentNumberAsDouble / 100)
+            }
+            
+        default:
+            print(errorText)
+        }
+ 
+        if currentNumber.hasSuffix(".0") { currentNumber.removeLast(2)}
+    }
+    
+    private func cleanAll() {
+        currentNumber = "0"
+        currentOperationHistory.removeAll()
         currentOperands.removeAll()
-        
         currentMathOperator.removeAll()
-        isMathOperatorLast = false
-        saveCurrentOperationHistory()
+    }
+    
+    private func saveCurrentOperationHistory() {
+        allOperationsHistory.append(currentOperationHistory.joined(separator: " ") + " = " + currentNumber)
+    }
+
+    
+    
+    
+    //MARK: -Public
+    public func isSelected(_ buttonData: CalculatorButtonData) -> Bool {
+        if currentMathOperator == buttonData.text && isMathOperatorLast {
+            return true
+        } else { return false }
+    }
+    
+    public func receiveRemoveLastSwipe() { receiveRemoveLastButtonTap() }
+
+    public func receiveRemoveFirstSwipe() {
+        if currentNumber.count > 2  {
+            currentNumber.removeFirst()
+            
+            guard let firstChar = currentNumber.first else { return }
+            if firstChar == "." { currentNumber = "0" + currentNumber }
+        }
     }
         
     static let instance = MathManager()

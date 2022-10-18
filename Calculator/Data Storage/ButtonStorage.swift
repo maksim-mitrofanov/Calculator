@@ -11,7 +11,7 @@ import Foundation
 class ButtonStorage {
     static let extraRowButtonsWithData: [CalculatorButtonData] = [
         CalculatorButtonData(
-            text: "squareroot",
+            text: "√",
             imageName: "x.squareroot",
             aspectRatio: 2/1,
             operationType: .mathOperation,
