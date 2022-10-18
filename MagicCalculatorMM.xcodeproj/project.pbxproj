@@ -20,6 +20,7 @@
 		4C86599228C6045D0013B349 /* ThemeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C86599128C6045D0013B349 /* ThemeData.swift */; };
 		4C86599628C60FD10013B349 /* Extensions And Custom Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C86599528C60FD10013B349 /* Extensions And Custom Structs.swift */; };
 		4C96D86F28E364180006B898 /* CalculatorButtonsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96D86E28E364180006B898 /* CalculatorButtonsGrid.swift */; };
+		4CCEB0CB28FEC56500B05CF4 /* AdaptiveButtonStyleViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCEB0CA28FEC56500B05CF4 /* AdaptiveButtonStyleViewTest.swift */; };
 		4CD08D9C28EE2C01002A2FC7 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD08D9B28EE2C01002A2FC7 /* HistoryView.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		4C86599128C6045D0013B349 /* ThemeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeData.swift; sourceTree = "<group>"; };
 		4C86599528C60FD10013B349 /* Extensions And Custom Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions And Custom Structs.swift"; sourceTree = "<group>"; };
 		4C96D86E28E364180006B898 /* CalculatorButtonsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButtonsGrid.swift; sourceTree = "<group>"; };
+		4CCEB0CA28FEC56500B05CF4 /* AdaptiveButtonStyleViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveButtonStyleViewTest.swift; sourceTree = "<group>"; };
 		4CD08D9B28EE2C01002A2FC7 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		4CD08DA128EE307F002A2FC7 /* MagicCalculatorMM_UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MagicCalculatorMM_UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -140,6 +142,7 @@
 				4CD08D9B28EE2C01002A2FC7 /* HistoryView.swift */,
 				4C96D86E28E364180006B898 /* CalculatorButtonsGrid.swift */,
 				4C293D2528F8A1E600095964 /* TabViewTest.swift */,
+				4CCEB0CA28FEC56500B05CF4 /* AdaptiveButtonStyleViewTest.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				4C04F1F528D756EA0089AF7E /* ButtonLayoutValues.swift in Sources */,
 				4C634E2028CB3BB300396F03 /* MathManager.swift in Sources */,
 				4C96D86F28E364180006B898 /* CalculatorButtonsGrid.swift in Sources */,
+				4CCEB0CB28FEC56500B05CF4 /* AdaptiveButtonStyleViewTest.swift in Sources */,
 				4C293D2628F8A1E600095964 /* TabViewTest.swift in Sources */,
 				4C86599628C60FD10013B349 /* Extensions And Custom Structs.swift in Sources */,
 				4C6E105928BF947F00BDDFEB /* CalculatorApp.swift in Sources */,
@@ -397,7 +401,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4.1;
 				DEVELOPMENT_ASSET_PATHS = "\"Calculator/Preview Content\"";
 				DEVELOPMENT_TEAM = Q3P95MDH6Q;
 				ENABLE_PREVIEWS = YES;
@@ -430,7 +434,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4.1;
 				DEVELOPMENT_ASSET_PATHS = "\"Calculator/Preview Content\"";
 				DEVELOPMENT_TEAM = Q3P95MDH6Q;
 				ENABLE_PREVIEWS = YES;

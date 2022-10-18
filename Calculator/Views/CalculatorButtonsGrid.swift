@@ -122,7 +122,7 @@ struct StandardCalculatorButton: View {
                 } label: {
                     StandardCalculatorButtonLabel(buttonData: buttonData, theme: theme, isSelected: isSelected)
                 }
-                .buttonStyle(DefaultButtonStyle())
+                .buttonStyle(AdaptiveButtonStyle(cornerRadius: 26))
             }
         }
         .opacity(getButtonOpacity())

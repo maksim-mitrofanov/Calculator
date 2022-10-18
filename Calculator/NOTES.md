@@ -1,6 +1,5 @@
 # Things To Do
 
-    1. Math Manager refactoring
-    2. 
+    1. AdaptiveButtonStyle(type: ButtonViewType)
 
 
