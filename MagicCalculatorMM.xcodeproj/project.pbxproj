@@ -26,6 +26,7 @@
 		4CE235EF28FFF42800C71567 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235EE28FFF42800C71567 /* SoundManager.swift */; };
 		4CE235F128FFF7CF00C71567 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F028FFF7CF00C71567 /* HapticsManager.swift */; };
 		4CE235F328FFF97500C71567 /* AdaptiveButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F228FFF97500C71567 /* AdaptiveButtonStyle.swift */; };
+		4CE235F529000ED700C71567 /* TextCopiedBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F429000ED700C71567 /* TextCopiedBanner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		4CE235EE28FFF42800C71567 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		4CE235F028FFF7CF00C71567 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		4CE235F228FFF97500C71567 /* AdaptiveButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveButtonStyle.swift; sourceTree = "<group>"; };
+		4CE235F429000ED700C71567 /* TextCopiedBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCopiedBanner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 				4C193D4A28E339B6001E4D02 /* ExpandableBackgroundView.swift */,
 				4C0C6B7428EC350300717A04 /* ThemePicker.swift */,
 				4CD08D9B28EE2C01002A2FC7 /* HistoryView.swift */,
+				4CE235F429000ED700C71567 /* TextCopiedBanner.swift */,
 				4C96D86E28E364180006B898 /* CalculatorButtonsGrid.swift */,
 				4C293D2528F8A1E600095964 /* TabViewTest.swift */,
 				4CCEB0CA28FEC56500B05CF4 /* AdaptiveButtonStyleViewTest.swift */,
@@ -270,6 +273,7 @@
 			files = (
 				4C86599228C6045D0013B349 /* ThemeData.swift in Sources */,
 				4C606E2528C0EC6E00EB46A7 /* ButtonStorage.swift in Sources */,
+				4CE235F529000ED700C71567 /* TextCopiedBanner.swift in Sources */,
 				4C193D4B28E339B6001E4D02 /* ExpandableBackgroundView.swift in Sources */,
 				4CE235F128FFF7CF00C71567 /* HapticsManager.swift in Sources */,
 				4C04F1F528D756EA0089AF7E /* ButtonLayoutValues.swift in Sources */,

@@ -8,50 +8,67 @@
 import SwiftUI
 
 struct HistoryView: View {
-    private let pasteboard = UIPasteboard.general
     let theme: CalculatorTheme
     var calculationsHistory: [String] = MathManager.instance.allOperationsHistory
     
+    private let pasteboard = UIPasteboard.general
     @State private var copiedValue: String = ""
+    @State private var isCopiedBannerShown: Bool = false
+    
+    var minBannerOffset: CGFloat = UIScreen.main.bounds.height * 0.4
+    var maxBannerOffset: CGFloat = UIScreen.main.bounds.height * 0.8
+    var bannerYOffset: CGFloat {
+        copiedValue == "" ? maxBannerOffset : minBannerOffset
+    }
     
     var body: some View {
         VStack {
             if calculationsHistory.isEmpty {
-                Text("Calculation history is empty.")
-                    .padding()
+                emptyHistoryView
             } else {
-                VStack(spacing: 0) {
-                    Color(uiColor: .secondarySystemBackground)
-                        .overlay(
-                            Text(copiedValue == "" ? "Tap to copy result" : "🌟 Successfully copied \(copiedValue)")
-                                .padding(.top)
-                        )
-                        .aspectRatio(8/1, contentMode: .fit)
-
-                    List {
-                        ForEach(calculationsHistory, id: \.self) { historyRow in
-                            Text(historyRow)
-                                .onTapGesture {
-                                    copyToClipboard(from: historyRow)
-                                }
-                        }
-                    }
-                }
+                historyListView
             }
         }
         .preferredColorScheme(theme == .lightTheme ? .light : .dark)
     }
     
-   
+    var emptyHistoryView: some View {
+        Text("Calculation history is empty.")
+            .padding()
+    }
     
-    func copyToClipboard(from row: String) {
+    var historyListView: some View {
+        VStack(spacing: 0) {
+            List {
+                ForEach(calculationsHistory, id: \.self) { historyRow in
+                    Text(historyRow)
+                        .onTapGesture {
+                            withAnimation {
+                                copyToClipboard(getResultAsString(from: historyRow))
+                                copiedValue = getResultAsString(from: historyRow)
+                            }
+                            
+                        }
+                }
+            }
+            .overlay {
+                TextCopiedBanner(numberCopied: copiedValue)
+                    .offset(y: bannerYOffset)
+            }
+        }
+    }
+   
+    func copyToClipboard(_ value: String){
+        pasteboard.string = value
+    }
+    
+    func getResultAsString(from row: String) -> String {
         guard let equalsIndex = row.firstIndex(where: { $0 == "=" })
-        else { return }
+        else { return "" }
         var lastNumber = row.suffix(from: equalsIndex)
         lastNumber.removeFirst(2)
         
-        pasteboard.string = lastNumber.description
-        copiedValue = lastNumber.description
+        return lastNumber.description
     }
 }
 
