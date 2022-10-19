@@ -107,28 +107,15 @@ struct StandardCalculatorButton: View {
     private let extraButtons = ButtonStorage.extraRowButtonsWithData
     
     var body: some View {
-        VStack {
-            if buttonData.operationType == .mathOperation {
-                Button {
-                    action()
-                    HapticsManager.instance.impact(style: .soft)
-                    SoundManager.instance.playButtonTapSound()
-                } label: {
-                    StandardCalculatorButtonLabel(buttonData: buttonData, theme: theme, isSelected: isSelected)
-                }
-                .buttonStyle(PersistedButtonStyle())
-                
-            } else {
-                Button {
-                    action()
-                    HapticsManager.instance.impact(style: .soft)
-                    SoundManager.instance.playButtonTapSound()
-                } label: {
-                    StandardCalculatorButtonLabel(buttonData: buttonData, theme: theme, isSelected: isSelected)
-                }
-                .buttonStyle(AdaptiveButtonStyle(cornerRadius: 26))
-            }
+        Button {
+            action()
+            HapticsManager.instance.impact(style: .soft)
+            SoundManager.instance.playButtonTapSound()
+        } label: {
+            StandardCalculatorButtonLabel(buttonData: buttonData, theme: theme, isSelected: isSelected)
         }
+        .buttonStyle(AdaptiveButtonStyle(isButtonStatePersisted: buttonData.operationType == .mathOperation ? true : false))
+        
         .opacity(getButtonOpacity())
         .frame(width: buttonWidth(for: buttonData))
         .frame(height: buttonHeight(for: buttonData))

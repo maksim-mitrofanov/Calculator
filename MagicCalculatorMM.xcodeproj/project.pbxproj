@@ -25,6 +25,7 @@
 		4CE235ED28FFF3FB00C71567 /* buttonClick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4CE235EC28FFF3FB00C71567 /* buttonClick.mp3 */; };
 		4CE235EF28FFF42800C71567 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235EE28FFF42800C71567 /* SoundManager.swift */; };
 		4CE235F128FFF7CF00C71567 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F028FFF7CF00C71567 /* HapticsManager.swift */; };
+		4CE235F328FFF97500C71567 /* AdaptiveButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F228FFF97500C71567 /* AdaptiveButtonStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		4CE235EC28FFF3FB00C71567 /* buttonClick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = buttonClick.mp3; sourceTree = "<group>"; };
 		4CE235EE28FFF42800C71567 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		4CE235F028FFF7CF00C71567 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
+		4CE235F228FFF97500C71567 /* AdaptiveButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveButtonStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 			children = (
 				4C04F1F428D756EA0089AF7E /* ButtonLayoutValues.swift */,
 				4C86599528C60FD10013B349 /* Extensions And Custom Structs.swift */,
+				4CE235F228FFF97500C71567 /* AdaptiveButtonStyle.swift */,
 			);
 			path = Extra;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				4C0C6B7528EC350300717A04 /* ThemePicker.swift in Sources */,
 				4CD08D9C28EE2C01002A2FC7 /* HistoryView.swift in Sources */,
 				4C6FF99828C639F300C13B29 /* CalculatorView.swift in Sources */,
+				4CE235F328FFF97500C71567 /* AdaptiveButtonStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
