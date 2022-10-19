@@ -153,6 +153,8 @@ final class MathManager: ObservableObject {
             output = Double(round(1000 * result) / 1000).description
         }
         
+        if output.hasSuffix(".0") { output.removeLast(2)}
+        
         return output
     }
     

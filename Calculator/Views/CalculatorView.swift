@@ -77,9 +77,11 @@ struct CalculatorView: View {
                                 
                                 if value.translation.width < 0 {
                                     MathManager.instance.receiveRemoveLastSwipe()
+                                    HapticsManager.instance.impact(style: .soft)
                                 }
                                 else if value.translation.width > 0 {
                                     MathManager.instance.receiveRemoveFirstSwipe()
+                                    HapticsManager.instance.impact(style: .soft)
                                 }
                             }
                     )
