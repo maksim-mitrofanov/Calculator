@@ -111,6 +111,7 @@ struct StandardCalculatorButton: View {
             if buttonData.operationType == .mathOperation {
                 Button {
                     action()
+                    SoundManager.instance.playButtonTapSound()
                 } label: {
                     StandardCalculatorButtonLabel(buttonData: buttonData, theme: theme, isSelected: isSelected)
                 }
@@ -119,6 +120,7 @@ struct StandardCalculatorButton: View {
             } else {
                 Button {
                     action()
+                    SoundManager.instance.playButtonTapSound()
                 } label: {
                     StandardCalculatorButtonLabel(buttonData: buttonData, theme: theme, isSelected: isSelected)
                 }
