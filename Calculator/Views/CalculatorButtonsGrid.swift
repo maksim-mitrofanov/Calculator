@@ -109,7 +109,7 @@ struct StandardCalculatorButton: View {
     var body: some View {
         Button {
             action()
-            HapticsManager.instance.impact(style: .soft)
+            HapticsManager.instance.impact(style: .light)
             SoundManager.instance.playButtonTapSound()
         } label: {
             StandardCalculatorButtonLabel(buttonData: buttonData, theme: theme, isSelected: isSelected)
