@@ -24,6 +24,7 @@
 		4CD08D9C28EE2C01002A2FC7 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD08D9B28EE2C01002A2FC7 /* HistoryView.swift */; };
 		4CE235ED28FFF3FB00C71567 /* buttonClick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4CE235EC28FFF3FB00C71567 /* buttonClick.mp3 */; };
 		4CE235EF28FFF42800C71567 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235EE28FFF42800C71567 /* SoundManager.swift */; };
+		4CE235F128FFF7CF00C71567 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F028FFF7CF00C71567 /* HapticsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		4CD08DA128EE307F002A2FC7 /* MagicCalculatorMM_UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MagicCalculatorMM_UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE235EC28FFF3FB00C71567 /* buttonClick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = buttonClick.mp3; sourceTree = "<group>"; };
 		4CE235EE28FFF42800C71567 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		4CE235F028FFF7CF00C71567 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 				4C606E2428C0EC6E00EB46A7 /* ButtonStorage.swift */,
 				4C634E1F28CB3BB300396F03 /* MathManager.swift */,
 				4CE235EE28FFF42800C71567 /* SoundManager.swift */,
+				4CE235F028FFF7CF00C71567 /* HapticsManager.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				4C86599228C6045D0013B349 /* ThemeData.swift in Sources */,
 				4C606E2528C0EC6E00EB46A7 /* ButtonStorage.swift in Sources */,
 				4C193D4B28E339B6001E4D02 /* ExpandableBackgroundView.swift in Sources */,
+				4CE235F128FFF7CF00C71567 /* HapticsManager.swift in Sources */,
 				4C04F1F528D756EA0089AF7E /* ButtonLayoutValues.swift in Sources */,
 				4C634E2028CB3BB300396F03 /* MathManager.swift in Sources */,
 				4CE235EF28FFF42800C71567 /* SoundManager.swift in Sources */,
