@@ -21,4 +21,10 @@ class HapticsManager {
         let generator = UIImpactFeedbackGenerator(style: style)
         generator.impactOccurred()
     }
+    
+    public func triggerNotification(for buttonData: CalculatorButtonData) {
+        if buttonData.operationType == .removeLast || buttonData.operationType == .allClear {
+            impact(style: .medium)
+        }
+    }
 }

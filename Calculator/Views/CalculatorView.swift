@@ -10,13 +10,12 @@ import SwiftUI
 
 struct CalculatorView: View {
     @State private var isExtraButtonsRowExpanded: Bool = false
-    @State private var isBackgroundExpanded: Bool = true
     @State private var currentTheme: CalculatorTheme = .lightTheme
     @State private var isHistorySheetPresented: Bool = false
-    @State private var isExpandableBackgroundExpanded: Bool = true
-    @State private var currentNumLeadingPadding: CGFloat = 0
-    @State private var currentNumTrailingPadding: CGFloat = 10
     
+    @State private var currentNumLeadingPadding: CGFloat = 0
+    @State private var currentNumTrailingPadding: CGFloat = 0
+        
     @StateObject private var mathManager = MathManager.instance
     
             
@@ -24,7 +23,7 @@ struct CalculatorView: View {
         ZStack {
             backgroundColorFill
             topBarButtons
-            ExpandableBackgroundView(theme: currentTheme, isExpanded: isExpandableBackgroundExpanded)
+            ExpandableBackgroundView(theme: currentTheme)
             currentNumberAndButtonGrid
             
         }
@@ -97,7 +96,6 @@ struct CalculatorView: View {
         Button {
             withAnimation {
                 isExtraButtonsRowExpanded.toggle()
-                isExpandableBackgroundExpanded = true
             }
         } label: {
             Image(systemName: expansionButtonImageName)
@@ -108,7 +106,6 @@ struct CalculatorView: View {
         Button {
             withAnimation {
                 isHistorySheetPresented = true
-                isExpandableBackgroundExpanded = true
             }
         } label: {
             Image(systemName: showHistoryImageName)

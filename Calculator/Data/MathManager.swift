@@ -34,11 +34,11 @@ final class MathManager: ObservableObject {
             receiveEqualsButtonTap()
         }
         
-        print("Operation History: \(currentOperationHistory)")
-        print("Current Number: \(currentNumber)")
-        print("Current Math Operator: \(currentMathOperator)")
-        print("Current Operands: \(currentOperands)")
-        print("Is Math Operator Last: \(isMathOperatorLast)\n")
+//        print("Operation History: \(currentOperationHistory)")
+//        print("Current Number: \(currentNumber)")
+//        print("Current Math Operator: \(currentMathOperator)")
+//        print("Current Operands: \(currentOperands)")
+//        print("Is Math Operator Last: \(isMathOperatorLast)\n")
     }
     
    

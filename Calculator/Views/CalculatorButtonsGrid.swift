@@ -109,12 +109,19 @@ struct StandardCalculatorButton: View {
     var body: some View {
         Button {
             action()
-            HapticsManager.instance.impact(style: .light)
+            HapticsManager.instance.triggerNotification(for: buttonData)
             SoundManager.instance.playButtonTapSound()
+            
         } label: {
             StandardCalculatorButtonLabel(buttonData: buttonData, theme: theme, isSelected: isSelected)
         }
-        .buttonStyle(AdaptiveButtonStyle(isButtonStatePersisted: buttonData.operationType == .mathOperation ? true : false))
+        .buttonStyle(
+            AdaptiveButtonStyle(
+                type: buttonData.layoutViewType == .number ? .coloured : .regular,
+                cornerRadius: 28,
+                isButtonStatePersisted:
+                    buttonData.operationType == .mathOperation ? true : false)
+        )
         
         .opacity(getButtonOpacity())
         .frame(width: buttonWidth(for: buttonData))

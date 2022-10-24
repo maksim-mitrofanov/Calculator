@@ -6,25 +6,13 @@
 //
 
 import Foundation
-import AVKit
 
 import AVFoundation
 
 class SoundManager {
-    private init() {
-        guard let url = Bundle.main.url(forResource: "buttonClick", withExtension: ".mp3") else { return }
-        
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: url)
-        } catch {
-            print("Error while playing audio. \(error.localizedDescription)")
-        }
-    }
-    
+    private init() { }
     static let instance = SoundManager()
-    
-    var audioPlayer: AVAudioPlayer?
-    
+        
     func playButtonTapSound() {
         AudioServicesPlaySystemSound(1104)
     }

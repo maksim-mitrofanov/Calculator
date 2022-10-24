@@ -10,7 +10,7 @@ import SwiftUI
 struct ExpandableBackgroundView: View {
     let theme: CalculatorTheme
     
-    @State var isExpanded: Bool
+    @State private var isExpanded: Bool = true
     @State private var topOffset: CGFloat = CalcViewDefVals.minTopOffset
     @StateObject private var mathManager: MathManager = MathManager.instance
     
@@ -18,8 +18,6 @@ struct ExpandableBackgroundView: View {
     private var maxTopOffset: CGFloat { CalcViewDefVals.maxTopOffset }
     private var extraOffset: CGFloat { CalcViewDefVals.extraOffset }
 
-    
-    
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -34,6 +32,9 @@ struct ExpandableBackgroundView: View {
                         .onChanged(isDragGestureValueChanged(_:))
                         .onEnded(isDragGestureEnded(_:))
                 )
+        }
+        .onChange(of: isExpanded) { newValue in
+            print("Is background expanded: \(newValue.description)")
         }
     }
     
@@ -80,13 +81,6 @@ struct ExpandableBackgroundView: View {
         }
     }
     
-    private func isExpandedStateChanged() {
-        withAnimation {
-            if isExpanded { topOffset = minTopOffset }
-            else { topOffset = maxTopOffset }
-        }
-    }
-    
     private func isDragGestureValueChanged(_ value: DragGesture.Value) {
         let gestureHValue = value.translation.height
         
@@ -103,7 +97,6 @@ struct ExpandableBackgroundView: View {
             }
             else if !isExpanded && gestureHValue < 0 {
                 topOffset = max(topOffset + gestureHValue, minTopOffset)
-                print("\(topOffset + gestureHValue), \(minTopOffset)")
             }
         }
     }

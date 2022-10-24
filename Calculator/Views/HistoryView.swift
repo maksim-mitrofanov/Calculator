@@ -15,11 +15,15 @@ struct HistoryView: View {
     @State private var copiedValue: String = ""
     @State private var isCopiedBannerShown: Bool = false
     
-    var minBannerOffset: CGFloat = UIScreen.main.bounds.height * 0.4
-    var maxBannerOffset: CGFloat = UIScreen.main.bounds.height * 0.8
-    var bannerYOffset: CGFloat {
-        copiedValue == "" ? maxBannerOffset : minBannerOffset
-    }
+    let minBannerOffset: CGFloat = UIScreen.main.bounds.height * 0.35
+    let maxBannerOffset: CGFloat = UIScreen.main.bounds.height * 0.8
+    @State private var bannerYOffset: CGFloat = UIScreen.main.bounds.height * 0.8
+    
+    @State private var isBannerFaceUP: Bool = false
+    
+    @State var timeRemaining = 2
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     
     var body: some View {
         VStack {
@@ -27,6 +31,18 @@ struct HistoryView: View {
                 emptyHistoryView
             } else {
                 historyListView
+                    .onReceive(timer) { _ in
+                        if isBannerFaceUP && bannerYOffset == minBannerOffset {
+                            timeRemaining -= 1
+                            if timeRemaining == 0 {
+                                timeRemaining = 3
+                                withAnimation {
+                                    bannerYOffset = maxBannerOffset
+                                    isBannerFaceUP = false
+                                }
+                            }
+                        }
+                    }
             }
         }
         .preferredColorScheme(theme == .lightTheme ? .light : .dark)
@@ -39,36 +55,80 @@ struct HistoryView: View {
     
     var historyListView: some View {
         VStack(spacing: 0) {
+            Color(uiColor: .systemGroupedBackground)
+                .aspectRatio(8/1, contentMode: .fit)
+                .overlay{
+                    Text("Tap to copy")
+                }
+            
             List {
                 ForEach(calculationsHistory, id: \.self) { historyRow in
                     Text(historyRow)
                         .onTapGesture {
                             withAnimation {
-                                copyToClipboard(getResultAsString(from: historyRow))
-                                copiedValue = getResultAsString(from: historyRow)
+                                copyToClipboard(from: historyRow)
                             }
-                            
                         }
                 }
             }
             .overlay {
-                TextCopiedBanner(numberCopied: copiedValue)
+                TextCopiedBanner(isFaceUP: $isBannerFaceUP, numberCopied: copiedValue.description, delay: 0.3)
+                    .gesture(
+                        DragGesture(minimumDistance: 5)
+                            .onChanged(textCopiedBannerGestureValueChanged(value:))
+                            .onEnded(textCopiedBannerGestureEnded(value:))
+                    )
                     .offset(y: bannerYOffset)
             }
         }
     }
-   
-    func copyToClipboard(_ value: String){
-        pasteboard.string = value
+    
+    func textCopiedBannerGestureValueChanged(value: DragGesture.Value) {
+        withAnimation {
+            if value.translation.height > 0 {
+                bannerYOffset += value.translation.height
+            }
+        }
     }
     
-    func getResultAsString(from row: String) -> String {
+    func textCopiedBannerGestureEnded(value: DragGesture.Value) {
+        withAnimation(.easeInOut(duration: 1)) {
+            if value.translation.height > 2 {
+                bannerYOffset = maxBannerOffset
+                isBannerFaceUP = false
+            } else {
+                bannerYOffset = minBannerOffset
+            }
+        }
+    }
+    
+    func copyToClipboard(from row: String) {
         guard let equalsIndex = row.firstIndex(where: { $0 == "=" })
-        else { return "" }
+        else { return  }
         var lastNumber = row.suffix(from: equalsIndex)
         lastNumber.removeFirst(2)
         
-        return lastNumber.description
+        changeBannerState()
+        pasteboard.string = lastNumber.description
+        copiedValue = lastNumber.description
+        
+    }
+    
+    func changeBannerOffset() {
+        if bannerYOffset == minBannerOffset { bannerYOffset = maxBannerOffset }
+        else { bannerYOffset = minBannerOffset }
+    }
+    
+    func rotateBanner() {
+        isBannerFaceUP.toggle()
+    }
+    
+    func changeBannerState() {
+        withAnimation {
+            if bannerYOffset == maxBannerOffset {
+                changeBannerOffset(); isBannerFaceUP = false }
+            if !isBannerFaceUP { isBannerFaceUP = true }
+        }
     }
 }
 

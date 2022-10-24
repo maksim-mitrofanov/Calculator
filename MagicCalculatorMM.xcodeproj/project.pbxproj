@@ -22,7 +22,6 @@
 		4C96D86F28E364180006B898 /* CalculatorButtonsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96D86E28E364180006B898 /* CalculatorButtonsGrid.swift */; };
 		4CCEB0CB28FEC56500B05CF4 /* AdaptiveButtonStyleViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCEB0CA28FEC56500B05CF4 /* AdaptiveButtonStyleViewTest.swift */; };
 		4CD08D9C28EE2C01002A2FC7 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD08D9B28EE2C01002A2FC7 /* HistoryView.swift */; };
-		4CE235ED28FFF3FB00C71567 /* buttonClick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4CE235EC28FFF3FB00C71567 /* buttonClick.mp3 */; };
 		4CE235EF28FFF42800C71567 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235EE28FFF42800C71567 /* SoundManager.swift */; };
 		4CE235F128FFF7CF00C71567 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F028FFF7CF00C71567 /* HapticsManager.swift */; };
 		4CE235F328FFF97500C71567 /* AdaptiveButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F228FFF97500C71567 /* AdaptiveButtonStyle.swift */; };
@@ -59,7 +58,6 @@
 		4CCEB0CA28FEC56500B05CF4 /* AdaptiveButtonStyleViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveButtonStyleViewTest.swift; sourceTree = "<group>"; };
 		4CD08D9B28EE2C01002A2FC7 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		4CD08DA128EE307F002A2FC7 /* MagicCalculatorMM_UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MagicCalculatorMM_UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4CE235EC28FFF3FB00C71567 /* buttonClick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = buttonClick.mp3; sourceTree = "<group>"; };
 		4CE235EE28FFF42800C71567 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		4CE235F028FFF7CF00C71567 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		4CE235F228FFF97500C71567 /* AdaptiveButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveButtonStyle.swift; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 				4C1E31FB28CB4FB700A7B260 /* NOTES.md */,
 				4C6E105C28BF948100BDDFEB /* Assets.xcassets */,
 				4C6E105828BF947F00BDDFEB /* CalculatorApp.swift */,
-				4CE235EB28FFF3DA00C71567 /* SoundEffects */,
 				4C86599928C610690013B349 /* Views */,
 				4C86599828C610510013B349 /* Data */,
 				4C86599728C6102C0013B349 /* Extra */,
@@ -160,14 +157,6 @@
 				4CCEB0CA28FEC56500B05CF4 /* AdaptiveButtonStyleViewTest.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		4CE235EB28FFF3DA00C71567 /* SoundEffects */ = {
-			isa = PBXGroup;
-			children = (
-				4CE235EC28FFF3FB00C71567 /* buttonClick.mp3 */,
-			);
-			path = SoundEffects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,7 +242,6 @@
 			files = (
 				4C6E106028BF948100BDDFEB /* Preview Assets.xcassets in Resources */,
 				4C6E105D28BF948100BDDFEB /* Assets.xcassets in Resources */,
-				4CE235ED28FFF3FB00C71567 /* buttonClick.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,17 +417,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.3;
+				CURRENT_PROJECT_VERSION = 8.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Calculator/Preview Content\"";
 				DEVELOPMENT_TEAM = Q3P95MDH6Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Calculator/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MagicCalculatorMM;
+				INFOPLIST_KEY_CFBundleDisplayName = "Magic Calculator";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -462,17 +451,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4.3;
+				CURRENT_PROJECT_VERSION = 8.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Calculator/Preview Content\"";
 				DEVELOPMENT_TEAM = Q3P95MDH6Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Calculator/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MagicCalculatorMM;
+				INFOPLIST_KEY_CFBundleDisplayName = "Magic Calculator";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;

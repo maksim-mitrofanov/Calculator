@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct AdaptiveButtonStyle: ButtonStyle {
-    let colors: [Color] = [
+    enum ButtonType { case coloured, regular }
+    
+    private let colors: [Color] = [
         Color.blue,
         Color.brown,
         Color.cyan,
@@ -23,21 +25,29 @@ struct AdaptiveButtonStyle: ButtonStyle {
         Color.yellow
     ]
     
-    var cornerRadius: CGFloat = 20
-    var isButtonStatePersisted: Bool = false
+    var type: ButtonType
+    var cornerRadius: CGFloat
+    var isButtonStatePersisted: Bool
     
     func makeBody(configuration: Configuration) -> some View {
-        if isButtonStatePersisted == false {
-            configuration.label
-                .opacity(configuration.isPressed ? 0.6 : 1)
-                .overlay(
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .strokeBorder(lineWidth: 3)
-                        .foregroundColor(colors.randomElement() ?? Color.black)
-                        .opacity(configuration.isPressed ? 1 : 0)
-                )
-        } else {
-            configuration.label
+        configuration.label
+            .opacity(getOpacity(from: configuration))
+            .overlay { getOverlay(from: configuration) }
+    }
+    
+    func getOpacity(from configuration: Configuration) -> CGFloat {
+        if isButtonStatePersisted { return 1 }
+        else { return configuration.isPressed ? 0.6 : 1}
+    }
+    
+    func getOverlay(from configuration: Configuration) -> some View {
+        VStack {
+            if type == .coloured {
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .strokeBorder(lineWidth: 3)
+                    .foregroundColor(colors.randomElement() ?? Color.black)
+                    .opacity(configuration.isPressed ? 1 : 0)
+            }
         }
     }
 }

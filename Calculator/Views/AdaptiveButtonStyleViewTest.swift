@@ -21,7 +21,7 @@ struct AdaptiveButtonStyleViewTest: View {
                 .foregroundColor(.black)
                 .frame(width: 75, height: 75)
         }
-        .buttonStyle(AdaptiveButtonStyle())
+//        .buttonStyle(AdaptiveButtonStyle())
     }
 }
 
