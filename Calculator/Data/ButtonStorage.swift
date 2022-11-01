@@ -70,14 +70,16 @@ class ButtonStorage {
         //Fourth Row
         CalculatorButtonData(text: "1", operationType: .number),
         CalculatorButtonData(text: "2", operationType: .number),
-        CalculatorButtonData(text: "3", operationType: .number)
+        CalculatorButtonData(text: "3", operationType: .number),
+        CalculatorButtonData(text: "", operationType: .number)
         ],
         
         [
         //Bottom Row
         CalculatorButtonData(text: "", operationType: .number),
         CalculatorButtonData(text: "", operationType: .number),
-        CalculatorButtonData(text: ".", operationType: .dot)
+        CalculatorButtonData(text: ".", operationType: .dot),
+        CalculatorButtonData(text: "", operationType: .number)
         ]
     ]
     

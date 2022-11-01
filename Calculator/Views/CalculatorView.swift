@@ -18,17 +18,50 @@ struct CalculatorView: View {
         
     @StateObject private var mathManager = MathManager.instance
     
+    @Environment(\.verticalSizeClass) var verticalSize: UserInterfaceSizeClass?
+    
             
     var body: some View {
         ZStack {
             backgroundColorFill
-            topBarButtons
-            ExpandableBackgroundView(theme: currentTheme)
-            currentNumberAndButtonGrid
-            
+            if verticalSize == .regular {
+                VStack {
+                    topBarButtons
+                    Spacer()
+                    currentNumberView
+                    MainButtonsGrid
+                }
+            }
+            else {
+                HStack {
+                    VStack {
+                        topBarButtons
+                        currentNumberView
+                        Spacer()
+                    }
+                    Divider()
+                    MainButtonsGrid
+                }
+            }
         }
         .sheet(isPresented: $isHistorySheetPresented) {
-            HistoryView(theme: currentTheme)
+            HistorySheetView(theme: currentTheme)
+        }
+    }
+    
+    var calculationHistory: some View {
+        VStack {
+            HStack {
+                Spacer()
+
+                Text(mathManager.currentOperationHistory.joined(separator: " "))
+                    .font(.headline)
+                    .foregroundColor(currentTheme.data.operationButtonColor)
+                    .padding()
+                    .padding()
+                    .padding(.top)
+            }
+            Spacer()
         }
     }
     
@@ -38,58 +71,57 @@ struct CalculatorView: View {
             .edgesIgnoringSafeArea(.all)
     }
     
-    var currentNumberAndButtonGrid: some View {
-        VStack(spacing: 0) {
+    var currentNumberView: some View {
+        HStack {
             Spacer()
             
-            HStack {
-                Spacer()
-                
-                Text(MathManager.instance.currentNumber)
-                    .font(Font.system(size: 55))
-                    .lineLimit(1)
-                    .padding(.bottom, isExtraButtonsRowExpanded ? 10 : 0)
-                    .padding(.trailing, currentNumTrailingPadding)
-                    .offset(x: currentNumLeadingPadding)
-
-                
-                    .minimumScaleFactor(0.6)
-                    .foregroundColor(currentTheme == .lightTheme ? .black : .white)
-                
-                    .gesture(
-                        DragGesture(minimumDistance: 0, coordinateSpace: .local)
-                            .onChanged { value in
-                                withAnimation {
-                                    if value.translation.width < 0 {
-                                        currentNumTrailingPadding = 15
-                                    }
-                                    else if value.translation.width > 0 {
-                                        currentNumLeadingPadding = 15
-                                    }
-                                }
-                            }
-                            .onEnded { value in
-                                withAnimation(.easeInOut(duration: 0.6)) {
-                                    currentNumTrailingPadding = 0
-                                    currentNumLeadingPadding = 0
-                                }
-                                
+            Text(MathManager.instance.currentNumber)
+                .textSelection(.enabled)
+                .font(Font.system(size: 55))
+                .lineLimit(1)
+                .padding(.bottom, isExtraButtonsRowExpanded ? 10 : 0)
+                .padding(.trailing, currentNumTrailingPadding)
+                .offset(x: currentNumLeadingPadding)
+            
+            
+                .minimumScaleFactor(0.6)
+                .foregroundColor(currentTheme == .lightTheme ? .black : .white)
+            
+                .gesture(
+                    DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                        .onChanged { value in
+                            withAnimation {
                                 if value.translation.width < 0 {
-                                    MathManager.instance.receiveRemoveLastSwipe()
-                                    HapticsManager.instance.impact(style: .soft)
+                                    currentNumTrailingPadding = 15
                                 }
                                 else if value.translation.width > 0 {
-                                    MathManager.instance.receiveRemoveFirstSwipe()
-                                    HapticsManager.instance.impact(style: .soft)
+                                    currentNumLeadingPadding = 15
                                 }
                             }
-                    )
-            }
-            .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
-
+                        }
+                        .onEnded { value in
+                            withAnimation(.easeInOut(duration: 0.6)) {
+                                currentNumTrailingPadding = 0
+                                currentNumLeadingPadding = 0
+                            }
+                            
+                            if value.translation.width < 0 {
+                                MathManager.instance.receiveRemoveLastSwipe()
+                                HapticsManager.instance.impact(style: .soft)
+                            }
+                            else if value.translation.width > 0 {
+                                MathManager.instance.receiveRemoveFirstSwipe()
+                                HapticsManager.instance.impact(style: .soft)
+                            }
+                        }
+                )
             
-            CalculatorButtonsGrid(isExtraButtonRowExpanded: isExtraButtonsRowExpanded, theme: currentTheme)
         }
+        .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+    }
+    
+    var MainButtonsGrid: some View {
+            CalculatorButtonsGrid(isExtraButtonRowExpanded: isExtraButtonsRowExpanded, theme: currentTheme)
     }
     
     var expansionButton: some View {
@@ -134,8 +166,6 @@ struct CalculatorView: View {
             }
             .padding(.top)
             .padding()
-            
-            Spacer()
         }
     }
     
