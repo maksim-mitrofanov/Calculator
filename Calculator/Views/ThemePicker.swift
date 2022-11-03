@@ -60,9 +60,9 @@ struct ThemePicker: View {
         
         var description: String {
             switch self {
-            case .alwaysLight: return "Light Theme"
-            case .alwaysDark: return "Dark Theme"
-            case .followSystem: return "Follow System"
+            case .alwaysLight: return "Light"
+            case .alwaysDark: return "Dark"
+            case .followSystem: return "System"
             }
         }
     }

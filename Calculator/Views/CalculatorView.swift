@@ -29,7 +29,6 @@ struct CalculatorView: View {
         .sheet(isPresented: $isHistorySheetPresented) {
             HistorySheetView(theme: currentTheme)
         }
-        .padding()
     }
     
     var orientedCalculatorView: some View {
@@ -61,6 +60,7 @@ struct CalculatorView: View {
             StandardButtonsGrid(theme: currentTheme)
 
         }
+        .padding()
     }
     
     var landscapeOrientationView: some View {
@@ -75,6 +75,15 @@ struct CalculatorView: View {
                     .padding(.top, isExtraButtonsRowExpanded ? 0 : 20)
                 
                 Spacer()
+                
+                if isExtraButtonsRowExpanded {
+                    VStack {
+                        SingleExtraButtonsRowView(theme: .lightTheme, buttons: ButtonStorage.extraRowButtonsWithDataShort)
+                        SingleExtraButtonsRowView(theme: .lightTheme, buttons: ButtonStorage.extraRowButtonsWithDataShort)
+                    }
+                    .transition(.scale)
+                    .padding(.bottom)
+                }
                 
 
             }
