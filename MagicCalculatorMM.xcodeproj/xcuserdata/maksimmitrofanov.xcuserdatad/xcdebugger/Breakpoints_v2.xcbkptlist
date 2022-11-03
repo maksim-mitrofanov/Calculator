@@ -62,9 +62,9 @@
             filePath = "Calculator/Views/CalculatorButtonsGrid.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
-            landmarkName = "body"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "equalsButton"
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>

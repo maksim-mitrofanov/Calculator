@@ -9,7 +9,7 @@ import Foundation
 
 
 class ButtonStorage {
-    static let extraRowButtonsWithData: [CalculatorButtonData] = [
+    static var extraRowButtonsWithDataShort: [CalculatorButtonData] = [
         CalculatorButtonData(
             text: "√",
             imageName: "x.squareroot",
@@ -41,7 +41,16 @@ class ButtonStorage {
             usesTwoOperands: false)
     ]
     
-    static let mainButtonsWithData: [[CalculatorButtonData]] = [
+    static let extraButtonsWithDataAll: [[CalculatorButtonData]] = [
+        //Temporary
+        extraRowButtonsWithDataShort,
+        [extraRowButtonsWithDataShort.removeFirst()],
+        [extraRowButtonsWithDataShort.removeLast()],
+        extraRowButtonsWithDataShort.reversed()
+    ]
+    
+    
+    static let standardButtonsWithData: [[CalculatorButtonData]] = [
         [
         //Top Row
         CalculatorButtonData(text: "AC", operationType: .allClear),

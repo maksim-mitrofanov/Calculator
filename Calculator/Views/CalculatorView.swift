@@ -24,44 +24,85 @@ struct CalculatorView: View {
     var body: some View {
         ZStack {
             backgroundColorFill
-            if verticalSize == .regular {
-                VStack {
-                    topBarButtons
-                    Spacer()
-                    currentNumberView
-                    MainButtonsGrid
-                }
-            }
-            else {
-                HStack {
-                    VStack {
-                        topBarButtons
-                        currentNumberView
-                        Spacer()
-                    }
-                    Divider()
-                    MainButtonsGrid
-                }
-            }
+            orientedCalculatorView
         }
         .sheet(isPresented: $isHistorySheetPresented) {
             HistorySheetView(theme: currentTheme)
         }
+        .padding()
+    }
+    
+    var orientedCalculatorView: some View {
+        VStack {
+            if verticalSize == .regular { portraitOrientationView }
+            else { landscapeOrientationView }
+        }
+    }
+    
+    var portraitOrientationView: some View {
+        VStack(spacing: 0) {
+            TopBarButtons(isExtraButtonsRowExpanded: $isExtraButtonsRowExpanded, isHistorySheetPresented: $isHistorySheetPresented, currentTheme: $currentTheme)
+            
+            Spacer()
+            
+            calculationHistory
+                .padding(.bottom)
+                .padding(.bottom)
+            
+
+            currentNumberView
+                .padding(.bottom, isExtraButtonsRowExpanded ? 10 : 0)
+
+            
+            ExtraButtonsGrid(theme: currentTheme)
+                .opacity(isExtraButtonsRowExpanded ? 1 : 0)
+                .padding(.bottom, 10)
+            
+            StandardButtonsGrid(theme: currentTheme)
+
+        }
+    }
+    
+    var landscapeOrientationView: some View {
+        HStack {
+            VStack {
+                TopBarButtons(isExtraButtonsRowExpanded: $isExtraButtonsRowExpanded, isHistorySheetPresented: $isHistorySheetPresented, currentTheme: $currentTheme)
+                
+                calculationHistory
+                    .padding(.vertical, 5)
+                
+                currentNumberView
+                    .padding(.top, isExtraButtonsRowExpanded ? 0 : 20)
+                
+                Spacer()
+                
+
+            }
+            .padding()
+            Divider()
+            StandardButtonsGrid(theme: currentTheme)
+        }
     }
     
     var calculationHistory: some View {
-        VStack {
-            HStack {
-                Spacer()
-
-                Text(mathManager.currentOperationHistory.joined(separator: " "))
-                    .font(.headline)
-                    .foregroundColor(currentTheme.data.operationButtonColor)
-                    .padding()
-                    .padding()
-                    .padding(.top)
-            }
+        HStack {
             Spacer()
+            
+            if mathManager.currentOperationHistory.isEmpty {
+                Text("History is empty")
+                    .font(.title3)
+                    .bold()
+                    .foregroundColor(currentTheme.data.operationButtonColor)
+                    .minimumScaleFactor(1)
+                    .opacity(0)
+            }
+            else {
+                Text(mathManager.currentOperationHistory.joined(separator: " "))
+                    .font(.title3)
+                    .bold()
+                    .foregroundColor(currentTheme.data.operationButtonColor)
+                    .minimumScaleFactor(1)
+            }
         }
     }
     
@@ -78,104 +119,48 @@ struct CalculatorView: View {
             Text(MathManager.instance.currentNumber)
                 .textSelection(.enabled)
                 .font(Font.system(size: 55))
-                .lineLimit(1)
-                .padding(.bottom, isExtraButtonsRowExpanded ? 10 : 0)
-                .padding(.trailing, currentNumTrailingPadding)
+                .lineLimit(2)
                 .offset(x: currentNumLeadingPadding)
-            
-            
                 .minimumScaleFactor(0.6)
                 .foregroundColor(currentTheme == .lightTheme ? .black : .white)
             
                 .gesture(
-                    DragGesture(minimumDistance: 0, coordinateSpace: .local)
-                        .onChanged { value in
-                            withAnimation {
-                                if value.translation.width < 0 {
-                                    currentNumTrailingPadding = 15
-                                }
-                                else if value.translation.width > 0 {
-                                    currentNumLeadingPadding = 15
-                                }
-                            }
-                        }
-                        .onEnded { value in
-                            withAnimation(.easeInOut(duration: 0.6)) {
-                                currentNumTrailingPadding = 0
-                                currentNumLeadingPadding = 0
-                            }
-                            
-                            if value.translation.width < 0 {
-                                MathManager.instance.receiveRemoveLastSwipe()
-                                HapticsManager.instance.impact(style: .soft)
-                            }
-                            else if value.translation.width > 0 {
-                                MathManager.instance.receiveRemoveFirstSwipe()
-                                HapticsManager.instance.impact(style: .soft)
-                            }
-                        }
+                    DragGesture(minimumDistance: 5, coordinateSpace: .local)
+                        .onChanged(currentNumberDragGestureValueChanged(to:))
+                        .onEnded(currentNumberDragGestureEnded(with:))
                 )
             
         }
         .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
     }
     
-    var MainButtonsGrid: some View {
-            CalculatorButtonsGrid(isExtraButtonRowExpanded: isExtraButtonsRowExpanded, theme: currentTheme)
-    }
-    
-    var expansionButton: some View {
-        Button {
-            withAnimation {
-                isExtraButtonsRowExpanded.toggle()
+    func currentNumberDragGestureValueChanged(to newValue: DragGesture.Value) {
+        withAnimation {
+            if newValue.translation.width < 0 {
+                currentNumTrailingPadding = 15
             }
-        } label: {
-            Image(systemName: expansionButtonImageName)
+            else if newValue.translation.width > 0 {
+                currentNumLeadingPadding = 15
+            }
         }
     }
     
-    var showAllHistoryButton: some View {
-        Button {
-            withAnimation {
-                isHistorySheetPresented = true
-            }
-        } label: {
-            Image(systemName: showHistoryImageName)
+    func currentNumberDragGestureEnded(with newValue: DragGesture.Value) {
+        withAnimation(.easeInOut(duration: 0.6)) {
+            currentNumTrailingPadding = 0
+            currentNumLeadingPadding = 0
+        }
+        
+        if newValue.translation.width < 0 {
+            MathManager.instance.receiveRemoveLastSwipe()
+            HapticsManager.instance.impact(style: .soft)
+        }
+        else if newValue.translation.width > 0 {
+            MathManager.instance.receiveRemoveFirstSwipe()
+            HapticsManager.instance.impact(style: .soft)
         }
     }
     
-    var topBarButtons: some View {
-        VStack {
-            HStack {
-                ThemePicker(currentTheme: $currentTheme)
-                Spacer()
-                
-                HStack {
-                    expansionButton.padding(.horizontal)
-                    
-                    Divider().frame(maxHeight: 25)
-                    
-                    showAllHistoryButton.padding(.horizontal)
-                }
-                .foregroundColor(.black)
-                .padding(.vertical, 10)
-                .background(
-                    RoundedRectangle(cornerRadius: 18).foregroundColor(currentTheme.data.operationButtonColor)
-                        .opacity(currentTheme == .lightTheme ? 0.8 : 1)
-                )
-            }
-            .padding(.top)
-            .padding()
-        }
-    }
-    
-    private let showHistoryImageName = "clock.arrow.circlepath"
-    private let expandImageName = "arrow.up.left.and.arrow.down.right"
-    private let collapseImageName = "arrow.down.right.and.arrow.up.left"
-    
-    var expansionButtonImageName: String {
-        isExtraButtonsRowExpanded ? collapseImageName : expandImageName
-    }
 }
 
 struct CalculatorView_Previews: PreviewProvider {
