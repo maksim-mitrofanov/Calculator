@@ -34,6 +34,7 @@
 		4CC9017A2906B09E005570CB /* EmptyHistorySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC901792906B09E005570CB /* EmptyHistorySheetView.swift */; };
 		4CC9017C2906B475005570CB /* LottieNotFoundAnim.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CC9017B2906B475005570CB /* LottieNotFoundAnim.json */; };
 		4CD08D9C28EE2C01002A2FC7 /* HistorySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD08D9B28EE2C01002A2FC7 /* HistorySheetView.swift */; };
+		4CDA92282916AF0800030E88 /* TestPickerOverflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDA92272916AF0800030E88 /* TestPickerOverflow.swift */; };
 		4CE235EF28FFF42800C71567 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235EE28FFF42800C71567 /* SoundManager.swift */; };
 		4CE235F128FFF7CF00C71567 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F028FFF7CF00C71567 /* HapticsManager.swift */; };
 		4CE235F328FFF97500C71567 /* AdaptiveButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F228FFF97500C71567 /* AdaptiveButtonStyle.swift */; };
@@ -81,6 +82,7 @@
 		4CC9017B2906B475005570CB /* LottieNotFoundAnim.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LottieNotFoundAnim.json; sourceTree = "<group>"; };
 		4CD08D9B28EE2C01002A2FC7 /* HistorySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySheetView.swift; sourceTree = "<group>"; };
 		4CD08DA128EE307F002A2FC7 /* MagicCalculatorMM_UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MagicCalculatorMM_UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CDA92272916AF0800030E88 /* TestPickerOverflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPickerOverflow.swift; sourceTree = "<group>"; };
 		4CE235EE28FFF42800C71567 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		4CE235F028FFF7CF00C71567 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		4CE235F228FFF97500C71567 /* AdaptiveButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveButtonStyle.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				4C2AD9D52912A31C002B49C5 /* TestPageView.swift */,
 				4C293D2528F8A1E600095964 /* TabViewTest.swift */,
 				4C193D4A28E339B6001E4D02 /* ExpandableBackgroundView.swift */,
+				4CDA92272916AF0800030E88 /* TestPickerOverflow.swift */,
 			);
 			path = "Test Views";
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				4C86599628C60FD10013B349 /* Extensions And Custom Structs.swift in Sources */,
 				4C6E105928BF947F00BDDFEB /* CalculatorApp.swift in Sources */,
 				4C0C6B7528EC350300717A04 /* ThemePicker.swift in Sources */,
+				4CDA92282916AF0800030E88 /* TestPickerOverflow.swift in Sources */,
 				4CD08D9C28EE2C01002A2FC7 /* HistorySheetView.swift in Sources */,
 				4CC9017A2906B09E005570CB /* EmptyHistorySheetView.swift in Sources */,
 				4C6FF99828C639F300C13B29 /* CalculatorView.swift in Sources */,
@@ -494,7 +498,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15.0;
+				CURRENT_PROJECT_VERSION = 16.0;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Calculator/Preview Content\"";
 				DEVELOPMENT_TEAM = Q3P95MDH6Q;
@@ -534,7 +538,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15.0;
+				CURRENT_PROJECT_VERSION = 16.0;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Calculator/Preview Content\"";
 				DEVELOPMENT_TEAM = Q3P95MDH6Q;

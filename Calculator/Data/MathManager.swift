@@ -40,7 +40,7 @@ final class MathManager: ObservableObject {
 //        print("Current Operands: \(currentOperands)")
 //        print("Is Math Operator Last: \(isMathOperatorLast)\n")
     }
-    
+        
    
     
 
@@ -76,8 +76,11 @@ final class MathManager: ObservableObject {
             
             //applies current math operator to current number
             if buttonData.usesTwoOperands == false {
-                if currentOperands.count == 0 { currentOperationHistory.append(buttonData.text) }
+                if currentOperands.count == 0 && buttonData.text.count == 1 { currentOperationHistory.append(buttonData.text)
+                }
                 applyCurrentMathOperatorToCurrentNumber(mathOperator: buttonData)
+                
+                print("1")
             }
             
             //appends current number to operands and sets current math operator
@@ -86,17 +89,26 @@ final class MathManager: ObservableObject {
                 currentMathOperator = buttonData.text
                 isMathOperatorLast = true
                 
+                print("2")
             }
             
             //deselects current math operator
             else if currentMathOperator == buttonData.text {
                 currentMathOperator.removeAll(); isMathOperatorLast = false
+                
+                print("3")
             }
             
             //sets currentMathOperator
             else {
+                //exception for math operators with single operand
+                if currentMathOperator == "√" || currentMathOperator == "%" { saveCurrentOperationHistory() }
+                
                 currentOperationHistory.removeAll()
                 currentMathOperator = buttonData.text; isMathOperatorLast = true
+                
+                print("4")
+
             }
         }
     }
@@ -189,11 +201,24 @@ final class MathManager: ObservableObject {
                 currentNumber = String(currentNumberAsDouble * -1)
             }
         case "√":
-            if currentNumberAsDouble > 0 { currentNumber = String(sqrt(currentNumberAsDouble))}
+            if currentNumberAsDouble > 0 {
+                currentOperationHistory.removeAll()
+                currentOperationHistory.append("√" + currentNumber)
+                currentNumber = String(sqrt(currentNumberAsDouble))
+                currentMathOperator = "√"
+            }
             
-        case "persent":
+        case "%":
             if currentOperands.count == 1 {
-                currentNumber = String((currentOperands.first ?? 0) / 100 * currentNumberAsDouble)
+                currentOperationHistory.append(currentNumber)
+                currentOperationHistory.append("%")
+                let percentageFromNumber = String((currentOperands[0] ) / 100 * currentNumberAsDouble)
+                currentOperands.append(Double(percentageFromNumber) ?? 0)
+                
+                currentNumber = calculateResult()
+                saveCurrentOperationHistory()
+                currentOperands.removeAll()
+                
             } else {
                 currentNumber = String(currentNumberAsDouble / 100)
             }
@@ -213,7 +238,7 @@ final class MathManager: ObservableObject {
     }
     
     private func saveCurrentOperationHistory() {
-        allOperationsHistory.append(currentOperationHistory.joined(separator: " ") + " = " + currentNumber)
+        allOperationsHistory.append(currentOperationHistory.joined(separator: " ") + " = " + currentNumber )
     }
 
     

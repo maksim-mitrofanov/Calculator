@@ -16,7 +16,8 @@ struct ThemePicker: View {
     
     var body: some View {
         VStack {
-            Picker(selection: $currentThemeOption.animation()) {
+            //.animation() removed from currentThemeOption
+            Picker(selection: $currentThemeOption) {
                 ForEach(PickerThemeOption.allCases, id: \.self) { option in
                     Label(" \(option.description) ", systemImage: themeOptionToImageName[option] ?? "bug")
                 }

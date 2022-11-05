@@ -50,7 +50,7 @@ struct CalculatorView: View {
             
 
             currentNumberView
-                .padding(.bottom, isExtraButtonsRowExpanded ? 10 : 0)
+                .padding(.bottom, isExtraButtonsRowExpanded ? 20 : 0)
 
             
             ExtraButtonsGrid(theme: currentTheme)

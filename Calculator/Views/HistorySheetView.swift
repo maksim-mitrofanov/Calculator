@@ -27,11 +27,10 @@ struct HistorySheetView: View {
     @State private var copiedValue: String = ""
     
     //Banner Values
-    @State private var isCopiedBannerShown: Bool = false
     @State private var isBannerFaceUP: Bool = false
     
     //Banner Offset
-    @State private var bannerYOffset: CGFloat = UIScreen.main.bounds.height * 0.8
+    @State private var bannerYOffset: CGFloat = UIScreen.main.bounds.height * 0.7
     
     //Timer
     @State private var timeRemainingForBanner = 3
@@ -117,11 +116,13 @@ struct HistorySheetView: View {
                     dismissButton
                         .offset(y: -20)
                     
+                    Spacer()
+                    
                 }
                 .padding(.top)
                 .padding(.top)
                 
-                .frame(maxWidth: screenWidth * 0.3)
+                .frame(width: screenWidth * 0.4)
                 
                 
             }
@@ -210,17 +211,17 @@ struct HistorySheetView: View {
         }
         
         else {
-            return UIScreen.main.bounds.width * 0.35
+            return 0
         }
     }
     
     func maxBannerYOffset() -> CGFloat {
         if verticalSize == .regular {
-            return UIScreen.main.bounds.height * 0.8
+            return UIScreen.main.bounds.height * 0.7
         }
         
         else {
-            return UIScreen.main.bounds.width * 0.8
+            return UIScreen.main.bounds.width * 0.7
         }
     }
     

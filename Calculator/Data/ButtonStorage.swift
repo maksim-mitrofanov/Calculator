@@ -34,7 +34,7 @@ class ButtonStorage {
         ),
         
         CalculatorButtonData(
-            text: "persent",
+            text: "%",
             imageName: "percent",
             aspectRatio: 2/1,
             operationType: .mathOperation,
