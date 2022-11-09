@@ -17,3 +17,27 @@ Many programmers write hello world as their first program in a new programming l
 - The app icon was also made in Figma.
 
 # Screenshots
+
+<p align="left">
+<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00001.png" width=200 height="auto">
+<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00002.png" width=200 height="auto">
+<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00003.png" width=200 height="auto">
+<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00004.png" width=200 height="auto">
+</p>
+
+<p align="left">
+<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00005.png" width=200 height="auto">
+<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00006.png" width=200 height="auto">
+<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00008.png" width=200 height="auto">
+<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00007.png" width=200 height="auto">
+</p>
+
+<p align="left">
+<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00009.png" width="auto" height=200>
+<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00011.png" width="auto" height=200>
+</p>
+
+<p align="left">
+<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00010.png" width="auto" height=200>
+<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00012.png" width="auto" height=200>
+</p>
