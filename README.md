@@ -5,7 +5,7 @@ Many programmers write hello world as their first program in a new programming l
 - Design an attractive calculator UI, that adapts to **portrait** and **landscape** orientation.
 - Make a fully functional code, divided by basic OOP, so each part of the app can be easily **extended** and **modified**. 
 
-### What I learned
+### Thing I learned
 - How to add / change / sync app theme to system theme.
 - Using UISizeClass to determite device orientation and updating UI according to orientation changes.
 - Embedding lottie animations into SwiftUI View.
