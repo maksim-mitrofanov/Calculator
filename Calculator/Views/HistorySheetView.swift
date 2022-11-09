@@ -83,6 +83,8 @@ struct HistorySheetView: View {
                 .bold()
             
             historyListView
+            
+            dismissButton
         }
 //        .overlay {
 //            TextCopiedBanner(isFaceUP: $isBannerFaceUP, numberCopied: copiedValue.description, theme: theme, delay: 0.3)
