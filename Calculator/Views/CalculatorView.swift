@@ -7,29 +7,123 @@
 
 import SwiftUI
 
-
 struct CalculatorView: View {
-    @State private var isExtraButtonsRowExpanded: Bool = false
-    @State private var isBackgroundExpanded: Bool = true
     @State private var currentTheme: CalculatorTheme = .lightTheme
-    @State private var isHistorySheetPresented: Bool = false
-    @State private var isExpandableBackgroundExpanded: Bool = true
-    @State private var currentNumLeadingPadding: CGFloat = 0
-    @State private var currentNumTrailingPadding: CGFloat = 10
     
+    @State private var isExtraButtonsRowExpanded: Bool = false
+    @State private var isHistorySheetPresented: Bool = false
+    
+    @State private var currentNumLeadingPadding: CGFloat = 0
+    @State private var currentNumTrailingPadding: CGFloat = 0
+        
     @StateObject private var mathManager = MathManager.instance
+    
+    @Environment(\.verticalSizeClass) var verticalSize: UserInterfaceSizeClass?
+
+    
+    //Temporary
+    @AppStorage("isFollowingSystem") private var isFollowingSystem = false
+    @AppStorage("isDarkModeOn") private var isDarkModeOn = false
+    @AppStorage("isLightModeOn") private var isLightModeOn = false
     
             
     var body: some View {
         ZStack {
             backgroundColorFill
-            topBarButtons
-            ExpandableBackgroundView(theme: currentTheme, isExpanded: isExpandableBackgroundExpanded)
-            currentNumberAndButtonGrid
-            
+            orientedCalculatorView
         }
         .sheet(isPresented: $isHistorySheetPresented) {
-            HistoryView(theme: currentTheme)
+            HistorySheetView(theme: currentTheme)
+        }
+        //Temporary
+        .onAppear() {
+            print("isFollowingSystem: \(isFollowingSystem)")
+            print("isDarkModeOn: \(isDarkModeOn)")
+            print("isLightModeOn: \(isLightModeOn)")
+
+        }
+    }
+    
+    var orientedCalculatorView: some View {
+        VStack {
+            if verticalSize == .regular { portraitOrientationView }
+            else { landscapeOrientationView }
+        }
+    }
+    
+    var portraitOrientationView: some View {
+        VStack(spacing: 0) {
+            TopBarButtons(isExtraButtonsRowExpanded: $isExtraButtonsRowExpanded, isHistorySheetPresented: $isHistorySheetPresented, currentTheme: $currentTheme)
+            
+            Spacer()
+            
+            calculationHistory
+                .padding(.bottom)
+                .padding(.bottom)
+            
+
+            currentNumberView
+                .padding(.bottom, isExtraButtonsRowExpanded ? 20 : 0)
+
+            
+            SingleExtraButtonsRowView(theme: currentTheme, buttons: ButtonStorage.extraRowButtonsWithData)
+                .opacity(isExtraButtonsRowExpanded ? 1 : 0)
+                .padding(.bottom, 10)
+            
+            StandardButtonsGrid(theme: currentTheme)
+
+        }
+        .padding()
+    }
+    
+    var landscapeOrientationView: some View {
+        HStack {
+            VStack {
+                TopBarButtons(isExtraButtonsRowExpanded: $isExtraButtonsRowExpanded, isHistorySheetPresented: $isHistorySheetPresented, currentTheme: $currentTheme)
+                
+                calculationHistory
+                    .padding(.vertical, 5)
+                
+                currentNumberView
+                    .padding(.top, isExtraButtonsRowExpanded ? 0 : 20)
+                
+                Spacer()
+                
+                if isExtraButtonsRowExpanded {
+                    VStack {
+                        SingleExtraButtonsRowView(theme: currentTheme, buttons: ButtonStorage.extraRowButtonsWithData)
+                    }
+                    .transition(.scale)
+                    .padding(.bottom)
+                }
+                
+
+            }
+            .padding()
+            Divider()
+            StandardButtonsGrid(theme: currentTheme)
+        }
+    }
+    
+    var calculationHistory: some View {
+        HStack {
+            Spacer()
+            
+            if mathManager.currentOperationHistory.isEmpty {
+                Text("History is empty")
+                    .font(.title3)
+                    .bold()
+                    .foregroundColor(currentTheme.data.operationButtonColor)
+                    .minimumScaleFactor(1)
+                    .opacity(0)
+            }
+            else {
+                Text(mathManager.currentOperationHistory.joined(separator: " "))
+                    .font(.title3)
+                    .bold()
+                    .foregroundColor(currentTheme.data.operationButtonColor)
+                    .minimumScaleFactor(1)
+            }
         }
     }
     
@@ -39,113 +133,53 @@ struct CalculatorView: View {
             .edgesIgnoringSafeArea(.all)
     }
     
-    var currentNumberAndButtonGrid: some View {
-        VStack(spacing: 0) {
+    var currentNumberView: some View {
+        HStack {
             Spacer()
             
-            HStack {
-                Spacer()
-                
-                Text(MathManager.instance.currentNumber)
-                    .font(Font.system(size: 55))
-                    .lineLimit(1)
-                    .padding(.bottom, isExtraButtonsRowExpanded ? 10 : 0)
-                    .padding(.trailing, currentNumTrailingPadding)
-                    .offset(x: currentNumLeadingPadding)
-
-                
-                    .minimumScaleFactor(0.6)
-                    .foregroundColor(currentTheme == .lightTheme ? .black : .white)
-                
-                    .gesture(
-                        DragGesture(minimumDistance: 0, coordinateSpace: .local)
-                            .onChanged { value in
-                                withAnimation {
-                                    if value.translation.width < 0 {
-                                        currentNumTrailingPadding = 15
-                                    }
-                                    else if value.translation.width > 0 {
-                                        currentNumLeadingPadding = 15
-                                    }
-                                }
-                            }
-                            .onEnded { value in
-                                withAnimation(.easeInOut(duration: 0.6)) {
-                                    currentNumTrailingPadding = 0
-                                    currentNumLeadingPadding = 0
-                                }
-                                
-                                if value.translation.width < 0 {
-                                    MathManager.instance.receiveRemoveLastSwipe()
-                                }
-                                else if value.translation.width > 0 {
-                                    MathManager.instance.receiveRemoveFirstSwipe()
-                                }
-                            }
-                    )
-            }
-            .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
-
+            Text(MathManager.instance.currentNumber)
+                .textSelection(.enabled)
+                .font(Font.system(size: 55))
+                .lineLimit(2)
+                .offset(x: currentNumLeadingPadding)
+                .minimumScaleFactor(0.6)
+                .foregroundColor(currentTheme == .lightTheme ? .black : .white)
             
-            CalculatorButtonsGrid(isExtraButtonRowExpanded: isExtraButtonsRowExpanded, theme: currentTheme)
-        }
-    }
-    
-    var expansionButton: some View {
-        Button {
-            withAnimation {
-                isExtraButtonsRowExpanded.toggle()
-                isExpandableBackgroundExpanded = true
-            }
-        } label: {
-            Image(systemName: expansionButtonImageName)
-        }
-    }
-    
-    var showAllHistoryButton: some View {
-        Button {
-            withAnimation {
-                isHistorySheetPresented = true
-                isExpandableBackgroundExpanded = true
-            }
-        } label: {
-            Image(systemName: showHistoryImageName)
-        }
-    }
-    
-    var topBarButtons: some View {
-        VStack {
-            HStack {
-                ThemePicker(currentTheme: $currentTheme)
-                Spacer()
-                
-                HStack {
-                    expansionButton.padding(.horizontal)
-                    
-                    Divider().frame(maxHeight: 25)
-                    
-                    showAllHistoryButton.padding(.horizontal)
-                }
-                .foregroundColor(.black)
-                .padding(.vertical, 10)
-                .background(
-                    RoundedRectangle(cornerRadius: 18).foregroundColor(currentTheme.data.operationButtonColor)
-                        .opacity(currentTheme == .lightTheme ? 0.8 : 1)
+                .gesture(
+                    DragGesture(minimumDistance: 5, coordinateSpace: .local)
+                        .onChanged(currentNumberDragGestureValueChanged(to:))
+                        .onEnded(currentNumberDragGestureEnded(with:))
                 )
-            }
-            .padding(.top)
-            .padding()
             
-            Spacer()
+        }
+        .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
+    }
+    
+    func currentNumberDragGestureValueChanged(to newValue: DragGesture.Value) {
+        withAnimation {
+            if newValue.translation.width < 0 {
+                currentNumTrailingPadding = 15
+            }
+            else if newValue.translation.width > 0 {
+                currentNumLeadingPadding = 15
+            }
         }
     }
     
-    private let showHistoryImageName = "clock.arrow.circlepath"
-    private let expandImageName = "arrow.up.left.and.arrow.down.right"
-    private let collapseImageName = "arrow.down.right.and.arrow.up.left"
-    
-    var expansionButtonImageName: String {
-        isExtraButtonsRowExpanded ? collapseImageName : expandImageName
+    func currentNumberDragGestureEnded(with newValue: DragGesture.Value) {
+        withAnimation(.easeInOut(duration: 0.6)) {
+            currentNumTrailingPadding = 0
+            currentNumLeadingPadding = 0
+        }
+        
+        if newValue.translation.width < 0 {
+            MathManager.instance.receiveRemoveLastSwipe()
+            HapticsManager.instance.impact(style: .soft)
+        }
+        else if newValue.translation.width > 0 {
+            MathManager.instance.receiveRemoveFirstSwipe()
+            HapticsManager.instance.impact(style: .soft)
+        }
     }
 }
 
