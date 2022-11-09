@@ -9,7 +9,8 @@ Many programmers write hello world as their first program in a new programming l
 - How to add / change / sync app theme to system theme.
 - Using UISizeClass to determite device orientation and updating UI according to orientation changes.
 - Embedding lottie animations into SwiftUI View.
-- Animating drag gestures using padding
+- Animating drag gestures using padding.
+- Storing values in UserDefaults for data persistence.
 
 ### Extra
 - The UI was first made and tested in Figma.
