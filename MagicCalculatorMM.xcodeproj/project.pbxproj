@@ -21,7 +21,7 @@
 		4C6E106028BF948100BDDFEB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C6E105F28BF948100BDDFEB /* Preview Assets.xcassets */; };
 		4C6FF99828C639F300C13B29 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6FF99728C639F300C13B29 /* CalculatorView.swift */; };
 		4C74EF4A291265E900A840F7 /* CalculatorButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C74EF49291265E900A840F7 /* CalculatorButtonLabel.swift */; };
-		4C74EF4D2912665200A840F7 /* CalculatorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C74EF4C2912665200A840F7 /* CalculatorButton.swift */; };
+		4C74EF4D2912665200A840F7 /* CalculatorButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C74EF4C2912665200A840F7 /* CalculatorButtonView.swift */; };
 		4C74EF4F291267A600A840F7 /* TopBarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C74EF4E291267A600A840F7 /* TopBarButtons.swift */; };
 		4C74EF5129126F5500A840F7 /* ExtraButtonsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C74EF5029126F5500A840F7 /* ExtraButtonsGrid.swift */; };
 		4C75A0B529142A3900B69C7A /* ExtraButtonsPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75A0B429142A3900B69C7A /* ExtraButtonsPageView.swift */; };
@@ -69,7 +69,7 @@
 		4C6E105F28BF948100BDDFEB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4C6FF99728C639F300C13B29 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
 		4C74EF49291265E900A840F7 /* CalculatorButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButtonLabel.swift; sourceTree = "<group>"; };
-		4C74EF4C2912665200A840F7 /* CalculatorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButton.swift; sourceTree = "<group>"; };
+		4C74EF4C2912665200A840F7 /* CalculatorButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButtonView.swift; sourceTree = "<group>"; };
 		4C74EF4E291267A600A840F7 /* TopBarButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarButtons.swift; sourceTree = "<group>"; };
 		4C74EF5029126F5500A840F7 /* ExtraButtonsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraButtonsGrid.swift; sourceTree = "<group>"; };
 		4C75A0B429142A3900B69C7A /* ExtraButtonsPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraButtonsPageView.swift; sourceTree = "<group>"; };
@@ -167,7 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				4C74EF49291265E900A840F7 /* CalculatorButtonLabel.swift */,
-				4C74EF4C2912665200A840F7 /* CalculatorButton.swift */,
+				4C74EF4C2912665200A840F7 /* CalculatorButtonView.swift */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -339,7 +339,7 @@
 				4CE235F128FFF7CF00C71567 /* HapticsManager.swift in Sources */,
 				4C04F1F528D756EA0089AF7E /* ButtonLayoutValues.swift in Sources */,
 				4CC0CA002914215600F42571 /* TestPageView.swift in Sources */,
-				4C74EF4D2912665200A840F7 /* CalculatorButton.swift in Sources */,
+				4C74EF4D2912665200A840F7 /* CalculatorButtonView.swift in Sources */,
 				4C74EF4A291265E900A840F7 /* CalculatorButtonLabel.swift in Sources */,
 				4C4C91FD2906C235002F01CC /* LottieView.swift in Sources */,
 				4C634E2028CB3BB300396F03 /* MathManager.swift in Sources */,

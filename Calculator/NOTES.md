@@ -1,8 +1,8 @@
 # Things To Do
 
-   1. StandardButtonGrid & ExtraButtonsGrid 
-   build themselves inside GeometryProxy provided by parent class.
-      Parent class places geometry reader inside overlay.
+## *Build 16*
+   StandardButtonGrid & ExtraButtonsGrid build themselves inside GeometryProxy provided by parent class.
+      Parent class places geometry reader inside overlay. ❌
    
     Math manager square root not showing in history. ✅
    
@@ -16,3 +16,16 @@
     
     Math manager percent is not showing in history. ✅
 
+## *Build 17*
+    Portrait history view adapts to theme ✅
+    Landscape calculator view extra buttons change colour according to theme ✅
+    Landscape history view adapts to theme ✅ 
+    
+    Theme does not change on rotation of calculatorView
+    (using UserDefault for data persistance) ✅
+    
+    Update button Views in history (use .ultraThinMaterial ) ✅
+    
+    HistorySheetViewBug (history sheet no appears) 
+    { open history sheet in portrait, rotate (to landscape, then back) } 😞
+    

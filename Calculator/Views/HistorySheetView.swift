@@ -8,6 +8,8 @@
 import SwiftUI
 import Lottie
 
+
+
 struct HistorySheetView: View {
     let theme: CalculatorTheme
     var calculationsHistory: [String] = MathManager.instance.allOperationsHistory
@@ -46,6 +48,7 @@ struct HistorySheetView: View {
             
             //History View according to Device Orientation
             else {
+                theme.data.backgroundColor.edgesIgnoringSafeArea(.all)
                 if verticalSize == .regular {
                     verticalOrientationView
                 }
@@ -55,25 +58,19 @@ struct HistorySheetView: View {
                 }
             }
         }
+        .preferredColorScheme(getCurrentColorScheme())
+
         .onReceive(timer) { _ in
-            if isBannerFaceUP {
-                timeRemainingForBanner -= 1
-                
-                if timeRemainingForBanner == 0 {
-                    withAnimation {
-                        rotateBanner()
-                        changeBannerOffset()
-                    }
-                    timeRemainingForBanner = 3
-                }
-                
+                timerPublishedOneSecond()
             }
-        }
         
         //Updates screenWidth and screenHeight when Device Orientation Changes
         .onChange(of: verticalSize) { newValue in
             screenWidth = UIScreen.main.bounds.width
             screenHeight = UIScreen.main.bounds.height
+            
+            isBannerFaceUP = false
+            bannerYOffset = maxBannerYOffset()
         }
         
     }
@@ -81,20 +78,21 @@ struct HistorySheetView: View {
     var verticalOrientationView: some View {
         VStack(spacing: 0) {
             Text("Tap to copy result")
+                .foregroundColor(theme.data.numbersTextColor)
                 .font(.title3)
                 .bold()
             
             historyListView
         }
-        .overlay {
-            TextCopiedBanner(isFaceUP: $isBannerFaceUP, numberCopied: copiedValue.description, delay: 0.3)
-                .gesture(
-                    DragGesture(minimumDistance: 5)
-                        .onChanged(textCopiedBannerGestureValueChanged(value:))
-                        .onEnded(textCopiedBannerGestureEnded(value:))
-                )
-                .offset(y: bannerYOffset)
-        }
+//        .overlay {
+//            TextCopiedBanner(isFaceUP: $isBannerFaceUP, numberCopied: copiedValue.description, theme: theme, delay: 0.3)
+//                .gesture(
+//                    DragGesture(minimumDistance: 5)
+//                        .onChanged(textCopiedBannerGestureValueChanged(value:))
+//                        .onEnded(textCopiedBannerGestureEnded(value:))
+//                )
+//                .offset(y: bannerYOffset)
+//        }
         .padding(.vertical)
     }
     
@@ -109,6 +107,7 @@ struct HistorySheetView: View {
                     Text(copiedValue == "" ? "Tap to copy result" : copiedValue + " was copied")
                         .font(.title3)
                         .bold()
+                        .foregroundColor(theme.data.numbersTextColor)
                     
                     LottieView(fileName: "LottieCopyAnim")
                         .frame(width: 200, height: 200)
@@ -133,13 +132,14 @@ struct HistorySheetView: View {
         List {
             ForEach(calculationsHistory, id: \.self) { historyRow in
                 Text(historyRow)
+                    .foregroundColor(theme.data.numbersTextColor)
                     .onTapGesture {
                         withAnimation {
                             copyToClipboard(from: historyRow)
                         }
                     }
             }
-            .listRowBackground(Color(uiColor: .systemGroupedBackground))
+            .listRowBackground(Color(uiColor: .secondarySystemFill))
         }
         .scrollContentBackground(.hidden)
         .frame(maxWidth: verticalSize == .regular ? screenWidth : screenWidth * 0.6)
@@ -151,8 +151,22 @@ struct HistorySheetView: View {
         } label: {
             Text("Dismiss")
                 .padding()
-                .background(.thinMaterial)
+                .background(.ultraThinMaterial)
                 .cornerRadius(12)
+        }
+    }
+    
+    func timerPublishedOneSecond() {
+        if isBannerFaceUP {
+            timeRemainingForBanner -= 1
+            
+            if timeRemainingForBanner == 0 {
+                withAnimation {
+                    rotateBanner()
+                    changeBannerOffset()
+                }
+                timeRemainingForBanner = 3
+            }
         }
     }
     
@@ -236,6 +250,11 @@ struct HistorySheetView: View {
                 }
             }
         }
+    }
+    
+    func getCurrentColorScheme() -> ColorScheme{
+        if theme == .lightTheme { return .light }
+        else { return .dark }
     }
 }
 

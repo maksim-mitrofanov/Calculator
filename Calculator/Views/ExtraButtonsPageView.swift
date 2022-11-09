@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ExtraButtonsPageView: View {
     private let pages = [
-        SinglePageData(buttons: ButtonStorage.extraRowButtonsWithDataShort),
-        SinglePageData(buttons: ButtonStorage.extraRowButtonsWithDataShort),
-        SinglePageData(buttons: ButtonStorage.extraRowButtonsWithDataShort),
-        SinglePageData(buttons: ButtonStorage.extraRowButtonsWithDataShort)
+        SinglePageData(buttons: ButtonStorage.extraRowButtonsWithData),
+        SinglePageData(buttons: ButtonStorage.extraRowButtonsWithData),
+        SinglePageData(buttons: ButtonStorage.extraRowButtonsWithData),
+        SinglePageData(buttons: ButtonStorage.extraRowButtonsWithData)
     ]
     
     @State private var currentPageIndex: Int = 0

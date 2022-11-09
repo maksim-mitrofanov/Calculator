@@ -28,7 +28,7 @@ struct SingleExtraButtonsRowView: View {
     var body: some View {
         HStack {
             ForEach(buttons) { buttonData in
-                CalculatorButton(buttonData: buttonData, theme: theme, cornerRadius: 18, isSelected: MathManager.instance.isSelected(buttonData)) {
+                CalculatorButtonView(buttonData: buttonData, theme: theme, cornerRadius: 18, isSelected: MathManager.instance.isSelected(buttonData)) {
                     MathManager.instance.receiveButtonTap(buttonData)
                 }
                 .frame(width: singleButtonWidth)
@@ -67,6 +67,6 @@ struct SingleExtraButtonsRowView: View {
 
 struct SingleExtraButtonsRowView_Previews: PreviewProvider {
     static var previews: some View {
-        SingleExtraButtonsRowView(theme: .lightTheme, buttons: ButtonStorage.extraRowButtonsWithDataShort)
+        SingleExtraButtonsRowView(theme: .lightTheme, buttons: ButtonStorage.extraRowButtonsWithData)
     }
 }

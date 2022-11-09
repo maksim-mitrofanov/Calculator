@@ -25,46 +25,16 @@ struct ExtraButtonsGrid: View {
     @State private var verticalSpacing: CGFloat = 0
     @State private var horizontalSpacing: CGFloat = 0
 
-    private let extraButtonsWithDataShort = ButtonStorage.extraRowButtonsWithDataShort
-    private let extraButtonsWithDataAll: [[CalculatorButtonData]] = []
+    private let extraButtonsWithDataShort = ButtonStorage.extraRowButtonsWithData
 
     
     var body: some View {
-        orientedExtraButtonsGrid
+        SingleExtraButtonsRowView(theme: theme, buttons: extraButtonsWithDataShort)
             .onAppear { updateButtonDimensions(using: verticalSize) }
             .onChange(of: verticalSize) { newValue in
                 updateScreenDimensions(using: newValue)
                 updateButtonDimensions(using: newValue)
             }
-    }
-    
-    var orientedExtraButtonsGrid: some View {
-        VStack {
-            if verticalSize == .regular { portraitOrientedView }
-            else { landscapeOrientedView }
-        }
-    }
-    
-    var landscapeOrientedView: some View {
-        VStack {
-            SingleExtraButtonsRowView(theme: theme, buttons: ButtonStorage.extraRowButtonsWithDataShort)
-            SingleExtraButtonsRowView(theme: theme, buttons: ButtonStorage.extraRowButtonsWithDataShort)
-        }
-        .padding()
-        .background(Color(uiColor: .systemGroupedBackground))
-        .cornerRadius(20)
-    }
-    
-    var portraitOrientedView: some View {
-        HStack(spacing: horizontalSpacing) {
-            ForEach(extraButtonsWithDataShort, id: \.self) { buttonData in
-                CalculatorButton(buttonData: buttonData, theme: theme, cornerRadius: 18, isSelected: MathManager.instance.isSelected(buttonData)) {
-                    MathManager.instance.receiveButtonTap(buttonData)
-                }
-                .frame(width: singleButtonWidth)
-                .frame(height: singleButtonHeight)
-            }
-        }
     }
     
     func updateButtonDimensions(using verticalSize: UserInterfaceSizeClass?) {

@@ -95,7 +95,7 @@ struct TestPageView: View {
             VStack {
                 RoundedRectangle(cornerRadius: 20).frame(width: 300, height: 250)
                     .overlay {
-                        SingleExtraButtonsRowView(theme: .lightTheme, buttons: ButtonStorage.extraRowButtonsWithDataShort)
+                        SingleExtraButtonsRowView(theme: .lightTheme, buttons: ButtonStorage.extraRowButtonsWithData)
                     }
                     .foregroundColor(colour)
             }

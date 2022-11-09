@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-
 struct CalculatorView: View {
-    @State private var isExtraButtonsRowExpanded: Bool = false
     @State private var currentTheme: CalculatorTheme = .lightTheme
+    
+    @State private var isExtraButtonsRowExpanded: Bool = false
     @State private var isHistorySheetPresented: Bool = false
     
     @State private var currentNumLeadingPadding: CGFloat = 0
@@ -19,6 +19,12 @@ struct CalculatorView: View {
     @StateObject private var mathManager = MathManager.instance
     
     @Environment(\.verticalSizeClass) var verticalSize: UserInterfaceSizeClass?
+
+    
+    //Temporary
+    @AppStorage("isFollowingSystem") private var isFollowingSystem = false
+    @AppStorage("isDarkModeOn") private var isDarkModeOn = false
+    @AppStorage("isLightModeOn") private var isLightModeOn = false
     
             
     var body: some View {
@@ -28,6 +34,13 @@ struct CalculatorView: View {
         }
         .sheet(isPresented: $isHistorySheetPresented) {
             HistorySheetView(theme: currentTheme)
+        }
+        //Temporary
+        .onAppear() {
+            print("isFollowingSystem: \(isFollowingSystem)")
+            print("isDarkModeOn: \(isDarkModeOn)")
+            print("isLightModeOn: \(isLightModeOn)")
+
         }
     }
     
@@ -53,7 +66,7 @@ struct CalculatorView: View {
                 .padding(.bottom, isExtraButtonsRowExpanded ? 20 : 0)
 
             
-            ExtraButtonsGrid(theme: currentTheme)
+            SingleExtraButtonsRowView(theme: currentTheme, buttons: ButtonStorage.extraRowButtonsWithData)
                 .opacity(isExtraButtonsRowExpanded ? 1 : 0)
                 .padding(.bottom, 10)
             
@@ -78,8 +91,7 @@ struct CalculatorView: View {
                 
                 if isExtraButtonsRowExpanded {
                     VStack {
-                        SingleExtraButtonsRowView(theme: .lightTheme, buttons: ButtonStorage.extraRowButtonsWithDataShort)
-                        SingleExtraButtonsRowView(theme: .lightTheme, buttons: ButtonStorage.extraRowButtonsWithDataShort)
+                        SingleExtraButtonsRowView(theme: currentTheme, buttons: ButtonStorage.extraRowButtonsWithData)
                     }
                     .transition(.scale)
                     .padding(.bottom)
@@ -169,7 +181,6 @@ struct CalculatorView: View {
             HapticsManager.instance.impact(style: .soft)
         }
     }
-    
 }
 
 struct CalculatorView_Previews: PreviewProvider {

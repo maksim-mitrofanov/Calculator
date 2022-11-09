@@ -1,5 +1,5 @@
 //
-//  CalculatorButton.swift
+//  CalculatorButtonView.swift
 //  MagicCalculatorMM
 //
 //  Created by Максим Митрофанов on 02.11.2022.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CalculatorButton: View {
+struct CalculatorButtonView: View {
     let buttonData: CalculatorButtonData
     let theme: CalculatorTheme
     let cornerRadius: CGFloat
@@ -16,7 +16,7 @@ struct CalculatorButton: View {
     let action: () -> Void
     
     private let standardButtonsWithData = ButtonStorage.standardButtonsWithData
-    private let extraButtons = ButtonStorage.extraRowButtonsWithDataShort
+    private let extraButtons = ButtonStorage.extraRowButtonsWithData
     
     var body: some View {
         Button {

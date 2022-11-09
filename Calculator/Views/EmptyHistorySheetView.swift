@@ -60,7 +60,7 @@ struct EmptyHistorySheetView: View {
         } label: {
             Text("Dismiss")
                 .padding()
-                .background(.thinMaterial)
+                .background(.ultraThinMaterial)
                 .cornerRadius(12)
         }
     }

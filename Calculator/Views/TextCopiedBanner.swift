@@ -12,6 +12,8 @@ struct TextCopiedBanner: View {
     
     @Binding var isFaceUP: Bool
     var numberCopied: String
+    let theme: CalculatorTheme
+    
     var delay: Double = 0.3
     var rotationAxis: RotationAxisEnum = .x
     
@@ -83,13 +85,13 @@ struct RotatablePopUPBackground: AnimatableModifier {
         content
             .opacity(isTextVisible ? 1 : 0)
             .padding()
-            .background(Color.gray.opacity(0.14))
+            .background(Color(uiColor: .systemGroupedBackground))
             .cornerRadius(15)
     }
 }
 
 struct TextCopiedBanner_Previews: PreviewProvider {
     static var previews: some View {
-        TextCopiedBanner(isFaceUP: .constant(true), numberCopied: 34.description)
+        TextCopiedBanner(isFaceUP: .constant(true), numberCopied: 34.description, theme: .lightTheme)
     }
 }

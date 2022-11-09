@@ -55,7 +55,7 @@ struct StandardButtonsGrid: View {
             ForEach(standardButtonsWithData, id: \.self) { buttonRow in
                 HStack(spacing: horizontalSpacing) {
                     ForEach(buttonRow, id: \.self) { buttonData in
-                        CalculatorButton(buttonData: buttonData, theme: theme, cornerRadius: getCornerRadius(for: buttonData), isSelected: MathManager.instance.isSelected(buttonData)) {
+                        CalculatorButtonView(buttonData: buttonData, theme: theme, cornerRadius: getCornerRadius(for: buttonData), isSelected: MathManager.instance.isSelected(buttonData)) {
                             MathManager.instance.receiveButtonTap(buttonData)
                         }
                         .frame(width: singleButtonWidth)
@@ -78,7 +78,7 @@ struct StandardButtonsGrid: View {
             Spacer()
             
             HStack{
-                CalculatorButton(buttonData: zeroButtonData, theme: theme, cornerRadius: getCornerRadius(for: zeroButtonData)) {
+                CalculatorButtonView(buttonData: zeroButtonData, theme: theme, cornerRadius: getCornerRadius(for: zeroButtonData)) {
                     mathManager.receiveButtonTap(zeroButtonData)
                 }
                 .frame(width: singleButtonWidth * 2 + horizontalSpacing)
@@ -96,7 +96,7 @@ struct StandardButtonsGrid: View {
             HStack(alignment: .bottom) {
                 Spacer()
                 
-                CalculatorButton(buttonData: equalsButtonData, theme: theme, cornerRadius: getCornerRadius(for: zeroButtonData)) {
+                CalculatorButtonView(buttonData: equalsButtonData, theme: theme, cornerRadius: getCornerRadius(for: zeroButtonData)) {
                     mathManager.receiveButtonTap(equalsButtonData)
                 }
                 .frame(width: singleButtonWidth)
