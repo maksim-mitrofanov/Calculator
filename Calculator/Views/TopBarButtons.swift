@@ -15,20 +15,19 @@ struct TopBarButtons: View {
     var body: some View {
         HStack {
             ThemePicker(currentTheme: $currentTheme)
+                .frame(width: 120, height: 45)
+                .background(currentTheme.data.numberButtonColor.opacity(0.8))
+                .cornerRadius(12)
+                .padding(.leading)
+            
             Spacer()
             
             //Have solidColor background
             HStack {
-                expansionButton.padding(.horizontal)
-                Divider().frame(maxHeight: 25)
-                showAllHistoryButton.padding(.horizontal)
+                expansionButton
+
+                showAllHistoryButton
             }
-            .foregroundColor(.black)
-            .padding(.vertical, 10)
-            .background(
-                RoundedRectangle(cornerRadius: 18).foregroundColor(currentTheme.data.operationButtonColor)
-                    .opacity(currentTheme == .lightTheme ? 0.8 : 1)
-            )
         }
     }
     
@@ -39,6 +38,10 @@ struct TopBarButtons: View {
             }
         } label: {
             Image(systemName: expansionButtonImageName)
+                .foregroundColor(currentTheme.data.numbersTextColor)
+                .padding()
+                .background(currentTheme.data.numberButtonColor.opacity(0.8))
+                .cornerRadius(15)
         }
     }
     
@@ -49,6 +52,11 @@ struct TopBarButtons: View {
             }
         } label: {
             Image(systemName: showHistoryImageName)
+                .foregroundColor(currentTheme.data.numbersTextColor)
+                .padding()
+                .background(currentTheme.data.numberButtonColor.opacity(0.8))
+                .cornerRadius(15)
+
         }
     }
     

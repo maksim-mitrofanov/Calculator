@@ -32,7 +32,7 @@ struct CalculatorView: View {
             backgroundColorFill
             orientedCalculatorView
         }
-        .sheet(isPresented: $isHistorySheetPresented) {
+        .fullScreenCover(isPresented: $isHistorySheetPresented) {
             HistorySheetView(theme: currentTheme)
         }
         //Temporary
