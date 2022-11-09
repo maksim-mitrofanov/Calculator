@@ -27,5 +27,8 @@
     Update button Views in history (use .ultraThinMaterial ) ✅
     
     HistorySheetViewBug (history sheet no appears) 
-    { open history sheet in portrait, rotate (to landscape, then back) } 😞
+    { open history sheet in portrait, rotate (to landscape, then back) } ✅
+    (.sheet is replaced with .fullScreenCover)
+    
+    Add textCopiedBanner to historySheetView
     

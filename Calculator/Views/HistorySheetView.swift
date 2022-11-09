@@ -77,24 +77,30 @@ struct HistorySheetView: View {
     
     var verticalOrientationView: some View {
         VStack(spacing: 0) {
-            Text("Tap to copy result")
-                .foregroundColor(theme.data.numbersTextColor)
-                .font(.title3)
-                .bold()
+            if copiedValue == "" || copiedValue.isEmpty {
+                Text("Tap to copy result")
+                    .foregroundColor(theme.data.numbersTextColor)
+                    .font(.title3)
+                    .bold()
+                    .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .top)))
+                
+            }
+            
+            if copiedValue.count > 0 {
+                Text("Value copied: " + copiedValue)
+                    .foregroundColor(theme.data.numbersTextColor)
+                    .font(.title3)
+                    .bold()
+                    .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
+                
+
+            }
+            
             
             historyListView
             
             dismissButton
         }
-//        .overlay {
-//            TextCopiedBanner(isFaceUP: $isBannerFaceUP, numberCopied: copiedValue.description, theme: theme, delay: 0.3)
-//                .gesture(
-//                    DragGesture(minimumDistance: 5)
-//                        .onChanged(textCopiedBannerGestureValueChanged(value:))
-//                        .onEnded(textCopiedBannerGestureEnded(value:))
-//                )
-//                .offset(y: bannerYOffset)
-//        }
         .padding(.vertical)
     }
     
@@ -106,10 +112,24 @@ struct HistorySheetView: View {
                 Spacer()
                 
                 VStack(spacing: 0) {
-                    Text(copiedValue == "" ? "Tap to copy result" : copiedValue + " was copied")
-                        .font(.title3)
-                        .bold()
-                        .foregroundColor(theme.data.numbersTextColor)
+                    if copiedValue == "" || copiedValue.isEmpty {
+                        Text("Tap to copy result")
+                            .foregroundColor(theme.data.numbersTextColor)
+                            .font(.title3)
+                            .bold()
+                            .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .top)))
+                        
+                    }
+                    
+                    if copiedValue.count > 0 {
+                        Text("Value copied: " + copiedValue)
+                            .foregroundColor(theme.data.numbersTextColor)
+                            .font(.title3)
+                            .bold()
+                            .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .top)))
+                        
+
+                    }
                     
                     LottieView(fileName: "LottieCopyAnim")
                         .frame(width: 200, height: 200)
@@ -141,7 +161,7 @@ struct HistorySheetView: View {
                         }
                     }
             }
-            .listRowBackground(Color(uiColor: .secondarySystemFill))
+            .listRowBackground(theme.data.numberButtonColor)
         }
         .scrollContentBackground(.hidden)
         .frame(maxWidth: verticalSize == .regular ? screenWidth : screenWidth * 0.6)

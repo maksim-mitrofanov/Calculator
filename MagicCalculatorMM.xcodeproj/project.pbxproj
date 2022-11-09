@@ -33,12 +33,12 @@
 		4CC901782906AB87005570CB /* OrientationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC901772906AB87005570CB /* OrientationTest.swift */; };
 		4CC9017A2906B09E005570CB /* EmptyHistorySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC901792906B09E005570CB /* EmptyHistorySheetView.swift */; };
 		4CC9017C2906B475005570CB /* LottieNotFoundAnim.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CC9017B2906B475005570CB /* LottieNotFoundAnim.json */; };
+		4CCF8439291BD65200E7D6EE /* TextCopiedBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F429000ED700C71567 /* TextCopiedBanner.swift */; };
 		4CD08D9C28EE2C01002A2FC7 /* HistorySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD08D9B28EE2C01002A2FC7 /* HistorySheetView.swift */; };
 		4CDA92282916AF0800030E88 /* TestPickerOverflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDA92272916AF0800030E88 /* TestPickerOverflow.swift */; };
 		4CE235EF28FFF42800C71567 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235EE28FFF42800C71567 /* SoundManager.swift */; };
 		4CE235F128FFF7CF00C71567 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F028FFF7CF00C71567 /* HapticsManager.swift */; };
 		4CE235F328FFF97500C71567 /* AdaptiveButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F228FFF97500C71567 /* AdaptiveButtonStyle.swift */; };
-		4CE235F529000ED700C71567 /* TextCopiedBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F429000ED700C71567 /* TextCopiedBanner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -333,7 +333,6 @@
 				4CC901782906AB87005570CB /* OrientationTest.swift in Sources */,
 				4C86599228C6045D0013B349 /* ThemeData.swift in Sources */,
 				4C606E2528C0EC6E00EB46A7 /* ButtonStorage.swift in Sources */,
-				4CE235F529000ED700C71567 /* TextCopiedBanner.swift in Sources */,
 				4C193D4B28E339B6001E4D02 /* ExpandableBackgroundView.swift in Sources */,
 				4C75A0B529142A3900B69C7A /* ExtraButtonsPageView.swift in Sources */,
 				4CE235F128FFF7CF00C71567 /* HapticsManager.swift in Sources */,
@@ -343,6 +342,7 @@
 				4C74EF4A291265E900A840F7 /* CalculatorButtonLabel.swift in Sources */,
 				4C4C91FD2906C235002F01CC /* LottieView.swift in Sources */,
 				4C634E2028CB3BB300396F03 /* MathManager.swift in Sources */,
+				4CCF8439291BD65200E7D6EE /* TextCopiedBanner.swift in Sources */,
 				4CE235EF28FFF42800C71567 /* SoundManager.swift in Sources */,
 				4CC0C9FF29141AD700F42571 /* SingleExtraButtonsRowView.swift in Sources */,
 				4C96D86F28E364180006B898 /* StandardButtonsGrid.swift in Sources */,

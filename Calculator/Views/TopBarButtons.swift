@@ -26,8 +26,7 @@ struct TopBarButtons: View {
             .foregroundColor(.black)
             .padding(.vertical, 10)
             .background(
-                RoundedRectangle(cornerRadius: 18).foregroundColor(currentTheme.data.operationButtonColor)
-                    .opacity(currentTheme == .lightTheme ? 0.8 : 1)
+                RoundedRectangle(cornerRadius: 16).foregroundColor(currentTheme.data.numberButtonColor)
             )
         }
     }
@@ -39,6 +38,7 @@ struct TopBarButtons: View {
             }
         } label: {
             Image(systemName: expansionButtonImageName)
+                .foregroundColor(currentTheme.data.numbersTextColor)
         }
     }
     
@@ -49,6 +49,8 @@ struct TopBarButtons: View {
             }
         } label: {
             Image(systemName: showHistoryImageName)
+                .foregroundColor(currentTheme.data.numbersTextColor)
+
         }
     }
     
