@@ -16,3 +16,7 @@ Many programmers write hello world as their first program in a new programming l
 - The UI was first made and tested in Figma.
 - The app icon was also made in figma.
 
+# Screenshots
+
+<img src = "https://github.com/maksim-mitrofanov/Calculator/blob/main/Simulator%20Screen%20Shot%20-%20iPhone%2014%20Pro%20-%202022-11-09%20at%2019.51.42.png" width=200 height="auto" style="border-radius:10%" />
+
