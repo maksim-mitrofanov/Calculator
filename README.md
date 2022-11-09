@@ -3,18 +3,18 @@ Many programmers write hello world as their first program in a new programming l
 
 ### Goals ✨
 - Design an attractive calculator UI, that adapts to **portrait** and **landscape** orientation.
-- Make a fully functional code, divided by basic OOP, so each part of the app can be easily **extended** and **modified**. 
+- Wride code so each part of the app can be easily **extended** and **modified**. 
 
 ### Things I learned 🔭
-- How to add / change / sync app theme to system theme.
-- Using UISizeClass to determite device orientation and updating UI according to orientation changes.
-- Embedding lottie animations into SwiftUI View.
-- Animating drag gestures using padding.
+- How to add / change / sync app theme with device colorScheme.
+- Using UISizeClass to determine device orientation and updating UI according to orientation changes.
+- Embedding Lottie animations into SwiftUI View.
+- Animating drag gestures.
 - Storing values in UserDefaults for data persistence.
 
 ### Extra 🤩
 - The UI was first made and tested in Figma.
-- The app icon was also made in figma.
+- The app icon was also made in Figma.
 
 # Screenshots
 
