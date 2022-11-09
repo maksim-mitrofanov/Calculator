@@ -18,5 +18,15 @@ Many programmers write hello world as their first program in a new programming l
 
 # Screenshots
 
-<img src = "https://github.com/maksim-mitrofanov/Calculator/blob/main/Simulator%20Screen%20Shot%20-%20iPhone%2014%20Pro%20-%202022-11-09%20at%2019.51.42.png" width=200 height="auto" style="border-radius:10%" />
-
+<img src = "https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00001.png" width=200 height="auto" />
+<img src = "https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00002.png" width=200 height="auto" />
+<img src = "https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00003.png" width=200 height="auto" />
+<img src = "https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00004.png" width=200 height="auto" />
+<img src = "https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00005.png" width=200 height="auto" />
+<img src = "https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00006.png" width=200 height="auto" />
+<img src = "https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00007.png" width=200 height="auto" />
+<img src = "https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00008.png" width=200 height="auto" />
+<img src = "https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00009.png" width=500 height="auto" />
+<img src = "https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00010.png" width=500 height="auto" />
+<img src = "https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00011.png" width=500 height="auto" />
+<img src = "https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00012.png" width=500 height="auto" />
