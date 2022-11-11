@@ -35,13 +35,13 @@ Many programmers write hello world as their first program in a new programming l
 </p>
 
 ## Landscape Ligh Theme
-<p align="left">
+<p align="center">
 <img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00009.png" width="auto" height=200>
 <img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00011.png" width="auto" height=200>
 </p>
 
 ## Landscape Dark Theme
-<p align="left">
+<p align="center">
 <img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00010.png" width="auto" height=200>
 <img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00012.png" width="auto" height=200>
 </p>
