@@ -9,14 +9,14 @@ import SwiftUI
 import Foundation
 
 struct ButtonLayoutValues {
-    static let PortraitVerticalSpaceToButtonWidthRatio: CGFloat = 5
-    static let PortraitVerticalSpaceToButtonHeightRatio: CGFloat = 5
+    static let PortraitVerticalSpaceToButtonWidthRatio: CGFloat = 5.1
+    static let PortraitVerticalSpaceToButtonHeightRatio: CGFloat = 5.1
 
     static let LandscapeVerticalSpaceToButtonWidthRatio: CGFloat = 5
     static let LandscapeVerticalSpaceToButtonHeightRatio: CGFloat = 6
 
     static let VerticalSpaceToVerticalSpacingRatio: CGFloat = 45
-    static let VerticalSpaceToHorizontalSpacingRatio: CGFloat = 55
+    static let VerticalSpaceToHorizontalSpacingRatio: CGFloat = 35
 
 }
 

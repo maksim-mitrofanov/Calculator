@@ -169,7 +169,9 @@ struct HistorySheetView: View {
     
     var dismissButton: some View {
         Button {
-            dismiss()
+            withAnimation {
+                dismiss()
+            }
         } label: {
             Text("Dismiss")
                 .padding()

@@ -10,7 +10,6 @@
 		4C04F1F528D756EA0089AF7E /* ButtonLayoutValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C04F1F428D756EA0089AF7E /* ButtonLayoutValues.swift */; };
 		4C0C6B7528EC350300717A04 /* ThemePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C6B7428EC350300717A04 /* ThemePicker.swift */; };
 		4C12451529081BCC00C76F9D /* LottieCopyAnim.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C12451429081BCC00C76F9D /* LottieCopyAnim.json */; };
-		4C193D4B28E339B6001E4D02 /* ExpandableBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C193D4A28E339B6001E4D02 /* ExpandableBackgroundView.swift */; };
 		4C293D2628F8A1E600095964 /* TabViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C293D2528F8A1E600095964 /* TabViewTest.swift */; };
 		4C4C91FB2906C0A1002F01CC /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4C4C91FA2906C0A1002F01CC /* Lottie */; };
 		4C4C91FD2906C235002F01CC /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C91FC2906C235002F01CC /* LottieView.swift */; };
@@ -56,7 +55,6 @@
 		4C04F1F428D756EA0089AF7E /* ButtonLayoutValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLayoutValues.swift; sourceTree = "<group>"; };
 		4C0C6B7428EC350300717A04 /* ThemePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePicker.swift; sourceTree = "<group>"; };
 		4C12451429081BCC00C76F9D /* LottieCopyAnim.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LottieCopyAnim.json; sourceTree = "<group>"; };
-		4C193D4A28E339B6001E4D02 /* ExpandableBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableBackgroundView.swift; sourceTree = "<group>"; };
 		4C1E31FB28CB4FB700A7B260 /* NOTES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NOTES.md; sourceTree = "<group>"; };
 		4C293D2528F8A1E600095964 /* TabViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewTest.swift; sourceTree = "<group>"; };
 		4C2AD9D52912A31C002B49C5 /* TestPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPageView.swift; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 				4CC901772906AB87005570CB /* OrientationTest.swift */,
 				4C2AD9D52912A31C002B49C5 /* TestPageView.swift */,
 				4C293D2528F8A1E600095964 /* TabViewTest.swift */,
-				4C193D4A28E339B6001E4D02 /* ExpandableBackgroundView.swift */,
 				4CDA92272916AF0800030E88 /* TestPickerOverflow.swift */,
 			);
 			path = "Test Views";
@@ -333,7 +330,6 @@
 				4CC901782906AB87005570CB /* OrientationTest.swift in Sources */,
 				4C86599228C6045D0013B349 /* ThemeData.swift in Sources */,
 				4C606E2528C0EC6E00EB46A7 /* ButtonStorage.swift in Sources */,
-				4C193D4B28E339B6001E4D02 /* ExpandableBackgroundView.swift in Sources */,
 				4C75A0B529142A3900B69C7A /* ExtraButtonsPageView.swift in Sources */,
 				4CE235F128FFF7CF00C71567 /* HapticsManager.swift in Sources */,
 				4C04F1F528D756EA0089AF7E /* ButtonLayoutValues.swift in Sources */,
@@ -498,7 +494,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17.0;
+				CURRENT_PROJECT_VERSION = 19.0;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Calculator/Preview Content\"";
 				DEVELOPMENT_TEAM = Q3P95MDH6Q;
@@ -512,8 +508,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -538,7 +533,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17.0;
+				CURRENT_PROJECT_VERSION = 19.0;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Calculator/Preview Content\"";
 				DEVELOPMENT_TEAM = Q3P95MDH6Q;
@@ -552,8 +547,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -9,24 +9,25 @@ import SwiftUI
 
 struct CalculatorView: View {
     @State private var currentTheme: CalculatorTheme = .lightTheme
+    @State private var currentNumberForUI: String = MathManager.instance.currentNumber
     
     @State private var isExtraButtonsRowExpanded: Bool = false
     @State private var isHistorySheetPresented: Bool = false
     
     @State private var currentNumLeadingPadding: CGFloat = 0
     @State private var currentNumTrailingPadding: CGFloat = 0
-        
+    
     @StateObject private var mathManager = MathManager.instance
     
     @Environment(\.verticalSizeClass) var verticalSize: UserInterfaceSizeClass?
-
+    
     
     //Temporary
     @AppStorage("isFollowingSystem") private var isFollowingSystem = false
     @AppStorage("isDarkModeOn") private var isDarkModeOn = false
     @AppStorage("isLightModeOn") private var isLightModeOn = false
     
-            
+    
     var body: some View {
         ZStack {
             backgroundColorFill
@@ -40,7 +41,16 @@ struct CalculatorView: View {
             print("isFollowingSystem: \(isFollowingSystem)")
             print("isDarkModeOn: \(isDarkModeOn)")
             print("isLightModeOn: \(isLightModeOn)")
-
+            
+        }
+        
+        .onChange(of: MathManager.instance.currentNumber) { _ in
+            currentNumberForUI = MathManager.instance.currentNumber
+        }
+        
+        .onChange(of: currentNumberForUI) { _ in
+            if currentNumberForUI.isEmpty { currentNumberForUI = "0" }
+            MathManager.instance.currentNumber = currentNumberForUI
         }
     }
     
@@ -61,9 +71,14 @@ struct CalculatorView: View {
                 .padding(.bottom)
                 .padding(.bottom)
             
-
+            
             currentNumberView
+                .padding(.bottom)
+            
+            Divider()
+                .preferredColorScheme(.dark)
                 .padding(.bottom, isExtraButtonsRowExpanded ? 20 : 0)
+                .padding(.horizontal)
 
             
             SingleExtraButtonsRowView(theme: currentTheme, buttons: ButtonStorage.extraRowButtonsWithData)
@@ -71,7 +86,7 @@ struct CalculatorView: View {
                 .padding(.bottom, 10)
             
             StandardButtonsGrid(theme: currentTheme)
-
+            
         }
         .padding()
     }
@@ -97,7 +112,7 @@ struct CalculatorView: View {
                     .padding(.bottom)
                 }
                 
-
+                
             }
             .padding()
             Divider()
@@ -125,6 +140,7 @@ struct CalculatorView: View {
                     .minimumScaleFactor(1)
             }
         }
+        .padding(.horizontal)
     }
     
     var backgroundColorFill: some View {
@@ -137,19 +153,29 @@ struct CalculatorView: View {
         HStack {
             Spacer()
             
-            Text(MathManager.instance.currentNumber)
-                .textSelection(.enabled)
-                .font(Font.system(size: 55))
-                .lineLimit(2)
-                .offset(x: currentNumLeadingPadding)
-                .minimumScaleFactor(0.6)
-                .foregroundColor(currentTheme == .lightTheme ? .black : .white)
             
-                .gesture(
-                    DragGesture(minimumDistance: 5, coordinateSpace: .local)
-                        .onChanged(currentNumberDragGestureValueChanged(to:))
-                        .onEnded(currentNumberDragGestureEnded(with:))
-                )
+            HStack {
+                Spacer()
+                
+                TextField("", text: $currentNumberForUI)
+                    .multilineTextAlignment(.trailing)
+                    .textSelection(.enabled)
+                    .font(Font.system(size: 55))
+                    .lineLimit(2)
+                    .offset(x: currentNumLeadingPadding)
+                    .minimumScaleFactor(0.6)
+                    .foregroundColor(currentTheme == .lightTheme ? .black : .white)
+            }
+            .gesture(
+                DragGesture(minimumDistance: 5, coordinateSpace: .local)
+                    .onChanged(currentNumberDragGestureValueChanged(to:))
+                    .onEnded(currentNumberDragGestureEnded(with:))
+            )
+            
+            .onShake {
+                currentNumberForUI.removeAll()
+            }
+            
             
         }
         .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
@@ -187,14 +213,4 @@ struct CalculatorView_Previews: PreviewProvider {
     static var previews: some View {
         CalculatorView()
     }
-}
-
-struct CalcViewDefVals {
-    static let cornerRadius: CGFloat = 42
-    static let shadowRadius: CGFloat = 25
-    
-    static let screenHeight = UIScreen.main.bounds.height
-    static let minTopOffset = screenHeight / 40
-    static let maxTopOffset = screenHeight / 9
-    static let extraOffset: CGFloat = 20
 }

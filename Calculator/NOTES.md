@@ -29,3 +29,16 @@
     HistorySheetViewBug (history sheet no appears) 
     { open history sheet in portrait, rotate (to landscape, then back) } ✅
     (.sheet is replaced with .fullScreenCover)
+    
+## *Build 18*
+    Beta test
+
+## *Build 19*
+    Shake to clean all ✅
+    Button height and width decreased, vertical and horizontal spacing increased ✅
+    CurrentNumberText changed to textField ✅
+    
+    
+    ## *Build 20*
+    Custom Tab Bar on top
+    
