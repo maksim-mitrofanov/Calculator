@@ -28,78 +28,56 @@ struct HistorySheetView: View {
     private let pasteboard = UIPasteboard.general
     @State private var copiedValue: String = ""
     
-    //Banner Values
-    @State private var isBannerFaceUP: Bool = false
-    
-    //Banner Offset
-    @State private var bannerYOffset: CGFloat = UIScreen.main.bounds.height * 0.7
-    
     //Timer
+    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var timeRemainingForBanner = 3
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
     
     var body: some View {
         ZStack {
-            //Empty History
-            if calculationsHistory.isEmpty {
-                EmptyHistorySheetView(theme: theme, screenWidth: screenWidth, screenHeight: screenHeight)
+            //History View according to Device Orientation
+            theme.data.backgroundColor.edgesIgnoringSafeArea(.all)
+            if verticalSize == .regular {
+                verticalOrientationView
             }
             
-            //History View according to Device Orientation
             else {
-                theme.data.backgroundColor.edgesIgnoringSafeArea(.all)
-                if verticalSize == .regular {
-                    verticalOrientationView
-                }
-                
-                else {
-                    horizontalOrientationView
-                }
+                horizontalOrientationView
             }
         }
         .preferredColorScheme(getCurrentColorScheme())
-
         .onReceive(timer) { _ in
-                timerPublishedOneSecond()
-            }
-        
-        //Updates screenWidth and screenHeight when Device Orientation Changes
-        .onChange(of: verticalSize) { newValue in
-            screenWidth = UIScreen.main.bounds.width
-            screenHeight = UIScreen.main.bounds.height
-            
-            isBannerFaceUP = false
-            bannerYOffset = maxBannerYOffset()
+            timerPublishedOneSecond()
         }
-        
     }
     
     var verticalOrientationView: some View {
-        VStack(spacing: 0) {
-            if copiedValue == "" || copiedValue.isEmpty {
-                Text("Tap to copy result")
+        VStack {
+            HStack {
+                Text("History")
                     .foregroundColor(theme.data.numbersTextColor)
-                    .font(.title3)
-                    .bold()
-                    .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .top)))
-                
+                    .font(.largeTitle.bold())
+                    .scaleEffect(1.2)
+                Spacer()
+            }
+            .padding(.horizontal)
+            .padding(.horizontal)
+            .padding(.top)
+            
+            if MathManager.instance.allOperationsHistory.isEmpty {
+                EmptyHistorySheetView(theme: theme, screenWidth: screenWidth, screenHeight: screenHeight)
             }
             
-            if copiedValue.count > 0 {
-                Text("Value copied: " + copiedValue)
-                    .foregroundColor(theme.data.numbersTextColor)
-                    .font(.title3)
-                    .bold()
-                    .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
+            else {
+                historyListView
                 
-
+                Spacer()
+                
+                if copiedValue != "" {
+                    TextCopiedBanner(isFaceUP: .constant(true), numberCopied: copiedValue, theme: theme)
+                        .transition(.move(edge: .bottom))
+                }
             }
             
-            
-            historyListView
-            
-            dismissButton
         }
         .padding(.vertical)
     }
@@ -153,15 +131,22 @@ struct HistorySheetView: View {
     var historyListView: some View {
         List {
             ForEach(calculationsHistory, id: \.self) { historyRow in
-                Text(historyRow)
-                    .foregroundColor(theme.data.numbersTextColor)
-                    .onTapGesture {
+                HStack {
+                    Text(historyRow)
+                        .foregroundColor(theme.data.numbersTextColor)
+                    Spacer()
+                    
+                    Button {
                         withAnimation {
                             copyToClipboard(from: historyRow)
                         }
+                    } label: {
+                        Image(systemName: "doc.on.doc")
+                            .font(.title3)
                     }
+                }
             }
-            .listRowBackground(theme.data.numberButtonColor)
+            .listRowBackground(theme.data.numberButtonColor.opacity(0.5))
         }
         .scrollContentBackground(.hidden)
         .frame(maxWidth: verticalSize == .regular ? screenWidth : screenWidth * 0.6)
@@ -179,115 +164,35 @@ struct HistorySheetView: View {
                 .cornerRadius(12)
         }
     }
-    
-    func timerPublishedOneSecond() {
-        if isBannerFaceUP {
-            timeRemainingForBanner -= 1
-            
-            if timeRemainingForBanner == 0 {
-                withAnimation {
-                    rotateBanner()
-                    changeBannerOffset()
-                }
-                timeRemainingForBanner = 3
-            }
-        }
-    }
-    
-    func textCopiedBannerGestureValueChanged(value: DragGesture.Value) {
-        withAnimation {
-            if value.translation.height > 0 {
-                bannerYOffset += value.translation.height
-            }
-        }
-    }
-    
-    func textCopiedBannerGestureEnded(value: DragGesture.Value) {
-        withAnimation(.easeInOut(duration: 1)) {
-            if value.translation.height > 2 {
-                bannerYOffset = maxBannerYOffset()
-                isBannerFaceUP = false
-            } else {
-                bannerYOffset = minBannerYOffset()
-            }
-        }
-    }
-    
+       
     func copyToClipboard(from row: String) {
         guard let equalsIndex = row.firstIndex(where: { $0 == "=" })
         else { return  }
         var lastNumber = row.suffix(from: equalsIndex)
+        
         lastNumber.removeFirst(2)
         
-        withAnimation {
-            changeBannerState()
-            pasteboard.string = lastNumber.description
-            copiedValue = lastNumber.description
-        }
+        copiedValue = lastNumber.description
+        pasteboard.string = copiedValue
     }
     
-    func changeBannerOffset() {
-        if bannerYOffset == minBannerYOffset() { bannerYOffset = maxBannerYOffset() }
-        else { bannerYOffset = minBannerYOffset() }
-    }
-    
-    func rotateBanner() {
-        isBannerFaceUP.toggle()
-    }
-    
-    func changeBannerState() {
-        withAnimation {
-            if bannerYOffset == maxBannerYOffset() {
-                changeBannerOffset(); isBannerFaceUP = false }
-            if !isBannerFaceUP { isBannerFaceUP = true }
-        }
-    }
-    
-    func minBannerYOffset() -> CGFloat {
-        if verticalSize == .regular {
-            return UIScreen.main.bounds.height * 0.35
-        }
-        
-        else {
-            return 0
-        }
-    }
-    
-    func maxBannerYOffset() -> CGFloat {
-        if verticalSize == .regular {
-            return UIScreen.main.bounds.height * 0.7
-        }
-        
-        else {
-            return UIScreen.main.bounds.width * 0.7
-        }
-    }
-    
-    func timerPublishedOneSecondMark(_ date: Date) {
-        if isBannerFaceUP && bannerYOffset == minBannerYOffset() {
-            timeRemainingForBanner -= 1
-            if timeRemainingForBanner == 0 {
-                timeRemainingForBanner = 3
-                withAnimation {
-                    bannerYOffset = maxBannerYOffset()
-                    isBannerFaceUP = false
-                }
-            }
-        }
-    }
+   
     
     func getCurrentColorScheme() -> ColorScheme{
         if theme == .lightTheme { return .light }
         else { return .dark }
     }
+    
+    func timerPublishedOneSecond() {
+        withAnimation {
+            if timeRemainingForBanner > 0 && copiedValue != "" { timeRemainingForBanner -= 1 }
+            if timeRemainingForBanner == 0 { copiedValue = "" }
+        }
+    }
 }
 
 struct HistorySheetView_Previews: PreviewProvider {
-    static var isSheetShown: Bool = true
     static var previews: some View {
-        CalculatorView()
-            .sheet(isPresented: .constant(isSheetShown)) {
-                HistorySheetView(theme: .lightTheme, calculationsHistory: ["152 * 12 = 1824", "1824 / 2 = 917", "917 - 117 = 800", "800 / 200 = 4", "4 ^ 2 = 16"])
-            }
+        CalculatorView(tab: .history)
     }
 }

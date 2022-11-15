@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C04F1F528D756EA0089AF7E /* ButtonLayoutValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C04F1F428D756EA0089AF7E /* ButtonLayoutValues.swift */; };
+		4C0C52132921477F004C7792 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C52122921477F004C7792 /* SettingsView.swift */; };
 		4C0C6B7528EC350300717A04 /* ThemePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C6B7428EC350300717A04 /* ThemePicker.swift */; };
 		4C12451529081BCC00C76F9D /* LottieCopyAnim.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C12451429081BCC00C76F9D /* LottieCopyAnim.json */; };
 		4C293D2628F8A1E600095964 /* TabViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C293D2528F8A1E600095964 /* TabViewTest.swift */; };
@@ -21,12 +22,12 @@
 		4C6FF99828C639F300C13B29 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6FF99728C639F300C13B29 /* CalculatorView.swift */; };
 		4C74EF4A291265E900A840F7 /* CalculatorButtonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C74EF49291265E900A840F7 /* CalculatorButtonLabel.swift */; };
 		4C74EF4D2912665200A840F7 /* CalculatorButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C74EF4C2912665200A840F7 /* CalculatorButtonView.swift */; };
-		4C74EF4F291267A600A840F7 /* TopBarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C74EF4E291267A600A840F7 /* TopBarButtons.swift */; };
 		4C74EF5129126F5500A840F7 /* ExtraButtonsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C74EF5029126F5500A840F7 /* ExtraButtonsGrid.swift */; };
-		4C75A0B529142A3900B69C7A /* ExtraButtonsPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75A0B429142A3900B69C7A /* ExtraButtonsPageView.swift */; };
 		4C86599228C6045D0013B349 /* ThemeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C86599128C6045D0013B349 /* ThemeData.swift */; };
 		4C86599628C60FD10013B349 /* Extensions And Custom Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C86599528C60FD10013B349 /* Extensions And Custom Structs.swift */; };
 		4C96D86F28E364180006B898 /* StandardButtonsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96D86E28E364180006B898 /* StandardButtonsGrid.swift */; };
+		4CA4A4112920FD2D00AE7B8F /* CustomCalculatorTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA4A4102920FD2D00AE7B8F /* CustomCalculatorTabView.swift */; };
+		4CA4A4132921098400AE7B8F /* StandardCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA4A4122921098400AE7B8F /* StandardCalculatorView.swift */; };
 		4CC0C9FF29141AD700F42571 /* SingleExtraButtonsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC0C9FE29141AD700F42571 /* SingleExtraButtonsRowView.swift */; };
 		4CC0CA002914215600F42571 /* TestPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2AD9D52912A31C002B49C5 /* TestPageView.swift */; };
 		4CC901782906AB87005570CB /* OrientationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC901772906AB87005570CB /* OrientationTest.swift */; };
@@ -34,7 +35,6 @@
 		4CC9017C2906B475005570CB /* LottieNotFoundAnim.json in Resources */ = {isa = PBXBuildFile; fileRef = 4CC9017B2906B475005570CB /* LottieNotFoundAnim.json */; };
 		4CCF8439291BD65200E7D6EE /* TextCopiedBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F429000ED700C71567 /* TextCopiedBanner.swift */; };
 		4CD08D9C28EE2C01002A2FC7 /* HistorySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD08D9B28EE2C01002A2FC7 /* HistorySheetView.swift */; };
-		4CDA92282916AF0800030E88 /* TestPickerOverflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDA92272916AF0800030E88 /* TestPickerOverflow.swift */; };
 		4CE235EF28FFF42800C71567 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235EE28FFF42800C71567 /* SoundManager.swift */; };
 		4CE235F128FFF7CF00C71567 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F028FFF7CF00C71567 /* HapticsManager.swift */; };
 		4CE235F328FFF97500C71567 /* AdaptiveButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE235F228FFF97500C71567 /* AdaptiveButtonStyle.swift */; };
@@ -53,6 +53,7 @@
 /* Begin PBXFileReference section */
 		4C01480C28C0CBCB007C6A66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4C04F1F428D756EA0089AF7E /* ButtonLayoutValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLayoutValues.swift; sourceTree = "<group>"; };
+		4C0C52122921477F004C7792 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		4C0C6B7428EC350300717A04 /* ThemePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePicker.swift; sourceTree = "<group>"; };
 		4C12451429081BCC00C76F9D /* LottieCopyAnim.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LottieCopyAnim.json; sourceTree = "<group>"; };
 		4C1E31FB28CB4FB700A7B260 /* NOTES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NOTES.md; sourceTree = "<group>"; };
@@ -68,19 +69,18 @@
 		4C6FF99728C639F300C13B29 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
 		4C74EF49291265E900A840F7 /* CalculatorButtonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButtonLabel.swift; sourceTree = "<group>"; };
 		4C74EF4C2912665200A840F7 /* CalculatorButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButtonView.swift; sourceTree = "<group>"; };
-		4C74EF4E291267A600A840F7 /* TopBarButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarButtons.swift; sourceTree = "<group>"; };
 		4C74EF5029126F5500A840F7 /* ExtraButtonsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraButtonsGrid.swift; sourceTree = "<group>"; };
-		4C75A0B429142A3900B69C7A /* ExtraButtonsPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraButtonsPageView.swift; sourceTree = "<group>"; };
 		4C86599128C6045D0013B349 /* ThemeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeData.swift; sourceTree = "<group>"; };
 		4C86599528C60FD10013B349 /* Extensions And Custom Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions And Custom Structs.swift"; sourceTree = "<group>"; };
 		4C96D86E28E364180006B898 /* StandardButtonsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardButtonsGrid.swift; sourceTree = "<group>"; };
-		4CC0C9FE29141AD700F42571 /* SingleExtraButtonsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SingleExtraButtonsRowView.swift; path = Calculator/Views/SingleExtraButtonsRowView.swift; sourceTree = SOURCE_ROOT; };
+		4CA4A4102920FD2D00AE7B8F /* CustomCalculatorTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalculatorTabView.swift; sourceTree = "<group>"; };
+		4CA4A4122921098400AE7B8F /* StandardCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardCalculatorView.swift; sourceTree = "<group>"; };
+		4CC0C9FE29141AD700F42571 /* SingleExtraButtonsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SingleExtraButtonsRowView.swift; path = "Calculator/UI Components/SingleExtraButtonsRowView.swift"; sourceTree = SOURCE_ROOT; };
 		4CC901772906AB87005570CB /* OrientationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationTest.swift; sourceTree = "<group>"; };
 		4CC901792906B09E005570CB /* EmptyHistorySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyHistorySheetView.swift; sourceTree = "<group>"; };
 		4CC9017B2906B475005570CB /* LottieNotFoundAnim.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LottieNotFoundAnim.json; sourceTree = "<group>"; };
 		4CD08D9B28EE2C01002A2FC7 /* HistorySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySheetView.swift; sourceTree = "<group>"; };
 		4CD08DA128EE307F002A2FC7 /* MagicCalculatorMM_UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MagicCalculatorMM_UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4CDA92272916AF0800030E88 /* TestPickerOverflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPickerOverflow.swift; sourceTree = "<group>"; };
 		4CE235EE28FFF42800C71567 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		4CE235F028FFF7CF00C71567 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		4CE235F228FFF97500C71567 /* AdaptiveButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveButtonStyle.swift; sourceTree = "<group>"; };
@@ -112,7 +112,6 @@
 				4CC901772906AB87005570CB /* OrientationTest.swift */,
 				4C2AD9D52912A31C002B49C5 /* TestPageView.swift */,
 				4C293D2528F8A1E600095964 /* TabViewTest.swift */,
-				4CDA92272916AF0800030E88 /* TestPickerOverflow.swift */,
 			);
 			path = "Test Views";
 			sourceTree = "<group>";
@@ -163,8 +162,15 @@
 		4C74EF4B291265F000A840F7 /* UI Components */ = {
 			isa = PBXGroup;
 			children = (
+				4CE235F429000ED700C71567 /* TextCopiedBanner.swift */,
 				4C74EF49291265E900A840F7 /* CalculatorButtonLabel.swift */,
 				4C74EF4C2912665200A840F7 /* CalculatorButtonView.swift */,
+				4CA4A4102920FD2D00AE7B8F /* CustomCalculatorTabView.swift */,
+				4C96D86E28E364180006B898 /* StandardButtonsGrid.swift */,
+				4C74EF5029126F5500A840F7 /* ExtraButtonsGrid.swift */,
+				4CC0C9FE29141AD700F42571 /* SingleExtraButtonsRowView.swift */,
+				4CA4A4122921098400AE7B8F /* StandardCalculatorView.swift */,
+				4C0C6B7428EC350300717A04 /* ThemePicker.swift */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -196,15 +202,9 @@
 			isa = PBXGroup;
 			children = (
 				4C6FF99728C639F300C13B29 /* CalculatorView.swift */,
+				4C0C52122921477F004C7792 /* SettingsView.swift */,
 				4CD08D9B28EE2C01002A2FC7 /* HistorySheetView.swift */,
 				4CC901792906B09E005570CB /* EmptyHistorySheetView.swift */,
-				4C0C6B7428EC350300717A04 /* ThemePicker.swift */,
-				4CE235F429000ED700C71567 /* TextCopiedBanner.swift */,
-				4C74EF4E291267A600A840F7 /* TopBarButtons.swift */,
-				4C96D86E28E364180006B898 /* StandardButtonsGrid.swift */,
-				4C74EF5029126F5500A840F7 /* ExtraButtonsGrid.swift */,
-				4CC0C9FE29141AD700F42571 /* SingleExtraButtonsRowView.swift */,
-				4C75A0B429142A3900B69C7A /* ExtraButtonsPageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -330,7 +330,7 @@
 				4CC901782906AB87005570CB /* OrientationTest.swift in Sources */,
 				4C86599228C6045D0013B349 /* ThemeData.swift in Sources */,
 				4C606E2528C0EC6E00EB46A7 /* ButtonStorage.swift in Sources */,
-				4C75A0B529142A3900B69C7A /* ExtraButtonsPageView.swift in Sources */,
+				4CA4A4112920FD2D00AE7B8F /* CustomCalculatorTabView.swift in Sources */,
 				4CE235F128FFF7CF00C71567 /* HapticsManager.swift in Sources */,
 				4C04F1F528D756EA0089AF7E /* ButtonLayoutValues.swift in Sources */,
 				4CC0CA002914215600F42571 /* TestPageView.swift in Sources */,
@@ -342,12 +342,12 @@
 				4CE235EF28FFF42800C71567 /* SoundManager.swift in Sources */,
 				4CC0C9FF29141AD700F42571 /* SingleExtraButtonsRowView.swift in Sources */,
 				4C96D86F28E364180006B898 /* StandardButtonsGrid.swift in Sources */,
-				4C74EF4F291267A600A840F7 /* TopBarButtons.swift in Sources */,
+				4CA4A4132921098400AE7B8F /* StandardCalculatorView.swift in Sources */,
+				4C0C52132921477F004C7792 /* SettingsView.swift in Sources */,
 				4C293D2628F8A1E600095964 /* TabViewTest.swift in Sources */,
 				4C86599628C60FD10013B349 /* Extensions And Custom Structs.swift in Sources */,
 				4C6E105928BF947F00BDDFEB /* CalculatorApp.swift in Sources */,
 				4C0C6B7528EC350300717A04 /* ThemePicker.swift in Sources */,
-				4CDA92282916AF0800030E88 /* TestPickerOverflow.swift in Sources */,
 				4CD08D9C28EE2C01002A2FC7 /* HistorySheetView.swift in Sources */,
 				4CC9017A2906B09E005570CB /* EmptyHistorySheetView.swift in Sources */,
 				4C6FF99828C639F300C13B29 /* CalculatorView.swift in Sources */,
@@ -494,7 +494,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19.0;
+				CURRENT_PROJECT_VERSION = 21.0;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Calculator/Preview Content\"";
 				DEVELOPMENT_TEAM = Q3P95MDH6Q;
@@ -508,7 +508,8 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -533,7 +534,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19.0;
+				CURRENT_PROJECT_VERSION = 21.0;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"Calculator/Preview Content\"";
 				DEVELOPMENT_TEAM = Q3P95MDH6Q;
@@ -547,7 +548,8 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

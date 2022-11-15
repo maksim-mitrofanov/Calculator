@@ -36,8 +36,6 @@ struct EmptyHistorySheetView: View {
             mainTextView
             lottieAnimation
             
-            dismissButton
-                .padding(.top)
         }
     }
     

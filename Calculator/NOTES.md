@@ -40,5 +40,6 @@
     
     
     ## *Build 20*
-    Custom Tab Bar on top
+    Custom Tab Bar on top ✅
+    Settings Tab, Converters Tab, HistoryTab ✅
     

@@ -29,13 +29,14 @@ struct ThemePicker: View {
             //.animation() removed from currentThemeOption
             Picker(selection: $currentThemeOption) {
                 ForEach(PickerThemeOption.allCases, id: \.self) { option in
-                    Label(" \(option.description) ", systemImage: themeOptionToImageName[option] ?? "bug")
+                    Label(" \(option.description)", systemImage: themeOptionToImageName[option] ?? "bug")
+                        .foregroundColor(currentTheme.data.numbersTextColor)
                 }
             } label: {
                 Text("Theme Opiton")
             }
             .accentColor(currentTheme.data.numbersTextColor)
-            .pickerStyle(.menu)
+            .pickerStyle(.wheel)
             
             
             //Updates current theme to device colour scheme
@@ -50,6 +51,17 @@ struct ThemePicker: View {
                 updateCurrentThemeFromSystem(deviceColorScheme)
                 updateCurrentThemeAndThemeOptionFromUserDefaults()
             }
+        }
+    }
+    
+    private func emojiFor(themeOption: ThemeOption) -> String {
+        switch themeOption {
+        case .auto:
+            return "⏰"
+        case .alwaysDark:
+            return "🌛"
+        case .alwaysLight:
+            return "☀️"
         }
     }
     
@@ -91,8 +103,12 @@ struct ThemePicker: View {
     private func updateCurrentThemeFromSystem(_ colorScheme: ColorScheme) -> Void {
         withAnimation {
             if isFollowingSystem {
-                if colorScheme == .light { currentTheme = .lightTheme }
-                else if colorScheme == .dark { currentTheme = .darkTheme }
+                if colorScheme == .light {
+                    currentTheme = .lightTheme
+                }
+                else if colorScheme == .dark {
+                    currentTheme = .darkTheme
+                }
             }
         }
     }
