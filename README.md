@@ -11,6 +11,12 @@ Many programmers write hello world as their first program in a new programming l
 - Embedding Lottie animations into SwiftUI View.
 - Animating drag gestures.
 - Storing values in UserDefaults for data persistence.
+- Data persistance (saving data to device using FileManager).
+- Using SoundManager and HapticsManager.
+- Chanding preferredColorScheme according to selected theme.
+- Presenting custom alerts.
+- Using transitions.
+- Swipe actions.
 
 ### Extra 🤩
 - The UI was first made and tested in Figma.
