@@ -23,4 +23,4 @@ Many programmers write hello world as their first program in a new programming l
 - The app icon was also made in Figma.
 
 # Screenshots & Recordings
-![t](https://github.com/maksim-mitrofanov/Calculator/blob/main/Mockups/Calculator_Mockups_1.jpgg)
+- UPDATING...
