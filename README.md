@@ -14,6 +14,7 @@ Many programmers write hello world as their first program in a new programming l
 - Data persistance (saving data to device using FileManager)
 - Chanding preferredColorScheme according to selected theme.
 - Presenting custom alerts.
+- Using transitions.
 
 ### Extra 🤩
 - The UI was first made and tested in Figma.
