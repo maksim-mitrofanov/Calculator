@@ -15,6 +15,7 @@ Many programmers write hello world as their first program in a new programming l
 - Chanding preferredColorScheme according to selected theme.
 - Presenting custom alerts.
 - Using transitions.
+- Swipe actions.
 
 ### Extra 🤩
 - The UI was first made and tested in Figma.
