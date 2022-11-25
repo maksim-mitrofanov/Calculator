@@ -13,7 +13,7 @@ Many programmers write hello world as their first program in a new programming l
 - Storing values in UserDefaults for data persistence.
 - Data persistance (saving data to device using FileManager)
 - Chanding preferredColorScheme according to selected theme.
-- Showing alerts.
+- Presenting custom alerts.
 
 ### Extra 🤩
 - The UI was first made and tested in Figma.
