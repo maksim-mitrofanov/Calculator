@@ -23,7 +23,12 @@ Many programmers write hello world as their first program in a new programming l
 - The app icon was also made in Figma.
 
 # Screenshots & Recordings
-<p float="left">
-<img src="https://user-images.githubusercontent.com/87092187/204024023-c4a147e4-d94a-438b-afd7-1a1c81c383b8.jpg" height= "500"/>
+<p float="center">
+<img src="https://user-images.githubusercontent.com/87092187/204024023-c4a147e4-d94a-438b-afd7-1a1c81c383b8.jpg" height= "670"/>
+<img src="https://user-images.githubusercontent.com/87092187/204025464-fe840457-8e23-4936-b251-524a7002092f.jpg" height= "670"/>
 </p>
+
+
+
+https://user-images.githubusercontent.com/87092187/204025664-41b08d0b-90da-41cd-96c9-ca42d16f19d3.mp4
 
