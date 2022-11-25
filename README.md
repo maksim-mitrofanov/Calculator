@@ -22,32 +22,5 @@ Many programmers write hello world as their first program in a new programming l
 - The UI was first made and tested in Figma.
 - The app icon was also made in Figma.
 
-# Screenshots
-
-## Portrait Ligh Theme
-<p align="left">
-<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00001.png" width=200 height="auto">
-<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00002.png" width=200 height="auto">
-<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00003.png" width=200 height="auto">
-<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00004.png" width=200 height="auto">
-</p>
-
-## Portrait Dark Theme
-<p align="left">
-<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00005.png" width=200 height="auto">
-<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00006.png" width=200 height="auto">
-<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00008.png" width=200 height="auto">
-<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00007.png" width=200 height="auto">
-</p>
-
-## Landscape Ligh Theme
-<p align="center">
-<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00009.png" width="auto" height=200>
-<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00011.png" width="auto" height=200>
-</p>
-
-## Landscape Dark Theme
-<p align="center">
-<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00010.png" width="auto" height=200>
-<img src="https://github.com/maksim-mitrofanov/Calculator/blob/main/Screenshots/CALC_SCREEN_00012.png" width="auto" height=200>
-</p>
+# Screenshots & Recordings
+![t](https://github.com/maksim-mitrofanov/Calculator/blob/main/Mockups/Calculator_Mockups_1.jpgg)
