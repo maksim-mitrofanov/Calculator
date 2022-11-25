@@ -32,6 +32,8 @@ struct CalculatorThemeData: Equatable {
     
     var backgroundColor: Color
     
+    var preferredColorScheme: ColorScheme
+    
     func buttonColorFor(buttonType: CalculatorButtonViewType) -> Color {
         switch buttonType {
         case .operation: return operationButtonColor
@@ -61,7 +63,8 @@ extension CalculatorThemeData {
         operationTextColor: Color.black,
         equalsTextColor: Color.black,
         
-        backgroundColor: Color.white
+        backgroundColor: Color.white,
+        preferredColorScheme: .light
     )
 
     static let darkTheme = CalculatorThemeData(
@@ -73,6 +76,7 @@ extension CalculatorThemeData {
         operationTextColor: Color.black,
         equalsTextColor: Color.black,
         
-        backgroundColor: Color(red: 35, green: 35, blue: 35)
+        backgroundColor: Color(red: 35, green: 35, blue: 35),
+        preferredColorScheme: .dark
     )
 }

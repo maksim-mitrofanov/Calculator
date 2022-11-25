@@ -13,12 +13,20 @@ struct CalculatorView: View  {
     @AppStorage("isDarkModeOn") private var isDarkModeOn = false
     @AppStorage("isLightModeOn") private var isLightModeOn = false
     
-    
+    //Tab
     @State var selectedTab: CalculatorViewTab = .mainCalculator
+    
+    //Theme
     @State private var currentTheme: CalculatorTheme = .lightTheme
+    @State private var currentThemeOption: ThemeOption = .auto
+    @State private var currentColorScheme: ColorScheme? = .none
+    
+    @Environment(\.colorScheme) var deviceColorScheme
+    
+    
+    //For main View
     @State private var isExtraRowExpanded: Bool = false
     
-    @Environment(\.colorScheme) var currentColorScheme
     
     init(tab: CalculatorViewTab = .mainCalculator) {
         selectedTab = tab
@@ -27,43 +35,60 @@ struct CalculatorView: View  {
     
     var body: some View {
         ZStack {
-            currentTheme.data.backgroundColor.edgesIgnoringSafeArea(.all)
-
+            backgroundFill
+            
             VStack {
-                HStack {
-                    expansionButton
-                        .opacity(0.8)
-                    Spacer()
-                    CustomCalculatorTabView(selectedTab: $selectedTab)
-                }
-                .padding(.leading)
-
-
-                TabView(selection: $selectedTab) {
-                    switch selectedTab {
-                    case .mainCalculator:
-                        ZStack {
-                            currentTheme.data.backgroundColor.edgesIgnoringSafeArea(.all)
-                            StandardCalculatorView(isExpanded: isExtraRowExpanded, currentTheme: currentTheme)
-                        }
-                    case .history:
-                        ZStack {
-                            currentTheme.data.backgroundColor.edgesIgnoringSafeArea(.all)
-                            HistorySheetView(theme: currentTheme)
-                        }
-                    case .settings:
-                        ZStack {
-                            currentTheme.data.backgroundColor.edgesIgnoringSafeArea(.all)
-                            SettingsView(currentTheme: $currentTheme)
-                        }
-                    }
-                }
-
-
+                topTabBarView
+                tabs
             }
         }
-        .onAppear() {
-            updateCurrentThemeFromUserDefaults()
+        .preferredColorScheme(currentColorScheme)
+        
+        //Updates current themeOption according to user defaults
+        .onAppear {
+            updateCurrentThemeOptionFromUserDefaults()
+        }
+                
+        //Update current theme according to device colorScheme
+        .onChange(of: deviceColorScheme, perform: updateCurrentThemeUsing(deviceColorScheme:))
+    }
+    
+    var backgroundFill: some View {
+        currentTheme.data.backgroundColor.edgesIgnoringSafeArea(.all)
+    }
+    
+    var topTabBarView: some View {
+        HStack {
+            if selectedTab == .mainCalculator {
+                expansionButton
+                    .transition(.scale)
+                    .opacity(0.8)
+                Spacer()
+            }
+            CustomCalculatorTabView(selectedTab: $selectedTab)
+        }
+        .padding(.leading)
+    }
+    
+    var tabs: some View {
+        TabView(selection: $selectedTab) {
+            switch selectedTab {
+            case .mainCalculator:
+                ZStack {
+                    currentTheme.data.backgroundColor.edgesIgnoringSafeArea(.all)
+                    StandardCalculatorView(isExpanded: isExtraRowExpanded, currentTheme: currentTheme)
+                }
+            case .history:
+                ZStack {
+                    currentTheme.data.backgroundColor.edgesIgnoringSafeArea(.all)
+                    HistorySheetView(theme: currentTheme)
+                }
+            case .settings:
+                ZStack {
+                    currentTheme.data.backgroundColor.edgesIgnoringSafeArea(.all)
+                    SettingsView(currentTheme: $currentTheme, currentThemeOption: $currentThemeOption, currentColorScheme: $currentColorScheme)
+                }
+            }
         }
     }
     
@@ -81,18 +106,40 @@ struct CalculatorView: View  {
     }
     
     var expansionButtonImageName: String {
-        if isExtraRowExpanded { return "arrow.up.left.and.arrow.down.right" }
-        else { return "arrow.down.right.and.arrow.up.left" }
+        if isExtraRowExpanded { return "arrow.down.right.and.arrow.up.left" }
+        else { return "arrow.up.left.and.arrow.down.right" }
     }
     
-    private func updateCurrentThemeFromUserDefaults() {
-        if isFollowingSystem {
-            if currentColorScheme == .light { currentTheme = .lightTheme}
-            else { currentTheme = .darkTheme }
+    private func updateCurrentThemeOptionFromUserDefaults() {
+        withAnimation {
+            if isDarkModeOn {
+                currentThemeOption = .alwaysDark
+                currentTheme = .darkTheme
+            }
+            
+            else if isLightModeOn {
+                currentThemeOption = .alwaysLight
+                currentTheme = .lightTheme
+            }
+            
+            else {
+                currentThemeOption = .auto
+                
+                if deviceColorScheme == .light { currentTheme = .lightTheme }
+                else { currentTheme = .darkTheme }
+            }
         }
-        
-        else if isDarkModeOn { currentTheme = .darkTheme }
-        else if isLightModeOn { currentTheme = .lightTheme }
+    }
+    
+    private func updateCurrentThemeUsing(deviceColorScheme: ColorScheme) {
+        if currentThemeOption == .auto {
+            if deviceColorScheme == .light {
+                currentTheme = .lightTheme
+            }
+            else {
+                currentTheme = .darkTheme
+            }
+        }
     }
 }
 

@@ -43,3 +43,9 @@
     Custom Tab Bar on top ✅
     Settings Tab, Converters Tab, HistoryTab ✅
     
+    
+## *Build 22* 
+
+    Theme Selection Changed
+    (top bar and main view don't update synchronously)
+    

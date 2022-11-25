@@ -12,7 +12,7 @@ final class MathManager: ObservableObject {
     @Published var currentNumber: String = "0"
     @Published var currentMathOperator = ""
     
-    public var allOperationsHistory: [String] = []
+    @Published var allOperationsHistory: [String] = []
     private var currentOperands: [Double] = []
     private var isMathOperatorLast: Bool = false
     
@@ -33,12 +33,6 @@ final class MathManager: ObservableObject {
         case .equals:
             receiveEqualsButtonTap()
         }
-        
-//        print("Operation History: \(currentOperationHistory)")
-//        print("Current Number: \(currentNumber)")
-//        print("Current Math Operator: \(currentMathOperator)")
-//        print("Current Operands: \(currentOperands)")
-//        print("Is Math Operator Last: \(isMathOperatorLast)\n")
     }
         
    
@@ -80,7 +74,6 @@ final class MathManager: ObservableObject {
                 }
                 applyCurrentMathOperatorToCurrentNumber(mathOperator: buttonData)
                 
-                print("1")
             }
             
             //appends current number to operands and sets current math operator
@@ -89,14 +82,12 @@ final class MathManager: ObservableObject {
                 currentMathOperator = buttonData.text
                 isMathOperatorLast = true
                 
-                print("2")
             }
             
             //deselects current math operator
             else if currentMathOperator == buttonData.text {
                 currentMathOperator.removeAll(); isMathOperatorLast = false
                 
-                print("3")
             }
             
             //sets currentMathOperator
@@ -107,8 +98,6 @@ final class MathManager: ObservableObject {
                 currentOperationHistory.removeAll()
                 currentMathOperator = buttonData.text; isMathOperatorLast = true
                 
-                print("4")
-
             }
         }
     }
@@ -261,7 +250,47 @@ final class MathManager: ObservableObject {
             if firstChar == "." { currentNumber = "0" + currentNumber }
         }
     }
+    
+    public func deleteHistoryRow(at indexSet: IndexSet) {
+        allOperationsHistory.remove(atOffsets: indexSet)
+    }
         
+    //MARK: -Storing and Retrieving data
     static let instance = MathManager()
-    private init() { }
+    private init() {  }
+    
+    func deleteAllHistory() {
+        allOperationsHistory.removeAll()
+        saveAllHistory()
+    }
+    
+    func saveAllHistory() {
+        do {
+            let history = try JSONEncoder().encode(allOperationsHistory)
+            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            if let pathWithFileName = documentDirectory?.appendingPathComponent("history.json") {
+                try? history.write(to: pathWithFileName)
+                print("Data saved")
+            }
+            
+        } catch {
+            print("There was an error")
+            print(error.localizedDescription)
+        }
+    }
+    
+    func retrieveAllHistory() {
+        do {
+            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            if let pathWithFileName = documentDirectory?.appendingPathComponent("history.json") {
+                if let file = try? Data(contentsOf: pathWithFileName) {
+                    allOperationsHistory = try JSONDecoder().decode([String].self, from: file) + allOperationsHistory
+                    print("Data retrieved")
+                }
+            }
+        } catch {
+            print("There was an error")
+            print(error.localizedDescription)
+        }
+    }
 }

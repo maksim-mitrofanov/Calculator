@@ -60,5 +60,3 @@ extension View {
 
 
 
-
-//On Shake View modifier End

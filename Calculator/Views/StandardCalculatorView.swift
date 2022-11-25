@@ -13,13 +13,17 @@ struct StandardCalculatorView: View {
     
     @State private var currentNumberForUI: String = MathManager.instance.currentNumber
     
-    
+    //Used for drag gesture
     @State private var currentNumLeadingPadding: CGFloat = 0
     @State private var currentNumTrailingPadding: CGFloat = 0
     
     @StateObject private var mathManager = MathManager.instance
     
     @Environment(\.verticalSizeClass) var verticalSize: UserInterfaceSizeClass?
+    
+    //Used for onShake action
+    @AppStorage("isShakeToClearOn") private var isShakeToClearOn: Bool = false
+
     
     
     var body: some View {
@@ -31,6 +35,12 @@ struct StandardCalculatorView: View {
             .onChange(of: currentNumberForUI) { _ in
                 if currentNumberForUI.isEmpty { currentNumberForUI = "0" }
                 MathManager.instance.currentNumber = currentNumberForUI
+            }
+        
+            .onShake {
+                if isShakeToClearOn {
+                    currentNumberForUI.removeAll()
+                }
             }
     }
     
@@ -138,10 +148,6 @@ struct StandardCalculatorView: View {
                     .onChanged(currentNumberDragGestureValueChanged(to:))
                     .onEnded(currentNumberDragGestureEnded(with:))
             )
-            
-            .onShake {
-                currentNumberForUI.removeAll()
-            }
             
             
         }

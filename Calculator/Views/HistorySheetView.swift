@@ -12,7 +12,7 @@ import Lottie
 
 struct HistorySheetView: View {
     let theme: CalculatorTheme
-    var calculationsHistory: [String] = MathManager.instance.allOperationsHistory
+    @StateObject private var mathManager = MathManager.instance
     
     //Lets sheet view dismiss itself
     @Environment(\.dismiss) var dismiss
@@ -32,25 +32,38 @@ struct HistorySheetView: View {
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var timeRemainingForBanner = 3
     
+    //Alert
+    @State var isHistoryAlertPresented: Bool = false
+    
     var body: some View {
         ZStack {
             //History View according to Device Orientation
             theme.data.backgroundColor.edgesIgnoringSafeArea(.all)
             if verticalSize == .regular {
-                verticalOrientationView
+                portraitOrientationView
             }
             
             else {
-                horizontalOrientationView
+                landscapeOrientationView
             }
         }
-        .preferredColorScheme(getCurrentColorScheme())
         .onReceive(timer) { _ in
             timerPublishedOneSecond()
         }
+        
+        .onAppear() {
+            MathManager.instance.retrieveAllHistory()
+        }
+        
+        .alert("Would you like to clear your history?", isPresented: $isHistoryAlertPresented) {
+            alertCancelButton
+            alertClearButton
+        } message: {
+            Text("You will not be able to undo this action.")
+        }
     }
     
-    var verticalOrientationView: some View {
+    var portraitOrientationView: some View {
         VStack {
             HStack {
                 Text("History")
@@ -58,6 +71,17 @@ struct HistorySheetView: View {
                     .font(.largeTitle.bold())
                     .scaleEffect(1.2)
                 Spacer()
+                
+                Button {
+                    withAnimation {
+                        isHistoryAlertPresented = true
+                    }
+                } label: {
+                    Image(systemName: "trash")
+                        .font(.title2)
+                }
+                .disabled(mathManager.allOperationsHistory.isEmpty ? true : false)
+                .opacity(mathManager.allOperationsHistory.isEmpty ? 0 : 1)
             }
             .padding(.horizontal)
             .padding(.horizontal)
@@ -66,7 +90,7 @@ struct HistorySheetView: View {
             if MathManager.instance.allOperationsHistory.isEmpty {
                 EmptyHistorySheetView(theme: theme, screenWidth: screenWidth, screenHeight: screenHeight)
             }
-            
+
             else {
                 historyListView
                 
@@ -82,7 +106,7 @@ struct HistorySheetView: View {
         .padding(.vertical)
     }
     
-    var horizontalOrientationView: some View {
+    var landscapeOrientationView: some View {
         VStack {
             HStack(alignment: .top) {
                 historyListView
@@ -130,7 +154,9 @@ struct HistorySheetView: View {
     
     var historyListView: some View {
         List {
-            ForEach(calculationsHistory, id: \.self) { historyRow in
+            ForEach(mathManager.allOperationsHistory, id: \.self) { historyRow in
+                
+                //Single row
                 HStack {
                     Text(historyRow)
                         .foregroundColor(theme.data.numbersTextColor)
@@ -146,6 +172,11 @@ struct HistorySheetView: View {
                     }
                 }
             }
+            .onDelete(perform: { indexSet in
+                withAnimation {
+                    mathManager.deleteHistoryRow(at: indexSet)
+                }
+            })
             .listRowBackground(theme.data.numberButtonColor.opacity(0.5))
         }
         .scrollContentBackground(.hidden)
@@ -164,7 +195,23 @@ struct HistorySheetView: View {
                 .cornerRadius(12)
         }
     }
-       
+    
+    var alertCancelButton: some View {
+        Button(role: .cancel) {
+            isHistoryAlertPresented = false
+        } label: {
+            Text("Cancel")
+        }
+    }
+    
+    var alertClearButton: some View {
+        Button(role: .destructive) {
+            mathManager.deleteAllHistory()
+        } label: {
+            Text("Clear")
+        }
+    }
+               
     func copyToClipboard(from row: String) {
         guard let equalsIndex = row.firstIndex(where: { $0 == "=" })
         else { return  }

@@ -27,7 +27,6 @@ struct EmptyHistorySheetView: View {
             if verticalSize == .regular { portraitOrientationView }
             else { landscapeOrientationView }
         }
-        .preferredColorScheme(getCurrentColorScheme())
     }
     
     var portraitOrientationView: some View {
@@ -87,10 +86,5 @@ struct EmptyHistorySheetView: View {
         else {
             return CGSize(width: screenHeight, height: screenHeight)
         }
-    }
-    
-    func getCurrentColorScheme() -> ColorScheme{
-        if theme == .lightTheme { return .light }
-        else { return .dark }
     }
 }

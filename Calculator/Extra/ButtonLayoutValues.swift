@@ -21,6 +21,6 @@ struct ButtonLayoutValues {
 }
 
 
-enum ThemeOption {
+enum ThemeOption: String, CaseIterable, Equatable {
     case auto, alwaysDark, alwaysLight
 }
