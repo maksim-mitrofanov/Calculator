@@ -1,4 +1,4 @@
-# Equals
+# Calculator
 Many programmers write hello world as their first program in a new programming language. <br />  I decided to extend this logic, and so I made something basic using Swift and SwiftUI.
 
 ### Goals ✨
